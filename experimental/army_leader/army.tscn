@@ -9,15 +9,12 @@ script = ExtResource("1_ucctm")
 
 [node name="Minion" parent="." instance=ExtResource("2_dpr6x")]
 position = Vector2(0, -283)
-motion_mode = 1
 script = ExtResource("3_2pplm")
 
 [node name="Minion2" parent="." instance=ExtResource("2_dpr6x")]
 position = Vector2(45, 228)
-motion_mode = 1
 script = ExtResource("3_2pplm")
 
 [node name="Minion3" parent="." instance=ExtResource("2_dpr6x")]
 position = Vector2(235, 131)
-motion_mode = 1
 script = ExtResource("3_2pplm")

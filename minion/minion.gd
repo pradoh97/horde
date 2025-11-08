@@ -35,5 +35,4 @@ func _physics_process(delta):
 		velocity.y += get_gravity().y * delta * gravity_modifier
 		if following_orders and velocity.y >= max_speed * 1.5:
 			velocity.y = max_speed * 1.5
-
 	move_and_slide()

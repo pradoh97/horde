@@ -44,5 +44,22 @@ func _physics_process(delta):
 		velocity.y += get_gravity().y * delta * gravity_modifier
 		if following_orders and velocity.y >= max_speed * 1.5:
 			velocity.y = max_speed * 1.5
-
+	for i in get_slide_collision_count():
+		var c = get_slide_collision(i)
+		if c.get_collider() is RigidBody2D:
+			c.get_collider().apply_central_impulse(-c.get_normal() * velocity.x/10)
 	move_and_slide()
+
+func be_commanded():
+	if not following_orders:
+		$AnimationPlayer.play("commanded")
+	following_orders = true
+	reached_destination = false
+	#set_collision_mask_value(3, false)
+
+func be_disbanded():
+	if following_orders:
+		$AnimationPlayer.play("disbanded")
+	following_orders = false
+	reached_destination = false
+	#set_collision_mask_value(3, false)

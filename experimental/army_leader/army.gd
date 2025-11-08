@@ -1,6 +1,12 @@
 extends Node2D
 class_name Army
 
+@export var override_minions_properties: bool = false
+@export var max_speed = 600.0
+@export var acceleration: float = 100.0
+@export var deceleration_factor: float = 0.025
+@export var full_stop_speed: float = 40
+
 var following_orders: bool = false
 var last_mouse_direction: Vector2 = Vector2.ZERO
 var chase: bool = true
@@ -18,6 +24,11 @@ func _ready():
 	for minion in minions:
 		if not minion == leader:
 			minion.leader = leader
+		if override_minions_properties:
+			minion.max_speed = max_speed
+			minion.acceleration = acceleration
+			minion.deceleration_factor = deceleration_factor
+			minion.full_stop_speed = full_stop_speed
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("mouse_click"):
@@ -30,8 +41,8 @@ func _physics_process(delta):
 func command_minions():
 	chase = true
 	for minion in minions:
-		minion.reached_destination = false
-		minion.following_orders = true
+		minion.be_commanded()
+
 
 func halt_minions():
 	chase = false
@@ -41,7 +52,9 @@ func halt_minions():
 func disband_minions():
 	chase = false
 	for minion in minions:
-		minion.following_orders = false
+		minion.be_disbanded()
+		minion.set_collision_mask_value(3, true)
+
 
 func _on_mouse_body_entered(body):
 	halt_minions()
