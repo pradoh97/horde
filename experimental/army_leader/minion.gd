@@ -9,6 +9,7 @@ var is_leading: bool = false
 var leader: MinionExperimental = null
 var following_orders: bool = false
 var reached_destination: bool = false
+var army: Army = null
 
 func _physics_process(delta):
 	if following_orders and not reached_destination:
@@ -63,3 +64,14 @@ func be_disbanded():
 	following_orders = false
 	reached_destination = false
 	#set_collision_mask_value(3, false)
+
+
+func _on_infect_area_body_entered(body):
+	if not body == self:
+		if not (body as MinionExperimental).leader or not (body as MinionExperimental).is_leading:
+			if not leader:
+				body.leader = self
+			else:
+				body.leader = leader
+			body.army = army
+			army.recruit_minion(body)

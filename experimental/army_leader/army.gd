@@ -22,6 +22,7 @@ func _ready():
 		minions.append(minion)
 
 	for minion in minions:
+		minion.army = self
 		if not minion == leader:
 			minion.leader = leader
 		if override_minions_properties:
@@ -55,6 +56,13 @@ func disband_minions():
 		minion.be_disbanded()
 		minion.set_collision_mask_value(3, true)
 
+func recruit_minion(new_minion: MinionExperimental):
+	minions.append(new_minion)
+	if override_minions_properties:
+		new_minion.acceleration = acceleration
+		new_minion.max_speed = max_speed
+		new_minion.deceleration_factor = deceleration_factor
+		new_minion.full_stop_speed = full_stop_speed
 
 func _on_mouse_body_entered(body):
 	halt_minions()

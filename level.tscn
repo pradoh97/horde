@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://qm3e3y4bogel"]
+[gd_scene load_steps=9 format=3 uid="uid://qm3e3y4bogel"]
 
 [ext_resource type="PackedScene" uid="uid://dmrc341gv6ohb" path="res://experimental/army_leader/army.tscn" id="1_vonw3"]
 [ext_resource type="Script" uid="uid://dwgxsi4vbqent" path="res://mouse.gd" id="2_vonw3"]
+[ext_resource type="PackedScene" uid="uid://dfvp6yysbr662" path="res://experimental/army_leader/minion.tscn" id="3_oi3di"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u52ul"]
 size = Vector2(1116, 20)
@@ -71,3 +72,6 @@ position = Vector2(-3376.2656, -2737.6)
 scale = Vector2(3.9333322, 3.9333334)
 color = Color(0.57502484, 0.23296097, 0.15966132, 1)
 polygon = PackedVector2Array(876, 681, 841, 681, 841, 711, 876, 711)
+
+[node name="Minion" parent="." instance=ExtResource("3_oi3di")]
+position = Vector2(-516, -104)
