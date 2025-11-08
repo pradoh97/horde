@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmrc341gv6ohb"]
+
+[ext_resource type="Script" uid="uid://c5j3lcr2fbv7p" path="res://experimental/army_leader/army.gd" id="1_ucctm"]
+[ext_resource type="PackedScene" uid="uid://dfvp6yysbr662" path="res://experimental/army_leader/minion.tscn" id="2_dpr6x"]
+[ext_resource type="Script" uid="uid://fl3ky4apq7p7" path="res://experimental/army_leader/minion.gd" id="3_2pplm"]
+
+[node name="Army" type="Node2D"]
+script = ExtResource("1_ucctm")
+
+[node name="Minion" parent="." instance=ExtResource("2_dpr6x")]
+position = Vector2(0, -283)
+motion_mode = 1
+script = ExtResource("3_2pplm")
+
+[node name="Minion2" parent="." instance=ExtResource("2_dpr6x")]
+position = Vector2(45, 228)
+motion_mode = 1
+script = ExtResource("3_2pplm")
+
+[node name="Minion3" parent="." instance=ExtResource("2_dpr6x")]
+position = Vector2(235, 131)
+motion_mode = 1
+script = ExtResource("3_2pplm")

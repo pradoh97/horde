@@ -1,15 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://qm3e3y4bogel"]
+[gd_scene load_steps=7 format=3 uid="uid://qm3e3y4bogel"]
 
-[ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="1_u52ul"]
-[ext_resource type="Script" uid="uid://d00rggoo6isfi" path="res://minion.gd" id="1_vonw3"]
-[ext_resource type="Script" uid="uid://lvgt5ovu44in" path="res://minion_if.gd" id="3_oi3di"]
-[ext_resource type="Script" uid="uid://ok7errueqmmv" path="res://minion_pj.gd" id="4_0b4ue"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_u52ul"]
-bounce = 0.75
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vonw3"]
-size = Vector2(124, 124)
+[ext_resource type="Script" uid="uid://dwgxsi4vbqent" path="res://mouse.gd" id="2_vonw3"]
+[ext_resource type="PackedScene" uid="uid://dmrc341gv6ohb" path="res://experimental/army_leader/army.tscn" id="3_oi3di"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u52ul"]
 size = Vector2(1116, 20)
@@ -21,70 +13,10 @@ colors = PackedColorArray(0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_oi3di"]
 gradient = SubResource("Gradient_vonw3")
 
-[sub_resource type="Gradient" id="Gradient_0b4ue"]
-offsets = PackedFloat32Array(0.013333334)
-colors = PackedColorArray(1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_f2txt"]
-gradient = SubResource("Gradient_0b4ue")
-
-[sub_resource type="Gradient" id="Gradient_f2txt"]
-offsets = PackedFloat32Array(0.013333334)
-colors = PackedColorArray(0.8352538, 4.3317675e-07, 0.44120637, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_1ainy"]
-gradient = SubResource("Gradient_f2txt")
-
-[sub_resource type="Gradient" id="Gradient_1ainy"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_n6hdu"]
-gradient = SubResource("Gradient_1ainy")
+[sub_resource type="CircleShape2D" id="CircleShape2D_u52ul"]
+radius = 62.649822
 
 [node name="Level" type="Node2D"]
-
-[node name="Minion" type="RigidBody2D" parent="."]
-position = Vector2(-233, -270)
-input_pickable = true
-physics_material_override = SubResource("PhysicsMaterial_u52ul")
-max_contacts_reported = 1
-script = ExtResource("1_vonw3")
-in_horde = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Minion"]
-shape = SubResource("RectangleShape2D_vonw3")
-
-[node name="Sprite2D" type="Sprite2D" parent="Minion"]
-texture = ExtResource("1_u52ul")
-
-[node name="Minion2" type="RigidBody2D" parent="."]
-position = Vector2(-243, 13)
-input_pickable = true
-physics_material_override = SubResource("PhysicsMaterial_u52ul")
-max_contacts_reported = 1
-script = ExtResource("1_vonw3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Minion2"]
-shape = SubResource("RectangleShape2D_vonw3")
-
-[node name="Sprite2D" type="Sprite2D" parent="Minion2"]
-texture = ExtResource("1_u52ul")
-
-[node name="Minion_IF" type="RigidBody2D" parent="."]
-position = Vector2(-431, -158)
-input_pickable = true
-physics_material_override = SubResource("PhysicsMaterial_u52ul")
-lock_rotation = true
-continuous_cd = 1
-max_contacts_reported = 1
-script = ExtResource("3_oi3di")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Minion_IF"]
-shape = SubResource("RectangleShape2D_vonw3")
-
-[node name="Sprite2D" type="Sprite2D" parent="Minion_IF"]
-texture = ExtResource("1_u52ul")
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(0, 116)
@@ -97,81 +29,20 @@ scale = Vector2(4.3671875, 24)
 texture = SubResource("GradientTexture1D_oi3di")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -542)
+zoom = Vector2(0.41, 0.41)
 
-[node name="Minion_PJ" type="Node2D" parent="."]
-position = Vector2(189, -78)
-script = ExtResource("4_0b4ue")
+[node name="Mouse" type="Area2D" parent="."]
+position = Vector2(-986, -881)
+collision_mask = 4
+script = ExtResource("2_vonw3")
+metadata/_edit_group_ = true
 
-[node name="Minions" type="Node2D" parent="Minion_PJ"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mouse"]
+shape = SubResource("CircleShape2D_u52ul")
 
-[node name="Minion" type="Node2D" parent="Minion_PJ/Minions"]
-position = Vector2(-220, 88)
+[node name="Army" parent="." instance=ExtResource("3_oi3di")]
+position = Vector2(-147, -303)
 
-[node name="MousePin" type="DampedSpringJoint2D" parent="Minion_PJ/Minions/Minion"]
-node_b = NodePath("../../../MasterJoint/FakeBody")
-disable_collision = false
-length = 5.0
-
-[node name="FakeBody" type="StaticBody2D" parent="Minion_PJ/Minions/Minion/MousePin"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Minion_PJ/Minions/Minion/MousePin/FakeBody"]
-z_index = 1
-position = Vector2(1, 0)
-scale = Vector2(0.25, 1)
-texture = SubResource("GradientTexture2D_f2txt")
-
-[node name="RigidBody2D" type="RigidBody2D" parent="Minion_PJ/Minions/Minion"]
-input_pickable = true
-physics_material_override = SubResource("PhysicsMaterial_u52ul")
-lock_rotation = true
-max_contacts_reported = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Minion_PJ/Minions/Minion/RigidBody2D"]
-shape = SubResource("RectangleShape2D_vonw3")
-
-[node name="Sprite2D" type="Sprite2D" parent="Minion_PJ/Minions/Minion/RigidBody2D"]
-texture = ExtResource("1_u52ul")
-
-[node name="Minion2" type="Node2D" parent="Minion_PJ/Minions"]
-
-[node name="MousePin" type="DampedSpringJoint2D" parent="Minion_PJ/Minions/Minion2"]
-node_b = NodePath("../../../MasterJoint/FakeBody")
-disable_collision = false
-length = 5.0
-
-[node name="FakeBody" type="StaticBody2D" parent="Minion_PJ/Minions/Minion2/MousePin"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Minion_PJ/Minions/Minion2/MousePin/FakeBody"]
-z_index = 1
-position = Vector2(24, 0)
-scale = Vector2(0.25, 1)
-texture = SubResource("GradientTexture2D_1ainy")
-
-[node name="RigidBody2D" type="RigidBody2D" parent="Minion_PJ/Minions/Minion2"]
-input_pickable = true
-physics_material_override = SubResource("PhysicsMaterial_u52ul")
-lock_rotation = true
-max_contacts_reported = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Minion_PJ/Minions/Minion2/RigidBody2D"]
-shape = SubResource("RectangleShape2D_vonw3")
-
-[node name="Sprite2D" type="Sprite2D" parent="Minion_PJ/Minions/Minion2/RigidBody2D"]
-texture = ExtResource("1_u52ul")
-
-[node name="MasterJoint" type="DampedSpringJoint2D" parent="Minion_PJ"]
-node_a = NodePath("FakeBody")
-
-[node name="FakeBody" type="StaticBody2D" parent="Minion_PJ/MasterJoint"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Minion_PJ/MasterJoint/FakeBody"]
-position = Vector2(-24.5, 0)
-scale = Vector2(0.06640625, 58)
-texture = SubResource("GradientTexture1D_n6hdu")
-
-[connection signal="mouse_entered" from="Minion" to="Minion" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Minion" to="Minion" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="Minion2" to="Minion2" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Minion2" to="Minion2" method="_on_mouse_exited"]
-[connection signal="mouse_entered" from="Minion_IF" to="Minion_IF" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Minion_IF" to="Minion_IF" method="_on_mouse_exited"]
+[connection signal="body_entered" from="Mouse" to="Army" method="_on_mouse_body_entered"]
+[connection signal="body_exited" from="Mouse" to="Army" method="_on_mouse_body_exited"]
