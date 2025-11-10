@@ -70,7 +70,6 @@ func recruit_minion(new_minion: MinionExperimental):
 		new_minion.full_stop_speed = full_stop_speed
 		new_minion.max_speed_left_behind = max_speed_left_behind
 
-
 func _on_mouse_area_entered(area):
 	var minion: MinionExperimental = area.get_parent()
 	if minion.is_leading:

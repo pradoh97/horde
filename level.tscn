@@ -42,11 +42,11 @@ polygon = PackedVector2Array(876, 681, 841, 681, 841, 711, 876, 711)
 [node name="Army" parent="." instance=ExtResource("1_vonw3")]
 position = Vector2(0, -459)
 override_minions_properties = true
-max_speed = 1000.0
-acceleration = 150.0
-deceleration_factor = 0.05
-full_stop_speed = 80.0
-max_speed_left_behind = 1200
+max_speed = 2200.0
+acceleration = 200.0
+deceleration_factor = 0.15
+full_stop_speed = 160.0
+max_speed_left_behind = 2500
 
 [node name="Camera2D" type="Camera2D" parent="Army"]
 position = Vector2(0, -83)
@@ -83,5 +83,5 @@ scale = Vector2(3.9333322, 3.9333334)
 color = Color(0.57502484, 0.23296097, 0.15966132, 1)
 polygon = PackedVector2Array(876, 681, 841, 681, 841, 711, 876, 711)
 
-[node name="Minion" parent="." instance=ExtResource("3_oi3di")]
+[node name="Minion2" parent="." instance=ExtResource("3_oi3di")]
 position = Vector2(-516, -104)
