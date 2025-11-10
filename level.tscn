@@ -29,6 +29,11 @@ max_speed = 1000.0
 acceleration = 150.0
 deceleration_factor = 0.05
 full_stop_speed = 80.0
+max_speed_left_behind = 1200
+
+[node name="Camera2D" type="Camera2D" parent="Army"]
+position = Vector2(0, -83)
+zoom = Vector2(0.25, 0.25)
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(0, 116)
@@ -39,10 +44,6 @@ shape = SubResource("RectangleShape2D_u52ul")
 [node name="Sprite2D" type="Sprite2D" parent="Floor"]
 scale = Vector2(4.3671875, 24)
 texture = SubResource("GradientTexture1D_oi3di")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -542)
-zoom = Vector2(0.41, 0.41)
 
 [node name="Mouse" type="Area2D" parent="."]
 position = Vector2(-986, -881)
