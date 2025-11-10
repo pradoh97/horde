@@ -6,20 +6,24 @@ class_name Army
 @export var acceleration: float = 100.0
 @export var deceleration_factor: float = 0.025
 @export var full_stop_speed: float = 40
+@export var max_speed_left_behind: = 1000
 
 var following_orders: bool = false
 var last_mouse_direction: Vector2 = Vector2.ZERO
 var chase: bool = true
 var leader: MinionExperimental = null
 var minions: Array[MinionExperimental] = []
+var camera: Camera2D = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	leader = (get_child(0) as MinionExperimental)
 	leader.is_leading = true
-
+	camera = $Camera2D
+	camera.reparent(leader)
 	for minion in get_children():
-		minions.append(minion)
+		if minion is MinionExperimental:
+			minions.append(minion)
 
 	for minion in minions:
 		minion.army = self
@@ -30,8 +34,9 @@ func _ready():
 			minion.acceleration = acceleration
 			minion.deceleration_factor = deceleration_factor
 			minion.full_stop_speed = full_stop_speed
+			minion.max_speed_left_behind = max_speed_left_behind
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_just_pressed("mouse_click"):
 		command_minions()
 	if Input.is_action_pressed("mouse_click") and chase:
@@ -63,8 +68,10 @@ func recruit_minion(new_minion: MinionExperimental):
 		new_minion.max_speed = max_speed
 		new_minion.deceleration_factor = deceleration_factor
 		new_minion.full_stop_speed = full_stop_speed
+		new_minion.max_speed_left_behind = max_speed_left_behind
 
-func _on_mouse_body_entered(body):
+
+func _on_mouse_body_entered(_body):
 	halt_minions()
 
 func _on_mouse_body_exited(body):
