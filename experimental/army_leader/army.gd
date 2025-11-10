@@ -49,11 +49,11 @@ func command_minions():
 	for minion in minions:
 		minion.be_commanded()
 
-
 func halt_minions():
 	chase = false
 	for minion in minions:
 		minion.reached_destination = true
+
 
 func disband_minions():
 	chase = false
@@ -71,9 +71,12 @@ func recruit_minion(new_minion: MinionExperimental):
 		new_minion.max_speed_left_behind = max_speed_left_behind
 
 
-func _on_mouse_body_entered(_body):
-	halt_minions()
+func _on_mouse_area_entered(area):
+	var minion: MinionExperimental = area.get_parent()
+	if minion.is_leading:
+		halt_minions()
 
-func _on_mouse_body_exited(body):
-	if leader.following_orders and body == leader:
+func _on_mouse_area_exited(area):
+	var minion: MinionExperimental = area.get_parent()
+	if leader.following_orders and minion == leader:
 		command_minions()

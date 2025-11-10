@@ -29,3 +29,5 @@ mouse_click={
 2d_physics/layer_2="army_body"
 2d_physics/layer_3="minion"
 2d_physics/layer_4="minion_infect_area"
+2d_physics/layer_5="minion_target_area"
+2d_physics/layer_10="mouse_area"

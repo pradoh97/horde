@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dfvp6yysbr662"]
+[gd_scene load_steps=10 format=3 uid="uid://dfvp6yysbr662"]
 
 [ext_resource type="Script" uid="uid://fl3ky4apq7p7" path="res://experimental/army_leader/minion.gd" id="1_ywcdx"]
 [ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="2_war54"]
@@ -65,6 +65,9 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ywcdx"]
 size = Vector2(360, 360)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpaw6"]
+size = Vector2(168, 154)
+
 [node name="Minion" type="CharacterBody2D"]
 collision_layer = 4
 collision_mask = 13
@@ -89,5 +92,12 @@ collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InfectArea"]
 shape = SubResource("RectangleShape2D_ywcdx")
+
+[node name="DestinationArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 512
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DestinationArea"]
+shape = SubResource("RectangleShape2D_cpaw6")
 
 [connection signal="body_entered" from="InfectArea" to="." method="_on_infect_area_body_entered"]

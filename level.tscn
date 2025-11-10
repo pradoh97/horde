@@ -1,8 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://qm3e3y4bogel"]
+[gd_scene load_steps=10 format=3 uid="uid://qm3e3y4bogel"]
 
+[ext_resource type="Script" uid="uid://buhwamjhhmanh" path="res://level.gd" id="1_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://dmrc341gv6ohb" path="res://experimental/army_leader/army.tscn" id="1_vonw3"]
 [ext_resource type="Script" uid="uid://dwgxsi4vbqent" path="res://mouse.gd" id="2_vonw3"]
 [ext_resource type="PackedScene" uid="uid://dfvp6yysbr662" path="res://experimental/army_leader/minion.tscn" id="3_oi3di"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u52ul"]
+radius = 62.649822
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u52ul"]
 size = Vector2(1116, 20)
@@ -14,13 +18,26 @@ colors = PackedColorArray(0, 0, 0, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_oi3di"]
 gradient = SubResource("Gradient_vonw3")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_u52ul"]
-radius = 62.649822
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vonw3"]
 size = Vector2(140, 120)
 
 [node name="Level" type="Node2D"]
+script = ExtResource("1_0b4ue")
+
+[node name="Mouse" type="Area2D" parent="."]
+position = Vector2(-986, -881)
+collision_layer = 512
+collision_mask = 16
+script = ExtResource("2_vonw3")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Mouse"]
+shape = SubResource("CircleShape2D_u52ul")
+
+[node name="Polygon2D" type="Polygon2D" parent="Mouse"]
+position = Vector2(-858, -696)
+color = Color(0.9035203, 0.9590116, 0.77403754, 0.27058825)
+polygon = PackedVector2Array(876, 681, 841, 681, 841, 711, 876, 711)
 
 [node name="Army" parent="." instance=ExtResource("1_vonw3")]
 position = Vector2(0, -459)
@@ -34,6 +51,12 @@ max_speed_left_behind = 1200
 [node name="Camera2D" type="Camera2D" parent="Army"]
 position = Vector2(0, -83)
 zoom = Vector2(0.25, 0.25)
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.5
+drag_top_margin = 0.5
+drag_right_margin = 0.5
+drag_bottom_margin = 0.5
 
 [node name="Floor" type="StaticBody2D" parent="."]
 position = Vector2(0, 116)
@@ -44,20 +67,6 @@ shape = SubResource("RectangleShape2D_u52ul")
 [node name="Sprite2D" type="Sprite2D" parent="Floor"]
 scale = Vector2(4.3671875, 24)
 texture = SubResource("GradientTexture1D_oi3di")
-
-[node name="Mouse" type="Area2D" parent="."]
-position = Vector2(-986, -881)
-collision_mask = 4
-script = ExtResource("2_vonw3")
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mouse"]
-shape = SubResource("CircleShape2D_u52ul")
-
-[node name="Polygon2D" type="Polygon2D" parent="Mouse"]
-position = Vector2(-858, -696)
-color = Color(0.9035203, 0.9590116, 0.77403754, 0.27058825)
-polygon = PackedVector2Array(876, 681, 841, 681, 841, 711, 876, 711)
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 position = Vector2(-286, -61)
