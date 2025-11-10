@@ -1,15 +1,23 @@
 extends CharacterBody2D
 class_name MinionExperimental
 
+@export var ignore_gravity: bool = true
 @export var max_speed = 600.0
+@export var max_speed_left_behind: float = 800.0
 @export var acceleration: float = 100.0
 @export var deceleration_factor: float = 0.025
 @export var full_stop_speed: float = 40
+@export var distance_treshold: float = 700.0
+
+var left_behind: bool = false
 var is_leading: bool = false
 var leader: MinionExperimental = null
 var following_orders: bool = false
 var reached_destination: bool = false
 var army: Army = null
+var last_direction: Vector2 = Vector2.ZERO
+var direction_counter: int = 0
+var executions_until_next_direction_count: int = 40
 
 func _physics_process(delta):
 	if following_orders and not reached_destination:
@@ -18,22 +26,53 @@ func _physics_process(delta):
 			leader_direction = (leader.global_position - global_position).normalized()
 		else:
 			leader_direction = (get_global_mouse_position() - global_position).normalized()
+
+		# Accomodate any left behind minion
+		direction_counter += 1
+		if direction_counter >= executions_until_next_direction_count:
+			direction_counter = 0
+			if last_direction != leader_direction and not is_leading and global_position.distance_to(leader.global_position) >= distance_treshold:
+				left_behind = true
+				velocity = leader.velocity
+			else:
+				left_behind = false
+			last_direction = leader_direction
 		velocity += acceleration * leader_direction
 
+	# Caps the velocity if it's already at max. Makes the minion go faster to reach the group if left behind
 	if velocity.x >= max_speed:
-		velocity.x = max_speed
+		if left_behind:
+			velocity.x = max_speed_left_behind
+		else:
+			velocity.x = max_speed
 	if velocity.x <= -max_speed:
-		velocity.x = -max_speed
-	if velocity.y <= -max_speed and following_orders:
-		velocity.y = -max_speed
+		if left_behind:
+			velocity.x = -max_speed_left_behind
+		else:
+			velocity.x = -max_speed
+	if velocity.y <= -max_speed and (following_orders or ignore_gravity):
+		if left_behind:
+			velocity.y = -max_speed_left_behind
+		else:
+			velocity.y = -max_speed
+	if ignore_gravity and velocity.y >= max_speed:
+		if left_behind:
+			velocity.y = max_speed_left_behind
+		else:
+			velocity.y = max_speed
 
+	# Stops the minion
 	if not following_orders or reached_destination:
 		velocity.x = lerp(velocity.x, 0.0, deceleration_factor)
 		if velocity.x <= full_stop_speed and velocity.x > 0 or velocity.x >= -full_stop_speed and velocity.x < 0:
 			velocity.x = 0
+		if ignore_gravity:
+			velocity.y = lerp(velocity.y, 0.0, deceleration_factor)
+			if velocity.y <= full_stop_speed and velocity.y > 0 or velocity.y >= -full_stop_speed and velocity.y < 0:
+				velocity.y = 0
 
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor() and not ignore_gravity:
 		var gravity_modifier = 1
 		if following_orders:
 			if reached_destination:
