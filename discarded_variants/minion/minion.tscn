@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgvikxdjgj0it"]
+
+[ext_resource type="Script" uid="uid://dsem1o33bm4gp" path="res://discarded_variants/minion/minion.gd" id="1_20mgi"]
+[ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="2_777tc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vonw3"]
+size = Vector2(124, 124)
+
+[node name="Minion" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 5
+input_pickable = true
+script = ExtResource("1_20mgi")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vonw3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_777tc")

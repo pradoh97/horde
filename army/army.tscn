@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmrc341gv6ohb"]
+
+[ext_resource type="Script" uid="uid://c5j3lcr2fbv7p" path="res://army/army.gd" id="1_ucctm"]
+[ext_resource type="PackedScene" uid="uid://dfvp6yysbr662" path="res://minion/minion.tscn" id="2_dpr6x"]
+
+[node name="Army" type="Node2D"]
+script = ExtResource("1_ucctm")
+
+[node name="Minion" parent="." instance=ExtResource("2_dpr6x")]
+modulate = Color(0.9649556, 0.5406639, 0.6186059, 1)
+position = Vector2(0, -283)

@@ -11,24 +11,21 @@ class_name Army
 var following_orders: bool = false
 var last_mouse_direction: Vector2 = Vector2.ZERO
 var chase: bool = true
-var leader: MinionExperimental = null
-var minions: Array[MinionExperimental] = []
+var leader: Minion = null
+var minions: Array[Minion] = []
 var camera: Camera2D = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	leader = (get_child(0) as MinionExperimental)
-	leader.is_leading = true
+	leader = (get_child(0) as Minion)
 	camera = $Camera2D
-	camera.reparent(leader)
 	for minion in get_children():
-		if minion is MinionExperimental:
+		if minion is Minion:
 			minions.append(minion)
 
 	for minion in minions:
 		minion.army = self
-		if not minion == leader:
-			minion.leader = leader
+		assign_leader()
 		if override_minions_properties:
 			minion.max_speed = max_speed
 			minion.acceleration = acceleration
@@ -61,21 +58,41 @@ func disband_minions():
 		minion.be_disbanded()
 		minion.set_collision_mask_value(3, true)
 
-func recruit_minion(new_minion: MinionExperimental):
-	minions.append(new_minion)
+func recruit_minion(minion: Minion):
+	minions.append(minion)
+	minion.army = self
 	if override_minions_properties:
-		new_minion.acceleration = acceleration
-		new_minion.max_speed = max_speed
-		new_minion.deceleration_factor = deceleration_factor
-		new_minion.full_stop_speed = full_stop_speed
-		new_minion.max_speed_left_behind = max_speed_left_behind
+		minion.acceleration = acceleration
+		minion.max_speed = max_speed
+		minion.deceleration_factor = deceleration_factor
+		minion.full_stop_speed = full_stop_speed
+		minion.max_speed_left_behind = max_speed_left_behind
+
+func kill_minion(minion: Minion):
+	if minion.is_leading and minions.size() > 1:
+		var old_leader = minions.find(minion)
+		leader = minions[old_leader + 1]
+		assign_leader()
+	minions.erase(minion)
+
+func assign_leader():
+	camera.reparent(leader)
+	camera.global_position = leader.global_position
+	leader.is_leading = true
+
+	for minion in minions:
+		if not minion.is_leading:
+			minion.leader = leader
+
+func get_followers_count() -> int:
+	return minions.size()
 
 func _on_mouse_area_entered(area):
-	var minion: MinionExperimental = area.get_parent()
+	var minion: Minion = area.get_parent()
 	if minion.is_leading:
 		halt_minions()
 
 func _on_mouse_area_exited(area):
-	var minion: MinionExperimental = area.get_parent()
+	var minion: Minion = area.get_parent()
 	if leader.following_orders and minion == leader:
 		command_minions()
