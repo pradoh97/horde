@@ -15,7 +15,6 @@ func update_troops_count_label():
 
 func capture_city():
 	captured = true
-	$TroopSpawnTimer.start()
 	var tween: Tween = create_tween()
 	tween.set_parallel()
 	tween.tween_property($Polygon2D, "color", Color("#3f6ecc"), tween_duration)
@@ -37,7 +36,6 @@ func _on_body_entered(minion: Minion):
 			capture_city()
 
 
-
-func _on_troop_spawn_timer_timeout():
-	spawn_troop()
-	$TroopSpawnTimer.start()
+func _on_level_day_passed():
+	if captured:
+		spawn_troop()

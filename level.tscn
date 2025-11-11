@@ -1,16 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://qm3e3y4bogel"]
+[gd_scene load_steps=11 format=3 uid="uid://qm3e3y4bogel"]
 
 [ext_resource type="Script" uid="uid://buhwamjhhmanh" path="res://level.gd" id="1_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://dmrc341gv6ohb" path="res://army/army.tscn" id="1_vonw3"]
 [ext_resource type="Script" uid="uid://dwgxsi4vbqent" path="res://mouse.gd" id="2_vonw3"]
 [ext_resource type="PackedScene" uid="uid://dfvp6yysbr662" path="res://minion/minion.tscn" id="3_oi3di"]
-[ext_resource type="Script" uid="uid://c25l2c3djphnx" path="res://city.gd" id="5_f2txt"]
+[ext_resource type="Script" uid="uid://frlxd6kknd4j" path="res://camera_2d.gd" id="4_km5ld"]
+[ext_resource type="Texture2D" uid="uid://dteeqtomkve4" path="res://assets/Wood.png" id="5_1ainy"]
+[ext_resource type="PackedScene" uid="uid://bx2ov2sv7h0q0" path="res://resources/city.tscn" id="5_f2txt"]
+[ext_resource type="Script" uid="uid://un16qyui8dc7" path="res://collectible_resource.gd" id="5_n6hdu"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u52ul"]
 radius = 62.649822
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0b4ue"]
-size = Vector2(507, 365)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ainy"]
+size = Vector2(244, 244)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_0b4ue")
@@ -33,7 +36,7 @@ polygon = PackedVector2Array(876, 681, 841, 681, 841, 711, 876, 711)
 [node name="Army" parent="." instance=ExtResource("1_vonw3")]
 position = Vector2(378, -1243)
 override_minions_properties = true
-max_speed = 2200.0
+max_speed = 2000.0
 acceleration = 200.0
 deceleration_factor = 0.15
 full_stop_speed = 160.0
@@ -41,13 +44,14 @@ max_speed_left_behind = 2500
 
 [node name="Camera2D" type="Camera2D" parent="Army"]
 position = Vector2(0, -83)
-zoom = Vector2(0.25, 0.25)
+zoom = Vector2(0.5, 0.5)
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_left_margin = 0.5
 drag_top_margin = 0.5
 drag_right_margin = 0.5
 drag_bottom_margin = 0.5
+script = ExtResource("4_km5ld")
 
 [node name="Minion" parent="." instance=ExtResource("3_oi3di")]
 position = Vector2(-516, -104)
@@ -65,65 +69,41 @@ position = Vector2(-1196, 22)
 position = Vector2(-1492, -1525)
 
 [node name="Trees" type="Node2D" parent="."]
+position = Vector2(-2320, -651)
 
-[node name="Tree" type="Polygon2D" parent="Trees"]
-scale = Vector2(0.5, 0.5)
-color = Color(0, 1, 0, 1)
-polygon = PackedVector2Array(41, -531, 96, 4, 58, 4, 58, 121, 10, 121, 10, 5, -24, 5)
+[node name="CollectibleResource" type="Area2D" parent="Trees"]
+script = ExtResource("5_n6hdu")
 
-[node name="Tree2" type="Polygon2D" parent="Trees"]
-position = Vector2(377, -267)
-scale = Vector2(0.5, 0.5)
-color = Color(0, 1, 0, 1)
-polygon = PackedVector2Array(41, -531, 96, 4, 58, 4, 58, 121, 10, 121, 10, 5, -24, 5)
+[node name="Sprite2D" type="Sprite2D" parent="Trees/CollectibleResource"]
+position = Vector2(10, 15)
+scale = Vector2(0.14799999, 0.14799999)
+texture = ExtResource("5_1ainy")
 
-[node name="Tree3" type="Polygon2D" parent="Trees"]
-position = Vector2(235, 50)
-scale = Vector2(0.5, 0.5)
-color = Color(0, 1, 0, 1)
-polygon = PackedVector2Array(41, -531, 96, 4, 58, 4, 58, 121, 10, 121, 10, 5, -24, 5)
+[node name="Sprite2D2" type="Sprite2D" parent="Trees/CollectibleResource"]
+position = Vector2(-24, -16)
+scale = Vector2(0.14799999, 0.14799999)
+texture = ExtResource("5_1ainy")
 
-[node name="Tree4" type="Polygon2D" parent="Trees"]
-position = Vector2(129, -217)
-scale = Vector2(0.5, 0.5)
-color = Color(0, 1, 0, 1)
-polygon = PackedVector2Array(41, -531, 96, 4, 58, 4, 58, 121, 10, 121, 10, 5, -24, 5)
+[node name="Sprite2D3" type="Sprite2D" parent="Trees/CollectibleResource"]
+position = Vector2(23, -19)
+scale = Vector2(0.14799999, 0.14799999)
+texture = ExtResource("5_1ainy")
 
-[node name="Tree5" type="Polygon2D" parent="Trees"]
-position = Vector2(547, -61)
-scale = Vector2(0.5, 0.5)
-color = Color(0, 1, 0, 1)
-polygon = PackedVector2Array(41, -531, 96, 4, 58, 4, 58, 121, 10, 121, 10, 5, -24, 5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Trees/CollectibleResource"]
+shape = SubResource("RectangleShape2D_1ainy")
 
-[node name="City" type="Area2D" parent="."]
-position = Vector2(1153, -150)
-collision_layer = 256
-collision_mask = 4
-script = ExtResource("5_f2txt")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="City"]
-position = Vector2(226.5, -185.5)
-shape = SubResource("RectangleShape2D_0b4ue")
-
-[node name="Polygon2D2" type="Polygon2D" parent="City"]
-position = Vector2(-5.8877873, 3.792085)
-scale = Vector2(1.0264026, 1.0264026)
-polygon = PackedVector2Array(-0.10925293, -29.025726, -0.10925293, -194.65273, 129.46945, -194.65274, 129.46948, -285.26044, 181.10608, -285.26044, 181.10608, -333, 251.25403, -333, 251.25403, -284.2862, 303.865, -284.2862, 303.865, -194.65273, 445.13513, -194.65273, 445.13513, -29.025726)
-
-[node name="Polygon2D" type="Polygon2D" parent="City"]
-polygon = PackedVector2Array(1, -30, 1, -190, 133, -190, 133, -283, 185, -283, 185, -333, 246, -333, 246, -283, 300, -283, 300, -191, 446, -191, 446, -30)
-
-[node name="Label" type="Label" parent="City"]
-offset_left = -21.0
-offset_top = -530.0
-offset_right = 468.0
-offset_bottom = -355.0
+[node name="Label" type="Label" parent="Trees/CollectibleResource"]
+offset_left = -230.0
+offset_top = -271.0
+offset_right = 259.0
+offset_bottom = -96.0
 theme_override_font_sizes/font_size = 128
 horizontal_alignment = 1
 
-[node name="TroopSpawnTimer" type="Timer" parent="City"]
-wait_time = 2.0
-one_shot = true
+[node name="City" parent="." instance=ExtResource("5_f2txt")]
+position = Vector2(1153, -150)
 
-[connection signal="body_entered" from="City" to="City" method="_on_body_entered"]
-[connection signal="timeout" from="City/TroopSpawnTimer" to="City" method="_on_troop_spawn_timer_timeout"]
+[node name="DayTicker" type="Timer" parent="."]
+
+[connection signal="day_passed" from="." to="City" method="_on_level_day_passed"]
+[connection signal="timeout" from="DayTicker" to="." method="_on_day_ticker_timeout"]
