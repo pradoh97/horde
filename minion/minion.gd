@@ -18,13 +18,14 @@ var army: Army = null
 var last_direction: Vector2 = Vector2.ZERO
 var direction_counter: int = 0
 var queued_for_death: bool = false
+var holding_resource: bool = false
 
 static func new_minion() -> Minion:
 	return minion_scene.instantiate()
 
 
 func _physics_process(_delta):
-	if following_orders and not reached_destination:
+	if following_orders and not reached_destination or left_behind:
 		var leader_direction: Vector2
 		if not is_leading:
 			leader_direction = (leader.global_position - global_position).normalized()
@@ -44,16 +45,11 @@ func _physics_process(_delta):
 			velocity = velocity.normalized() * max_speed
 
 	# Stops the minion
-	if not following_orders or reached_destination:
+	if (not following_orders or reached_destination) and not left_behind:
 		velocity = velocity.lerp(Vector2.ZERO, deceleration_factor)
 		if velocity.length() <= full_stop_speed:
 			velocity = Vector2.ZERO
 
-	#Make it collide against stuff
-	for i in get_slide_collision_count():
-		var c = get_slide_collision(i)
-		if c.get_collider() is RigidBody2D:
-			c.get_collider().apply_central_impulse(-c.get_normal() * velocity.x/10)
 	move_and_slide()
 
 func be_commanded():
@@ -76,6 +72,25 @@ func get_army_followers_count() -> int:
 func kill():
 	army.kill_minion(self)
 	queue_free()
+
+func pick_resource(resource: CollectibleResource) -> bool:
+	var picked_successfully: bool = false
+
+	if not holding_resource:
+		holding_resource = true
+		var image = resource.get_image()
+		$Resource.texture = image.texture
+		$Resource.scale = image.scale
+		picked_successfully = true
+		army.minion_picked_collectible(self)
+	else:
+		var free_minion = get_free_minion()
+		if free_minion:
+			picked_successfully = free_minion.pick_resource(resource)
+	return picked_successfully
+
+func get_free_minion() -> Minion:
+	return army.get_free_minion()
 
 func _on_infect_area_body_entered(minion: Minion):
 	#Minion in the army hits an unregistered minion. To join the hitting minion has to be in an army and the other one does not
