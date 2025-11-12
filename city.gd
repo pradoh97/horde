@@ -40,7 +40,7 @@ func _on_body_entered(minion: Minion):
 			capture_city()
 	else:
 		if minion.resource_held:
-			var resource = minion.drop_resource()
+			minion.drop_resource()
 			wood_stock += 1
 			update_wood_count_label()
 

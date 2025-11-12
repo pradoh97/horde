@@ -89,12 +89,10 @@ func pick_resource(resource: CollectibleResource) -> bool:
 			picked_successfully = free_minion.pick_resource(resource)
 	return picked_successfully
 
-func drop_resource() -> CollectibleResource:
-	var resource_dropped = resource_held
+func drop_resource():
 	resource_held = null
 	%Resource.texture = null
 	%Resource.scale = Vector2(1,1)
-	return resource_dropped
 
 func get_free_minion() -> Minion:
 	return army.get_free_minion()
