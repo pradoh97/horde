@@ -72,6 +72,8 @@ position = Vector2(-1492, -1525)
 position = Vector2(-2320, -651)
 
 [node name="CollectibleResource" type="Area2D" parent="Trees"]
+collision_layer = 256
+collision_mask = 4
 script = ExtResource("5_n6hdu")
 
 [node name="Sprite2D" type="Sprite2D" parent="Trees/CollectibleResource"]
@@ -105,5 +107,7 @@ position = Vector2(1153, -150)
 
 [node name="DayTicker" type="Timer" parent="."]
 
+[connection signal="day_passed" from="." to="Trees/CollectibleResource" method="_on_level_day_passed"]
 [connection signal="day_passed" from="." to="City" method="_on_level_day_passed"]
+[connection signal="body_entered" from="Trees/CollectibleResource" to="Trees/CollectibleResource" method="_on_body_entered"]
 [connection signal="timeout" from="DayTicker" to="." method="_on_day_ticker_timeout"]

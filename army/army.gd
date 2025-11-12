@@ -13,11 +13,13 @@ var last_mouse_direction: Vector2 = Vector2.ZERO
 var chase: bool = true
 var leader: Minion = null
 var minions: Array[Minion] = []
+var free_minions: Array[Minion] = []
 var camera: Camera2D = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	leader = (get_child(0) as Minion)
+	minion_dropped_collectible(leader)
 	camera = $Camera2D
 	for minion in get_children():
 		if minion is Minion:
@@ -67,6 +69,7 @@ func recruit_minion(minion: Minion):
 		minion.deceleration_factor = deceleration_factor
 		minion.full_stop_speed = full_stop_speed
 		minion.max_speed_left_behind = max_speed_left_behind
+	minion_dropped_collectible(minion)
 
 func kill_minion(minion: Minion):
 	if minion.is_leading and minions.size() > 1:
@@ -74,6 +77,13 @@ func kill_minion(minion: Minion):
 		leader = minions[old_leader + 1]
 		assign_leader()
 	minions.erase(minion)
+	minion_picked_collectible(minion)
+
+func minion_picked_collectible(minion: Minion):
+	free_minions.erase(minion)
+
+func minion_dropped_collectible(minion: Minion):
+	free_minions.append(minion)
 
 func assign_leader():
 	camera.reparent(leader)
@@ -87,6 +97,13 @@ func assign_leader():
 func get_followers_count() -> int:
 	return minions.size()
 
+func get_free_minion() -> Minion:
+	var minion: Minion = null
+	if free_minions.size():
+		minion = free_minions[0]
+
+	return minion
+
 func _on_mouse_area_entered(area):
 	var minion: Minion = area.get_parent()
 	if minion.is_leading:
@@ -94,5 +111,5 @@ func _on_mouse_area_entered(area):
 
 func _on_mouse_area_exited(area):
 	var minion: Minion = area.get_parent()
-	if leader.following_orders and minion == leader:
+	if minion.following_orders and minion.is_leading:
 		command_minions()
