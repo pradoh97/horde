@@ -1,6 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bx2ov2sv7h0q0"]
+[gd_scene load_steps=5 format=3 uid="uid://bx2ov2sv7h0q0"]
 
 [ext_resource type="Script" uid="uid://c25l2c3djphnx" path="res://city.gd" id="1_vgvu4"]
+[ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="2_w14l4"]
+[ext_resource type="Texture2D" uid="uid://dteeqtomkve4" path="res://assets/Wood.png" id="3_ae5y6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0b4ue"]
 size = Vector2(507, 365)
@@ -22,12 +24,37 @@ polygon = PackedVector2Array(-0.10925293, -29.025726, -0.10925293, -194.65273, 1
 [node name="Polygon2D" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(1, -30, 1, -190, 133, -190, 133, -283, 185, -283, 185, -333, 246, -333, 246, -283, 300, -283, 300, -191, 446, -191, 446, -30)
 
-[node name="Label" type="Label" parent="."]
-offset_left = -21.0
-offset_top = -530.0
-offset_right = 468.0
-offset_bottom = -355.0
+[node name="Resources" type="HBoxContainer" parent="."]
+offset_top = -557.0
+offset_right = 455.0
+offset_bottom = -382.0
+
+[node name="MinionIcon" type="TextureRect" parent="Resources"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_w14l4")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="MinionCount" type="Label" parent="Resources"]
+unique_name_in_owner = true
+layout_mode = 2
 theme_override_font_sizes/font_size = 128
+text = "0  "
+horizontal_alignment = 1
+
+[node name="WoodIcon" type="TextureRect" parent="Resources"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("3_ae5y6")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="WoodCount" type="Label" parent="Resources"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "0  "
 horizontal_alignment = 1
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

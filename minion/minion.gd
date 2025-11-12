@@ -18,7 +18,7 @@ var army: Army = null
 var last_direction: Vector2 = Vector2.ZERO
 var direction_counter: int = 0
 var queued_for_death: bool = false
-var holding_resource: bool = false
+var resource_held: CollectibleResource = null
 
 static func new_minion() -> Minion:
 	return minion_scene.instantiate()
@@ -76,8 +76,8 @@ func kill():
 func pick_resource(resource: CollectibleResource) -> bool:
 	var picked_successfully: bool = false
 
-	if not holding_resource:
-		holding_resource = true
+	if not resource_held:
+		resource_held = resource
 		var image = resource.get_image()
 		$Resource.texture = image.texture
 		$Resource.scale = image.scale
@@ -88,6 +88,13 @@ func pick_resource(resource: CollectibleResource) -> bool:
 		if free_minion:
 			picked_successfully = free_minion.pick_resource(resource)
 	return picked_successfully
+
+func drop_resource() -> CollectibleResource:
+	var resource_dropped = resource_held
+	resource_held = null
+	%Resource.texture = null
+	%Resource.scale = Vector2(1,1)
+	return resource_dropped
 
 func get_free_minion() -> Minion:
 	return army.get_free_minion()

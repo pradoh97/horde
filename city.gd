@@ -6,12 +6,16 @@ class_name City extends Area2D
 @export var tween_duration: float = 1
 var captured = false
 var troops_in_city: int = 0
+var wood_stock = 0
 
 func _ready():
 	update_troops_count_label()
 
+func update_wood_count_label():
+	%WoodCount.text = str(wood_stock)
+
 func update_troops_count_label():
-	$Label.text = str(troops_to_capture - troops_in_city)
+	%MinionCount.text = str(troops_to_capture - troops_in_city)
 
 func capture_city():
 	captured = true
@@ -34,6 +38,11 @@ func _on_body_entered(minion: Minion):
 			update_troops_count_label()
 		if troops_to_capture - troops_in_city == 0:
 			capture_city()
+	else:
+		if minion.resource_held:
+			var resource = minion.drop_resource()
+			wood_stock += 1
+			update_wood_count_label()
 
 
 func _on_level_day_passed():
