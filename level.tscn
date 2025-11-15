@@ -53,61 +53,50 @@ drag_right_margin = 0.5
 drag_bottom_margin = 0.5
 script = ExtResource("4_km5ld")
 
-[node name="Minion" parent="." instance=ExtResource("3_oi3di")]
+[node name="WildMinions" type="Node2D" parent="."]
+position = Vector2(3117, 376)
+
+[node name="Minion" parent="WildMinions" instance=ExtResource("3_oi3di")]
 position = Vector2(-516, -104)
 
-[node name="Minion2" parent="." instance=ExtResource("3_oi3di")]
+[node name="Minion2" parent="WildMinions" instance=ExtResource("3_oi3di")]
 position = Vector2(-560, -526)
 
-[node name="Minion3" parent="." instance=ExtResource("3_oi3di")]
+[node name="Minion3" parent="WildMinions" instance=ExtResource("3_oi3di")]
 position = Vector2(-863, -385)
 
-[node name="Minion4" parent="." instance=ExtResource("3_oi3di")]
+[node name="Minion4" parent="WildMinions" instance=ExtResource("3_oi3di")]
 position = Vector2(-1196, 22)
 
-[node name="Minion5" parent="." instance=ExtResource("3_oi3di")]
+[node name="Minion5" parent="WildMinions" instance=ExtResource("3_oi3di")]
 position = Vector2(-1492, -1525)
 
-[node name="Trees" type="Node2D" parent="."]
+[node name="ResourceGenerators" type="Node2D" parent="."]
 position = Vector2(-2320, -651)
 
-[node name="CollectibleResource" type="Area2D" parent="Trees"]
-collision_layer = 256
-collision_mask = 4
-script = ExtResource("5_n6hdu")
+[node name="WoodMine" parent="ResourceGenerators" instance=ExtResource("6_8cye3")]
+position = Vector2(782, 7)
 
-[node name="Sprite2D" type="Sprite2D" parent="Trees/CollectibleResource"]
-position = Vector2(10, 15)
-scale = Vector2(0.14799999, 0.14799999)
-texture = ExtResource("5_1ainy")
+[node name="FoodFarm" parent="ResourceGenerators" instance=ExtResource("7_2orkt")]
+position = Vector2(951, -1497)
+max_resources = 20
+generation_factor = 9.0
 
-[node name="Sprite2D2" type="Sprite2D" parent="Trees/CollectibleResource"]
-position = Vector2(-24, -16)
-scale = Vector2(0.14799999, 0.14799999)
-texture = ExtResource("5_1ainy")
-
-[node name="Sprite2D3" type="Sprite2D" parent="Trees/CollectibleResource"]
-position = Vector2(23, -19)
-scale = Vector2(0.14799999, 0.14799999)
-texture = ExtResource("5_1ainy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Trees/CollectibleResource"]
-shape = SubResource("RectangleShape2D_1ainy")
-
-[node name="Label" type="Label" parent="Trees/CollectibleResource"]
-offset_left = -230.0
-offset_top = -271.0
-offset_right = 259.0
-offset_bottom = -96.0
-theme_override_font_sizes/font_size = 128
-horizontal_alignment = 1
+[node name="StoneMine" parent="ResourceGenerators" instance=ExtResource("8_aicyk")]
+position = Vector2(827, 1515)
 
 [node name="City" parent="." instance=ExtResource("5_f2txt")]
 position = Vector2(1153, -150)
 
 [node name="DayTicker" type="Timer" parent="."]
 
-[connection signal="day_passed" from="." to="Trees/CollectibleResource" method="_on_level_day_passed"]
+[node name="UI" parent="." instance=ExtResource("10_2orkt")]
+script = ExtResource("11_aicyk")
+
+[node name="KingConvert" parent="." instance=ExtResource("13_8b0r0")]
+
+[connection signal="day_passed" from="." to="ResourceGenerators/WoodMine" method="_on_level_day_passed"]
+[connection signal="day_passed" from="." to="ResourceGenerators/FoodFarm" method="_on_level_day_passed"]
+[connection signal="day_passed" from="." to="ResourceGenerators/StoneMine" method="_on_level_day_passed"]
 [connection signal="day_passed" from="." to="City" method="_on_level_day_passed"]
-[connection signal="body_entered" from="Trees/CollectibleResource" to="Trees/CollectibleResource" method="_on_body_entered"]
 [connection signal="timeout" from="DayTicker" to="." method="_on_day_ticker_timeout"]
