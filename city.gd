@@ -4,15 +4,12 @@ class_name City extends Area2D
 @export var max_spawn_speed: float = 1500
 @export var min_spawn_speed: float = 700
 @export var tween_duration: float = 1
+@export var recruit_food_cost: int = 2
 var captured = false
 var troops_in_city: int = 0
-var wood_stock = 0
 
 func _ready():
 	update_troops_count_label()
-
-func update_wood_count_label():
-	%WoodCount.text = str(wood_stock)
 
 func update_troops_count_label():
 	%MinionCount.text = str(troops_to_capture - troops_in_city)
@@ -26,7 +23,9 @@ func capture_city():
 
 func spawn_troop():
 	var new_minion: Minion = Minion.new_minion()
+	new_minion.disable_collision()
 	new_minion.global_position = global_position
+	new_minion.recruit_cost = recruit_food_cost
 	get_parent().add_child(new_minion)
 	new_minion.velocity = Vector2(randf_range(-max_spawn_speed, max_spawn_speed), randf_range(-max_spawn_speed, max_spawn_speed))
 
@@ -34,6 +33,8 @@ func _on_body_entered(minion: Minion):
 	if not captured:
 		if minion.army and not minion.is_leading:
 			troops_in_city += 1
+			if minion.resource_held:
+				minion.drop_resource()
 			minion.kill()
 			update_troops_count_label()
 		if troops_to_capture - troops_in_city == 0:
@@ -41,8 +42,6 @@ func _on_body_entered(minion: Minion):
 	else:
 		if minion.resource_held:
 			minion.drop_resource()
-			wood_stock += 1
-			update_wood_count_label()
 
 
 func _on_level_day_passed():

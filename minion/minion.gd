@@ -9,6 +9,7 @@ class_name Minion
 @export var distance_treshold: float = 700.0
 const minion_scene: PackedScene = preload("res://minion/minion.tscn")
 
+var recruit_cost: int = 0
 var left_behind: bool = false
 var is_leading: bool = false
 var leader: Minion = null
@@ -78,9 +79,7 @@ func pick_resource(resource: CollectibleResource) -> bool:
 
 	if not resource_held:
 		resource_held = resource
-		var image = resource.get_image()
-		$Resource.texture = image.texture
-		$Resource.scale = image.scale
+		$Resource.texture = resource.texture
 		picked_successfully = true
 		army.minion_picked_collectible(self)
 	else:
@@ -90,18 +89,33 @@ func pick_resource(resource: CollectibleResource) -> bool:
 	return picked_successfully
 
 func drop_resource():
+	army.get_level().update_resource_count(resource_held)
 	resource_held = null
 	%Resource.texture = null
-	%Resource.scale = Vector2(1,1)
 
 func get_free_minion() -> Minion:
 	return army.get_free_minion()
 
-func _on_infect_area_body_entered(minion: Minion):
-	#Minion in the army hits an unregistered minion. To join the hitting minion has to be in an army and the other one does not
-	if not minion == self and not minion.army and self.army:
-		if not leader:
-			minion.leader = self
-		else:
-			minion.leader = leader
-		army.recruit_minion(minion)
+func disable_collision():
+	$CollisionShape2D.set_deferred("disabled", true)
+
+func enable_collision():
+	$CollisionShape2D.set_deferred("disabled", false)
+
+func convert_to_king():
+	$Crown.visible = true
+
+func _on_infect_area_area_entered(area):
+		#Minion in the army hits an unregistered minion. To join the hitting minion has to be in an army and the minion being hit does not.
+	var minion: Minion = area.get_parent()
+	if not minion == self and not minion.army and army:
+		var purchase_able = army.get_level().get_food_stock() >= minion.recruit_cost and minion.recruit_cost > 0
+		if purchase_able or minion.recruit_cost == 0:
+			if purchase_able:
+				army.get_level().update_food_stock(-2)
+			if not leader:
+				minion.leader = self
+			else:
+				minion.leader = leader
+			minion.enable_collision()
+			army.recruit_minion(minion)
