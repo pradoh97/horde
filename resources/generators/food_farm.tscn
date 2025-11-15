@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://feywkuh1juuv"]
+
+[ext_resource type="Script" uid="uid://un16qyui8dc7" path="res://resources/generators/collectible_resource_generator.gd" id="1_0hywr"]
+[ext_resource type="Resource" uid="uid://t204tbra7epx" path="res://resources/food.tres" id="2_5nvex"]
+[ext_resource type="Texture2D" uid="uid://cvxgjdnf4ic5e" path="res://assets/Worm.png" id="3_0kxtx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ainy"]
+size = Vector2(244, 244)
+
+[node name="FoodFarm" type="Area2D"]
+collision_layer = 256
+collision_mask = 4
+script = ExtResource("1_0hywr")
+resource_generated = ExtResource("2_5nvex")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(10, 15)
+scale = Vector2(0.14799999, 0.14799999)
+texture = ExtResource("3_0kxtx")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-24, -16)
+scale = Vector2(0.14799999, 0.14799999)
+texture = ExtResource("3_0kxtx")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(23, -19)
+scale = Vector2(0.14799999, 0.14799999)
+texture = ExtResource("3_0kxtx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1ainy")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -230.0
+offset_top = -271.0
+offset_right = 259.0
+offset_bottom = -96.0
+theme_override_font_sizes/font_size = 128
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
