@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CollectibleResource" load_steps=3 format=3 uid="uid://t204tbra7epx"]
+
+[ext_resource type="Script" uid="uid://ccriiwtes1i48" path="res://resources/collectible_resource.gd" id="1_j6d7s"]
+[ext_resource type="Texture2D" uid="uid://cvxgjdnf4ic5e" path="res://assets/Worm.png" id="2_vuuqq"]
+
+[resource]
+script = ExtResource("1_j6d7s")
+type = "Food"
+texture = ExtResource("2_vuuqq")
+metadata/_custom_type_script = "uid://ccriiwtes1i48"

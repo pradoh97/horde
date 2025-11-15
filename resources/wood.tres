@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CollectibleResource" load_steps=3 format=3 uid="uid://borfhlix76jsd"]
+
+[ext_resource type="Script" uid="uid://ccriiwtes1i48" path="res://resources/collectible_resource.gd" id="1_gt3uy"]
+[ext_resource type="Texture2D" uid="uid://dteeqtomkve4" path="res://assets/Wood.png" id="2_r76xb"]
+
+[resource]
+script = ExtResource("1_gt3uy")
+type = "Wood"
+texture = ExtResource("2_r76xb")
+metadata/_custom_type_script = "uid://ccriiwtes1i48"

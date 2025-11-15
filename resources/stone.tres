@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CollectibleResource" load_steps=3 format=3 uid="uid://dqefr2qjrypyr"]
+
+[ext_resource type="Script" uid="uid://ccriiwtes1i48" path="res://resources/collectible_resource.gd" id="1_c7xck"]
+[ext_resource type="Texture2D" uid="uid://bb8n2voct7ge7" path="res://assets/Stone.png" id="2_c7xck"]
+
+[resource]
+script = ExtResource("1_c7xck")
+type = "Stone"
+texture = ExtResource("2_c7xck")
+metadata/_custom_type_script = "uid://ccriiwtes1i48"
