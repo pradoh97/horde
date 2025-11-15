@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfvp6yysbr662"]
+[gd_scene load_steps=11 format=3 uid="uid://dfvp6yysbr662"]
 
 [ext_resource type="Script" uid="uid://fl3ky4apq7p7" path="res://minion/minion.gd" id="1_ywcdx"]
 [ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="2_war54"]
+[ext_resource type="Texture2D" uid="uid://tnan5c0opfkr" path="res://assets/crown.png" id="3_q51ak"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vonw3"]
 size = Vector2(124, 124)
@@ -88,7 +89,7 @@ libraries = {
 
 [node name="InfectArea" type="Area2D" parent="."]
 collision_layer = 8
-collision_mask = 4
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InfectArea"]
 shape = SubResource("RectangleShape2D_ywcdx")
@@ -103,5 +104,12 @@ shape = SubResource("RectangleShape2D_cpaw6")
 [node name="Resource" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(-142, 0)
+scale = Vector2(0.1, 0.1)
 
-[connection signal="body_entered" from="InfectArea" to="." method="_on_infect_area_body_entered"]
+[node name="Crown" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-1.9999999, -36)
+scale = Vector2(0.46875, 0.453125)
+texture = ExtResource("3_q51ak")
+
+[connection signal="area_entered" from="InfectArea" to="." method="_on_infect_area_area_entered"]
