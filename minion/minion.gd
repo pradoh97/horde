@@ -103,6 +103,7 @@ func enable_collision():
 	$CollisionShape2D.set_deferred("disabled", false)
 
 func convert_to_king():
+	army.get_level().update_king_count(+1)
 	$Crown.visible = true
 
 func _on_infect_area_area_entered(area):

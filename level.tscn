@@ -77,14 +77,15 @@ position = Vector2(-2320, -651)
 
 [node name="WoodMine" parent="ResourceGenerators" instance=ExtResource("6_8cye3")]
 position = Vector2(782, 7)
+use_first_free_minion = true
 
 [node name="FoodFarm" parent="ResourceGenerators" instance=ExtResource("7_2orkt")]
 position = Vector2(951, -1497)
-max_resources = 20
-generation_factor = 9.0
+use_first_free_minion = true
 
 [node name="StoneMine" parent="ResourceGenerators" instance=ExtResource("8_aicyk")]
 position = Vector2(827, 1515)
+use_first_free_minion = true
 
 [node name="City" parent="." instance=ExtResource("5_f2txt")]
 position = Vector2(1153, -150)

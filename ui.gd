@@ -11,3 +11,6 @@ func update_stone_count_label(new_value: int = 0):
 
 func update_horde_size_label(new_value: int = 0):
 	%HordeSize.text = str(new_value)
+
+func update_king_count_label(new_value: int = 0):
+	%KingCount.text = str(new_value)

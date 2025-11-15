@@ -5,7 +5,7 @@ signal day_passed
 var wood_stock: int = 0
 var food_stock: int = 0
 var stone_stock: int = 0
-var kings_count: int = 0
+var king_count: int = 0
 
 func _ready():
 	$Mouse.area_entered.connect($Army._on_mouse_area_entered)
@@ -26,6 +26,10 @@ func update_wood_stock(update_by: int = 0):
 func update_stone_stock(update_by: int = 0):
 	stone_stock += update_by
 	$UI.update_stone_count_label(stone_stock)
+
+func update_king_count(update_by: int = 0):
+	king_count += update_by
+	$UI.update_king_count_label(king_count)
 
 func update_horde_size():
 	$UI.update_horde_size_label($Army.minions.size())
