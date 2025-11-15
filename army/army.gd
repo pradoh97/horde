@@ -1,5 +1,4 @@
-extends Node2D
-class_name Army
+class_name Army extends Node2D
 
 @export var override_minions_properties: bool = false
 @export var max_speed = 600.0
@@ -15,6 +14,7 @@ var leader: Minion = null
 var minions: Array[Minion] = []
 var free_minions: Array[Minion] = []
 var camera: Camera2D = null
+var level: Level = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -69,7 +69,8 @@ func recruit_minion(minion: Minion):
 		minion.deceleration_factor = deceleration_factor
 		minion.full_stop_speed = full_stop_speed
 		minion.max_speed_left_behind = max_speed_left_behind
-	minion_dropped_collectible(minion)
+	free_minions.append(minion)
+	get_level().update_horde_size()
 
 func kill_minion(minion: Minion):
 	if minion.is_leading and minions.size() > 1:
@@ -77,6 +78,7 @@ func kill_minion(minion: Minion):
 		leader = minions[old_leader + 1]
 		assign_leader()
 	minions.erase(minion)
+	get_level().update_horde_size()
 	minion_picked_collectible(minion)
 
 func minion_picked_collectible(minion: Minion):
@@ -103,6 +105,9 @@ func get_free_minion() -> Minion:
 		minion = free_minions[0]
 
 	return minion
+
+func get_level() -> Level:
+	return level
 
 func _on_mouse_area_entered(area):
 	var minion: Minion = area.get_parent()
