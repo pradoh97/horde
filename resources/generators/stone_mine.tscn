@@ -11,7 +11,7 @@ size = Vector2(244, 244)
 collision_layer = 256
 collision_mask = 4
 script = ExtResource("1_4fmhs")
-resource_generated = ExtResource("2_4fmhs")
+collectible_generated = ExtResource("2_4fmhs")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(10, 15)
