@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=12 format=3 uid="uid://dv45l8s1nl74g"]
+
+[ext_resource type="Texture2D" uid="uid://cejfgxl0dtadn" path="res://assets/Weapons/Axe_1/Axe_1_400%.png" id="1_jb2me"]
+[ext_resource type="Texture2D" uid="uid://puthkcl8lamb" path="res://assets/Weapons/Dagger_1/Dagger_1_400%.png" id="2_qc7t2"]
+[ext_resource type="Texture2D" uid="uid://ceaeda8qu2net" path="res://assets/Weapons/Fork_1/Fork_1_400%.png" id="3_2lxx5"]
+[ext_resource type="Texture2D" uid="uid://b4n1wsysiksvu" path="res://assets/Weapons/Halberd_1/Halberd_1_400%.png" id="4_nboxh"]
+[ext_resource type="Texture2D" uid="uid://bunijyf5rxdqi" path="res://assets/Weapons/Scythe_1/Scythe_1_400%.png" id="5_6osje"]
+[ext_resource type="Texture2D" uid="uid://7vcba7wpl7yb" path="res://assets/Weapons/Scythe_2/Scythe_2_400%.png" id="6_upcfj"]
+[ext_resource type="Texture2D" uid="uid://cpj8brb1i7ke1" path="res://assets/Weapons/Spear_1/Spear_1_400%.png" id="7_blxqs"]
+[ext_resource type="Texture2D" uid="uid://dfbd7w43bn7t3" path="res://assets/Weapons/Staff_1/Staff_1_400%.png" id="8_1clcy"]
+[ext_resource type="Texture2D" uid="uid://crwy682xp0bhk" path="res://assets/Weapons/Sword_1/Sword_1_400%.png" id="9_r3ywq"]
+[ext_resource type="Texture2D" uid="uid://i7tly4j3nua" path="res://assets/Weapons/Sword_9/Sword_9_400%.png" id="10_ku1of"]
+[ext_resource type="Script" uid="uid://crdkenqflrsr7" path="res://resources/weapon.gd" id="11_yngc0"]
+
+[resource]
+script = ExtResource("11_yngc0")
+available_textures = Array[Texture2D]([ExtResource("1_jb2me"), ExtResource("2_qc7t2"), ExtResource("3_2lxx5"), ExtResource("4_nboxh"), ExtResource("5_6osje"), ExtResource("6_upcfj"), ExtResource("7_blxqs"), ExtResource("8_1clcy"), ExtResource("9_r3ywq"), ExtResource("10_ku1of")])
+metadata/_custom_type_script = "uid://crdkenqflrsr7"

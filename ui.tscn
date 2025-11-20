@@ -1,18 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://cv8bjon3iyvf4"]
+[gd_scene load_steps=8 format=3 uid="uid://cv8bjon3iyvf4"]
 
 [ext_resource type="Texture2D" uid="uid://cvxgjdnf4ic5e" path="res://assets/Worm.png" id="1_27fn8"]
 [ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="1_ibotj"]
+[ext_resource type="Script" uid="uid://cbc56xpus8sv2" path="res://ui.gd" id="1_y4yjw"]
+[ext_resource type="Texture2D" uid="uid://crwy682xp0bhk" path="res://assets/Weapons/Sword_1/Sword_1_400%.png" id="2_n5ude"]
 [ext_resource type="Texture2D" uid="uid://dteeqtomkve4" path="res://assets/Wood.png" id="2_nltto"]
 [ext_resource type="Texture2D" uid="uid://bb8n2voct7ge7" path="res://assets/Stone.png" id="3_ibotj"]
 [ext_resource type="Texture2D" uid="uid://tnan5c0opfkr" path="res://assets/crown.png" id="5_n5ude"]
 
 [node name="UI" type="CanvasLayer"]
+script = ExtResource("1_y4yjw")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = -1
 anchor_right = 0.16800001
 anchor_bottom = 0.13700001
-offset_right = 433.464
+offset_right = 584.464
 offset_bottom = 0.2239914
 
 [node name="HordeIcon" type="TextureRect" parent="HBoxContainer"]
@@ -23,6 +26,20 @@ expand_mode = 4
 stretch_mode = 5
 
 [node name="HordeSize" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "0  "
+horizontal_alignment = 1
+
+[node name="StrengthIcon" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_n5ude")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="HordeStrength" type="Label" parent="HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 64

@@ -15,6 +15,7 @@ var minions: Array[Minion] = []
 var free_minions: Array[Minion] = []
 var camera: Camera2D = null
 var level: Level = null
+var armed_minions: Array[Minion] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -71,6 +72,8 @@ func recruit_minion(minion: Minion):
 		minion.max_speed_left_behind = max_speed_left_behind
 	free_minions.append(minion)
 	get_level().update_horde_size()
+	get_level().update_horde_strength()
+
 
 func kill_minion(minion: Minion):
 	if minion.is_leading and minions.size() > 1:
@@ -79,10 +82,14 @@ func kill_minion(minion: Minion):
 		assign_leader()
 	minions.erase(minion)
 	get_level().update_horde_size()
+	get_level().update_horde_strength()
 	minion_picked_collectible(minion)
 
 func minion_picked_collectible(minion: Minion):
 	free_minions.erase(minion)
+
+func minion_armed(minion: Minion):
+	armed_minions.append(minion)
 
 func minion_dropped_collectible(minion: Minion):
 	free_minions.append(minion)

@@ -112,4 +112,8 @@ position = Vector2(-1.9999999, -36)
 scale = Vector2(0.46875, 0.453125)
 texture = ExtResource("3_q51ak")
 
+[node name="Weapon" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(142, 0)
+
 [connection signal="area_entered" from="InfectArea" to="." method="_on_infect_area_area_entered"]

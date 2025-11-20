@@ -20,6 +20,7 @@ var last_direction: Vector2 = Vector2.ZERO
 var direction_counter: int = 0
 var queued_for_death: bool = false
 var resource_held: CollectibleResource = null
+var weapon_held: Weapon = null
 
 static func new_minion() -> Minion:
 	return minion_scene.instantiate()
@@ -74,18 +75,26 @@ func kill():
 	army.kill_minion(self)
 	queue_free()
 
-func pick_resource(resource: CollectibleResource) -> bool:
+func pick_up_collectible(collectible: CollectibleResource) -> bool:
 	var picked_successfully: bool = false
 
-	if not resource_held:
-		resource_held = resource
-		$Resource.texture = resource.texture
+	if collectible is Weapon:
+		if not weapon_held:
+			weapon_held = collectible as Weapon
+			weapon_held.pick_random()
+			%Weapon.texture = weapon_held.texture
+			picked_successfully = true
+			army.minion_armed(self)
+			army.get_level().update_resource_count(collectible)
+	elif not resource_held:
+		resource_held = collectible
+		%Resource.texture = collectible.texture
 		picked_successfully = true
 		army.minion_picked_collectible(self)
 	else:
 		var free_minion = get_free_minion()
 		if free_minion:
-			picked_successfully = free_minion.pick_resource(resource)
+			picked_successfully = free_minion.pick_up_collectible(collectible)
 	return picked_successfully
 
 func drop_resource():
