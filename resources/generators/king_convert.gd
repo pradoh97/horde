@@ -4,12 +4,18 @@ extends Area2D
 @export var required_wood: int = 10
 @export var required_stone: int = 10
 @export var required_minions: int = 1
+signal activated
 
 func _ready():
+	$CollisionShape2D.set_deferred("disabled", true)
+	modulate = Color.TRANSPARENT
 	%MinionCount.text = str(required_minions)
 	%FoodCount.text = str(required_food)
 	%WoodCount.text = str(required_wood)
 	%StoneCount.text = str(required_stone)
+
+func enable():
+	$CollisionShape2D.set_deferred("disabled", false)
 
 func _on_body_entered(body):
 	if body is Minion:
@@ -29,3 +35,4 @@ func _on_body_entered(body):
 				var tween = create_tween()
 				tween.tween_property(self, "modulate", Color.TRANSPARENT, 1)
 				tween.finished.connect(queue_free)
+				activated.emit()
