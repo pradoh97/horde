@@ -14,6 +14,8 @@ func _ready():
 	$DayTicker.start()
 	$Army.level = self
 	update_horde_size()
+	update_horde_strength()
+
 
 func update_food_stock(update_by: int = 0):
 	food_stock += update_by
@@ -34,6 +36,9 @@ func update_king_count(update_by: int = 0):
 func update_horde_size():
 	$UI.update_horde_size_label($Army.minions.size())
 
+func update_horde_strength():
+	$UI.update_horde_strength_label($Army.armed_minions.size())
+
 func get_food_stock() -> int:
 	return food_stock
 
@@ -50,6 +55,8 @@ func update_resource_count(resource: CollectibleResource):
 		update_stone_stock(1)
 	if resource.type == "Food":
 		update_food_stock(1)
+	if resource is Weapon:
+		update_horde_strength()
 
 func _on_day_ticker_timeout():
 	day_passed.emit()

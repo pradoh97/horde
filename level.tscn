@@ -1,17 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://qm3e3y4bogel"]
+[gd_scene load_steps=12 format=3 uid="uid://qm3e3y4bogel"]
 
 [ext_resource type="Script" uid="uid://buhwamjhhmanh" path="res://level.gd" id="1_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://dmrc341gv6ohb" path="res://army/army.tscn" id="1_vonw3"]
 [ext_resource type="Script" uid="uid://dwgxsi4vbqent" path="res://mouse.gd" id="2_vonw3"]
 [ext_resource type="PackedScene" uid="uid://dfvp6yysbr662" path="res://minion/minion.tscn" id="3_oi3di"]
 [ext_resource type="Script" uid="uid://frlxd6kknd4j" path="res://camera_2d.gd" id="4_km5ld"]
-[ext_resource type="PackedScene" uid="uid://bx2ov2sv7h0q0" path="res://resources/city.tscn" id="5_f2txt"]
+[ext_resource type="PackedScene" uid="uid://bx2ov2sv7h0q0" path="res://resources/buildings/city.tscn" id="5_f2txt"]
 [ext_resource type="PackedScene" uid="uid://5vjdi3lh2uj8" path="res://resources/generators/wood_mine.tscn" id="6_8cye3"]
 [ext_resource type="PackedScene" uid="uid://feywkuh1juuv" path="res://resources/generators/food_farm.tscn" id="7_2orkt"]
 [ext_resource type="PackedScene" uid="uid://j26qs1wki8oi" path="res://resources/generators/stone_mine.tscn" id="8_aicyk"]
 [ext_resource type="PackedScene" uid="uid://cv8bjon3iyvf4" path="res://ui.tscn" id="10_2orkt"]
-[ext_resource type="Script" uid="uid://cbc56xpus8sv2" path="res://ui.gd" id="11_aicyk"]
-[ext_resource type="PackedScene" uid="uid://ca3qgsc7fa08u" path="res://resources/generators/king_convert.tscn" id="13_8b0r0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u52ul"]
 radius = 62.649822
@@ -93,9 +91,6 @@ position = Vector2(1153, -150)
 [node name="DayTicker" type="Timer" parent="."]
 
 [node name="UI" parent="." instance=ExtResource("10_2orkt")]
-script = ExtResource("11_aicyk")
-
-[node name="KingConvert" parent="." instance=ExtResource("13_8b0r0")]
 
 [connection signal="day_passed" from="." to="ResourceGenerators/WoodMine" method="_on_level_day_passed"]
 [connection signal="day_passed" from="." to="ResourceGenerators/FoodFarm" method="_on_level_day_passed"]
