@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bx2ov2sv7h0q0"]
+[gd_scene load_steps=7 format=3 uid="uid://bx2ov2sv7h0q0"]
 
-[ext_resource type="Script" uid="uid://c25l2c3djphnx" path="res://city.gd" id="1_vgvu4"]
+[ext_resource type="Script" uid="uid://c25l2c3djphnx" path="res://resources/buildings/city.gd" id="1_vgvu4"]
 [ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="2_w14l4"]
+[ext_resource type="PackedScene" uid="uid://dgo07mr2aq1ys" path="res://resources/buildings/stock_pile.tscn" id="3_cofpr"]
+[ext_resource type="PackedScene" uid="uid://ca3qgsc7fa08u" path="res://resources/generators/king_convert.tscn" id="4_8prh0"]
+[ext_resource type="PackedScene" uid="uid://jlp2kdp37ndb" path="res://resources/generators/weapon_rack.tscn" id="5_04ykx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0b4ue"]
 size = Vector2(507, 365)
@@ -10,20 +13,25 @@ size = Vector2(507, 365)
 collision_layer = 256
 collision_mask = 4
 script = ExtResource("1_vgvu4")
+inner_color_converted = Color(0.24705882, 0.43137255, 0.8, 1)
+outer_color_converted = Color(0.88235295, 0.8039216, 0.15686275, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(226.5, -185.5)
 shape = SubResource("RectangleShape2D_0b4ue")
 
 [node name="Polygon2D2" type="Polygon2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(-5.8877873, 3.792085)
 scale = Vector2(1.0264026, 1.0264026)
 polygon = PackedVector2Array(-0.10925293, -29.025726, -0.10925293, -194.65273, 129.46945, -194.65274, 129.46948, -285.26044, 181.10608, -285.26044, 181.10608, -333, 251.25403, -333, 251.25403, -284.2862, 303.865, -284.2862, 303.865, -194.65273, 445.13513, -194.65273, 445.13513, -29.025726)
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+unique_name_in_owner = true
 polygon = PackedVector2Array(1, -30, 1, -190, 133, -190, 133, -283, 185, -283, 185, -333, 246, -333, 246, -283, 300, -283, 300, -191, 446, -191, 446, -30)
 
 [node name="Resources" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
 offset_left = 95.0
 offset_top = -557.0
 offset_right = 327.0
@@ -44,4 +52,15 @@ theme_override_font_sizes/font_size = 128
 text = "0  "
 horizontal_alignment = 1
 
+[node name="StockPile" parent="." instance=ExtResource("3_cofpr")]
+position = Vector2(-1260, -384)
+
+[node name="KingConvert" parent="." instance=ExtResource("4_8prh0")]
+position = Vector2(230, -1053)
+
+[node name="WeaponRack" parent="." instance=ExtResource("5_04ykx")]
+position = Vector2(1235, -1159)
+enabled = false
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="activated" from="KingConvert" to="." method="_on_king_convert_activated"]

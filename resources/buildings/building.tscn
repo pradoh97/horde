@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://fcr0jybfv1cu"]
+
+[ext_resource type="Script" uid="uid://csvocenqac3ml" path="res://resources/buildings/building.gd" id="1_vondu"]
+[ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="2_0srbn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0b4ue"]
+size = Vector2(507, 365)
+
+[node name="Building" type="Area2D"]
+collision_layer = 256
+collision_mask = 4
+script = ExtResource("1_vondu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(226.5, -185.5)
+shape = SubResource("RectangleShape2D_0b4ue")
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+position = Vector2(-5.8877873, 3.792085)
+scale = Vector2(1.0264026, 1.0264026)
+polygon = PackedVector2Array(-0.10925293, -29.025726, -0.10925293, -194.65273, 129.46945, -194.65274, 129.46948, -285.26044, 181.10608, -285.26044, 181.10608, -333, 251.25403, -333, 251.25403, -284.2862, 303.865, -284.2862, 303.865, -194.65273, 445.13513, -194.65273, 445.13513, -29.025726)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(1, -30, 1, -190, 133, -190, 133, -283, 185, -283, 185, -333, 246, -333, 246, -283, 300, -283, 300, -191, 446, -191, 446, -30)
+
+[node name="Requirements" type="HBoxContainer" parent="."]
+offset_left = 95.0
+offset_top = -557.0
+offset_right = 327.0
+offset_bottom = -382.0
+alignment = 1
+
+[node name="MinionIcon" type="TextureRect" parent="Requirements"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_0srbn")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="MinionCount" type="Label" parent="Requirements"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "0  "
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

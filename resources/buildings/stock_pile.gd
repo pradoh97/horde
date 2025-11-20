@@ -1,0 +1,15 @@
+extends Building
+
+func _ready():
+	$CollisionShape2D.set_deferred("disabled", true)
+	modulate = Color.TRANSPARENT
+	%Polygon2D.color = inner_color_converted
+	%Polygon2D2.color = outer_color_converted
+
+func _on_body_entered(minion: Minion):
+	if minion.resource_held:
+		minion.drop_resource()
+
+func capture_building():
+	$CollisionShape2D.set_deferred("disabled", false)
+	super()

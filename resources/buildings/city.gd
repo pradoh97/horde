@@ -1,25 +1,14 @@
-class_name City extends Area2D
+class_name City extends Building
 
-@export var troops_to_capture: int = 5
 @export var max_spawn_speed: float = 1500
 @export var min_spawn_speed: float = 700
-@export var tween_duration: float = 1
 @export var recruit_food_cost: int = 2
-var captured = false
-var troops_in_city: int = 0
 
 func _ready():
 	update_troops_count_label()
 
 func update_troops_count_label():
-	%MinionCount.text = str(troops_to_capture - troops_in_city)
-
-func capture_city():
-	captured = true
-	var tween: Tween = create_tween()
-	tween.set_parallel()
-	tween.tween_property($Polygon2D, "color", Color("#3f6ecc"), tween_duration)
-	tween.tween_property($Polygon2D2, "color", Color("#e1cd28"), tween_duration)
+	%MinionCount.text = str(troops_to_capture - troops_in)
 
 func spawn_troop():
 	var new_minion: Minion = Minion.new_minion()
@@ -32,18 +21,24 @@ func spawn_troop():
 func _on_body_entered(minion: Minion):
 	if not captured:
 		if minion.army and not minion.is_leading:
-			troops_in_city += 1
-			if minion.resource_held:
-				minion.drop_resource()
+			troops_in += 1
 			minion.kill()
 			update_troops_count_label()
-		if troops_to_capture - troops_in_city == 0:
-			capture_city()
-	else:
-		if minion.resource_held:
-			minion.drop_resource()
-
+		if troops_to_capture - troops_in == 0:
+			var tween = create_tween()
+			tween.set_parallel()
+			tween.tween_property(%Resources, "modulate", Color.TRANSPARENT, tween_duration)
+			tween.tween_property($KingConvert, "modulate", Color(1.0, 1.0, 1.0, 1.0), tween_duration)
+			$KingConvert.enable()
+			capture_building()
+			$StockPile.capture_building()
 
 func _on_level_day_passed():
 	if captured:
 		spawn_troop()
+		$WeaponRack._on_level_day_passed()
+
+
+
+func _on_king_convert_activated():
+	$WeaponRack.enable()
