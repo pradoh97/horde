@@ -20,6 +20,7 @@ var armed_minions: Array[Minion] = []
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	leader = (get_child(0) as Minion)
+	leader.set_physics_process(true)
 	minion_dropped_collectible(leader)
 	camera = $Camera2D
 	for minion in get_children():
@@ -62,6 +63,7 @@ func disband_minions():
 		minion.set_collision_mask_value(3, true)
 
 func recruit_minion(minion: Minion):
+	minion.set_physics_process(true)
 	minions.append(minion)
 	minion.army = self
 	if override_minions_properties:
@@ -87,6 +89,12 @@ func kill_minion(minion: Minion):
 
 func minion_picked_collectible(minion: Minion):
 	free_minions.erase(minion)
+
+func minion_working(minion: Minion):
+	free_minions.erase(minion)
+
+func minion_stopped_working(minion: Minion):
+	free_minions.append(minion)
 
 func minion_armed(minion: Minion):
 	armed_minions.append(minion)
