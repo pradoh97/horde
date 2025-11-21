@@ -1,18 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://ca3qgsc7fa08u"]
+[gd_scene load_steps=4 format=3 uid="uid://ca3qgsc7fa08u"]
 
 [ext_resource type="Script" uid="uid://rqhvsm51ihcc" path="res://resources/generators/king_convert.gd" id="1_k4cm6"]
 [ext_resource type="Texture2D" uid="uid://tnan5c0opfkr" path="res://assets/crown.png" id="2_8wrg4"]
-[ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="3_r5ruc"]
-[ext_resource type="Texture2D" uid="uid://cvxgjdnf4ic5e" path="res://assets/Worm.png" id="4_2rmo2"]
-[ext_resource type="Texture2D" uid="uid://dteeqtomkve4" path="res://assets/Wood.png" id="5_45t5m"]
-[ext_resource type="Texture2D" uid="uid://bb8n2voct7ge7" path="res://assets/Stone.png" id="6_7jms8"]
+[ext_resource type="PackedScene" uid="uid://cfu1phpk1aprv" path="res://resources/fare.tscn" id="3_i1ngk"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_aicyk"]
-size = Vector2(190, 172)
-
-[node name="KingConvert" type="Area2D"]
-collision_layer = 256
-collision_mask = 4
+[node name="KingConvert" type="Node2D"]
 script = ExtResource("1_k4cm6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -20,70 +12,10 @@ position = Vector2(-2, 0)
 scale = Vector2(0.7734375, 0.7734375)
 texture = ExtResource("2_8wrg4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_aicyk")
+[node name="Fare" parent="." instance=ExtResource("3_i1ngk")]
+required_food = 5
+required_wood = 10
+required_stone = 10
+one_time_pay = true
 
-[node name="Resources" type="HBoxContainer" parent="."]
-offset_left = -308.0
-offset_top = -239.0
-offset_right = 310.0
-offset_bottom = -64.0
-alignment = 1
-
-[node name="MinionIcon" type="TextureRect" parent="Resources"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("3_r5ruc")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="MinionCount" type="Label" parent="Resources"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "0  "
-horizontal_alignment = 1
-
-[node name="FoodIcon" type="TextureRect" parent="Resources"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("4_2rmo2")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="FoodCount" type="Label" parent="Resources"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "0  "
-horizontal_alignment = 1
-
-[node name="WoodIcon" type="TextureRect" parent="Resources"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("5_45t5m")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="WoodCount" type="Label" parent="Resources"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "0  "
-horizontal_alignment = 1
-
-[node name="StoneIcon" type="TextureRect" parent="Resources"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("6_7jms8")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="StoneCount" type="Label" parent="Resources"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "0  "
-horizontal_alignment = 1
-
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="payed" from="Fare" to="." method="_on_fare_payed"]
