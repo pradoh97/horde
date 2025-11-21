@@ -11,7 +11,8 @@ var collectibles_available: int = 0
 func _ready():
 	if not enabled:
 		modulate = Color.TRANSPARENT
-	update_count_label()
+	else:
+		update_count_label()
 
 func enable():
 	enabled = true
@@ -21,10 +22,20 @@ func update_count_label():
 	$Label.text = str(collectibles_available)
 
 func _on_body_entered(minion: Minion):
-	if minion.army and collectibles_available > 0:
-		if minion.pick_up_collectible(collectible_generated):
+	if minion.army and collectibles_available > 0 and enabled and minion.army.free_minions.size():
+		var collector: Minion = minion
+		if minion.resource_held:
+			collector = minion.army.free_minions.pick_random()
+		if not collector.working:
+			collector.work()
 			collectibles_available -= 1
-			update_count_label()
+			if not collector.work_done.is_connected(pick_up_collectible):
+				collector.work_done.connect(pick_up_collectible.bind(collector))
+
+func pick_up_collectible(minion: Minion):
+	minion.pick_up_collectible(collectible_generated)
+	update_count_label()
+	minion.work_done.disconnect(pick_up_collectible)
 
 func _on_level_day_passed():
 	if collectibles_available < max_collectibles and enabled:
