@@ -43,7 +43,6 @@ max_speed_left_behind = 2500
 
 [node name="Camera2D" type="Camera2D" parent="Army"]
 position = Vector2(0, -83)
-zoom = Vector2(0.5, 0.5)
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 drag_left_margin = 0.5
@@ -53,22 +52,22 @@ drag_bottom_margin = 0.5
 script = ExtResource("4_km5ld")
 
 [node name="WildMinions" type="Node2D" parent="."]
-position = Vector2(3117, 376)
+position = Vector2(769, -1070)
 
 [node name="Minion" parent="WildMinions" instance=ExtResource("3_oi3di")]
-position = Vector2(-516, -104)
+position = Vector2(-839, -326)
 
 [node name="Minion2" parent="WildMinions" instance=ExtResource("3_oi3di")]
-position = Vector2(-560, -526)
+position = Vector2(-782, -513)
 
 [node name="Minion3" parent="WildMinions" instance=ExtResource("3_oi3di")]
-position = Vector2(-863, -385)
+position = Vector2(-1004, -486)
 
 [node name="Minion4" parent="WildMinions" instance=ExtResource("3_oi3di")]
-position = Vector2(-1196, 22)
+position = Vector2(-1088, -355)
 
 [node name="Minion5" parent="WildMinions" instance=ExtResource("3_oi3di")]
-position = Vector2(-1492, -1525)
+position = Vector2(-940, -650)
 
 [node name="ResourceGenerators" type="Node2D" parent="."]
 position = Vector2(-2320, -651)
