@@ -21,5 +21,5 @@ func capture_building():
 	tween.tween_property(%Polygon2D2, "color", outer_color_converted, tween_duration)
 	tween.tween_property(self, "modulate", Color(1.0, 1.0, 1.0, 1.0), tween_duration)
 
-func _on_body_entered(minion: Minion):
+func _on_body_entered(_minion: Minion):
 	pass
