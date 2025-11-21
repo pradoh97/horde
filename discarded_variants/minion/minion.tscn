@@ -1,10 +1,49 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgvikxdjgj0it"]
+[gd_scene load_steps=7 format=3 uid="uid://dgvikxdjgj0it"]
 
 [ext_resource type="Script" uid="uid://dsem1o33bm4gp" path="res://discarded_variants/minion/minion.gd" id="1_20mgi"]
 [ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="2_777tc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vonw3"]
 size = Vector2(124, 124)
+
+[sub_resource type="Animation" id="Animation_kq32j"]
+resource_name = "working"
+length = 4.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.90000004, 1.2, 1.8000001, 2, 2.3, 2.4, 3, 3.3),
+"transitions": PackedFloat32Array(0.5547847, 1.5691684, 0.5547847, 1.5691684, 0.5547847, 0.5547847, 3.8637462, 1, 1, 6.2766733, 0.5547847),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(39, 0), Vector2(0, 0), Vector2(39, 0), Vector2(0, 0), Vector2(0, 0), Vector2(39, 0), Vector2(0, 0), Vector2(0, 0), Vector2(39, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0fku1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mf6bm"]
+_data = {
+&"RESET": SubResource("Animation_0fku1"),
+&"working": SubResource("Animation_kq32j")
+}
 
 [node name="Minion" type="CharacterBody2D"]
 collision_layer = 4
@@ -18,3 +57,8 @@ shape = SubResource("RectangleShape2D_vonw3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_777tc")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_mf6bm")
+}
