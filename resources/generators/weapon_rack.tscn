@@ -16,7 +16,10 @@ collision_mask = 4
 script = ExtResource("1_c3c41")
 max_collectibles = 1
 generation_factor = 0.0
+collectibles_always_available = true
+work_required = false
 collectible_generated = ExtResource("2_c3c41")
+enabled = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_1ainy")
@@ -202,38 +205,11 @@ width = 4.0
 default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
 
 [node name="Fare" parent="." instance=ExtResource("3_noosq")]
-position = Vector2(-206, -80)
+position = Vector2(-206, -333)
 required_wood = 1
 required_stone = 1
-use_parent_collision = true
-
-[node name="Icon" type="Node2D" parent="."]
-position = Vector2(341, -217)
-scale = Vector2(0.6, 0.6)
-
-[node name="Sprite2D4" type="Sprite2D" parent="Icon"]
-texture = ExtResource("3_c3c41")
-region_rect = Rect2(0, 0, 90, 96)
-
-[node name="Sprite2D5" type="Sprite2D" parent="Icon"]
-position = Vector2(-33.157883, -28.421036)
-rotation = -0.52359885
-scale = Vector2(0.94736826, 0.9473683)
-texture = ExtResource("4_noosq")
-
-[node name="Sprite2D6" type="Sprite2D" parent="Icon"]
-position = Vector2(14.2105255, 53.052628)
-rotation = 0.78539824
-scale = Vector2(0.9473683, 0.9473683)
-texture = ExtResource("5_bmkvk")
-
-[node name="Label" type="Label" parent="."]
-offset_left = -72.0
-offset_top = -318.0
-offset_right = 417.0
-offset_bottom = -143.0
-theme_override_font_sizes/font_size = 128
-text = "=> 1"
-horizontal_alignment = 1
+exchanged_resource = ExtResource("3_c3c41")
+exchange_amount = 1
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="payed" from="Fare" to="." method="_on_fare_payed"]
