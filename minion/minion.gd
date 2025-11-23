@@ -17,6 +17,8 @@ var left_behind: bool = false
 var interrupt_work: bool = false
 var is_leading: bool = false
 var leader: Minion = null
+var can_move := false
+var is_busy := false
 var following_orders: bool = false
 var reached_destination: bool = false
 var army: Army = null
@@ -27,6 +29,8 @@ var resource_held: CollectibleResource = null
 var weapon_held: Weapon = null
 var working: bool = false
 var work_zone_position: Vector2 = Vector2.ZERO
+var target_enemy = null
+var battling := false
 
 func _ready():
 	set_physics_process(false)
@@ -34,16 +38,18 @@ func _ready():
 static func new_minion() -> Minion:
 	return minion_scene.instantiate()
 
-
 func _physics_process(_delta):
 	left_behind = not is_leading and global_position.distance_to(leader.global_position) >= distance_treshold
 	interrupt_work = (not is_leading and global_position.distance_to(leader.global_position) >= distance_treshold * work_distance_treshold_factor) or (is_leading and working and global_position.distance_to(work_zone_position) >= distance_treshold * work_distance_treshold_factor)
+
+	is_busy = (working or battling) and not is_leading
+	can_move = not is_busy and (left_behind or following_orders and not reached_destination)
 
 	if interrupt_work:
 		stop_work()
 
 	# Set the direction and velocity
-	if not (working and not is_leading) and (following_orders and not reached_destination or left_behind):
+	if can_move:
 		var leader_direction: Vector2
 		if not is_leading:
 			leader_direction = (leader.global_position - global_position).normalized()
@@ -63,6 +69,17 @@ func _physics_process(_delta):
 			velocity = velocity.normalized() * max_speed
 
 	move_and_slide()
+	set_debug()
+
+func set_debug():
+	%State/Properties1/Battling.text = "Battling: " + str(battling)
+	%State/Properties1/Working.text = "Working: " + str(working)
+	%State/Properties1/HoldingItem.text = "Holding item: " + str(resource_held != null)
+	%State/Properties1/Armed.text = "Weapon held: " + str(weapon_held != null)
+	%State/Properties2/CanMove.text = "Can move: " + str(can_move)
+	%State/Properties2/IsBusy.text = "Is busy: " + str(is_busy)
+	%State/Properties2/LeftBehind.text = "Left behind: " + str(left_behind)
+	%State/Properties2/FollowingOrders.text = "Following orders: " + str(following_orders)
 
 func be_commanded():
 	if not following_orders:
@@ -75,6 +92,10 @@ func be_disbanded():
 		$AnimationPlayer.play("disbanded")
 	following_orders = false
 	reached_destination = false
+
+func become_leader():
+	$Sprite2D.self_modulate = Color("#f68a9e")
+	is_leading = true
 
 func work():
 	working = true
@@ -130,7 +151,12 @@ func enable_collision():
 
 func convert_to_king():
 	army.get_level().update_king_count(+1)
-	$Crown.visible = true
+	%Crown.visible = true
+
+func engage_fight(enemy):
+	if not target_enemy:
+		target_enemy = enemy
+		battling = true
 
 func _on_infect_area_area_entered(area):
 	#Minion in the army hits an unregistered minion. To join the hitting minion has to be in an army and the minion being hit does not.
@@ -146,7 +172,6 @@ func _on_infect_area_area_entered(area):
 				minion.leader = leader
 			minion.enable_collision()
 			army.recruit_minion(minion)
-
 
 func _on_activity_animations_animation_finished(_anim_name):
 	stop_work()

@@ -173,6 +173,22 @@ metadata/_edit_group_ = true
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_war54")
 
+[node name="Resource" type="Sprite2D" parent="Sprite2D"]
+unique_name_in_owner = true
+position = Vector2(-142, 0)
+scale = Vector2(0.1, 0.1)
+
+[node name="Crown" type="Sprite2D" parent="Sprite2D"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(-1.9999999, -36)
+scale = Vector2(0.46875, 0.453125)
+texture = ExtResource("3_q51ak")
+
+[node name="Weapon" type="Sprite2D" parent="Sprite2D"]
+unique_name_in_owner = true
+position = Vector2(142, 0)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_vonw3")
 
@@ -195,21 +211,6 @@ collision_mask = 512
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DestinationArea"]
 shape = SubResource("RectangleShape2D_cpaw6")
 
-[node name="Resource" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(-142, 0)
-scale = Vector2(0.1, 0.1)
-
-[node name="Crown" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-1.9999999, -36)
-scale = Vector2(0.46875, 0.453125)
-texture = ExtResource("3_q51ak")
-
-[node name="Weapon" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(142, 0)
-
 [node name="ActivityAnimations" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_mf6bm")
@@ -217,6 +218,7 @@ libraries = {
 
 [node name="ActivityProgress" type="ProgressBar" parent="."]
 visible = false
+z_index = 20
 clip_contents = true
 offset_left = -56.0
 offset_top = -129.0
@@ -225,6 +227,54 @@ offset_bottom = -102.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_q51ak")
 step = 1.0
 show_percentage = false
+
+[node name="State" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -406.0
+offset_right = 100.0
+offset_bottom = -130.0
+grow_horizontal = 2
+theme_override_constants/separation = 32
+
+[node name="Properties1" type="VBoxContainer" parent="State"]
+layout_mode = 2
+
+[node name="Battling" type="Label" parent="State/Properties1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="Working" type="Label" parent="State/Properties1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="HoldingItem" type="Label" parent="State/Properties1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="Armed" type="Label" parent="State/Properties1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="Properties2" type="VBoxContainer" parent="State"]
+layout_mode = 2
+
+[node name="CanMove" type="Label" parent="State/Properties2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="IsBusy" type="Label" parent="State/Properties2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="LeftBehind" type="Label" parent="State/Properties2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="FollowingOrders" type="Label" parent="State/Properties2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
 
 [connection signal="area_entered" from="InfectArea" to="." method="_on_infect_area_area_entered"]
 [connection signal="animation_finished" from="ActivityAnimations" to="." method="_on_activity_animations_animation_finished"]
