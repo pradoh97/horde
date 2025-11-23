@@ -1,3 +1,4 @@
+@tool
 class_name Fare extends Node2D
 
 signal payed(minion: Minion)
@@ -20,12 +21,10 @@ var stone_in: int = 0
 var minions_in: int = 0
 
 func _ready():
-	%Food/Count.text = str(required_food)
-	%Wood/Count.text = str(required_wood)
-	%Stone/Count.text = str(required_stone)
-	%Minion/Count.text = str(required_minions)
 	%ExchangedResource/Count.text = "  " + str(exchange_amount)
 	%ExchangedResource/TextureRect.texture = exchanged_resource
+
+	update_resources_count()
 	if required_food == 0:
 		%Food.visible = false
 	if required_wood == 0:
@@ -37,26 +36,79 @@ func _ready():
 	if exchange_amount == 0:
 		%ExchangedResource.visible = false
 
+func update_resources_count():
+	%Food/Count.text = str(required_food - food_in)
+	%Wood/Count.text = str(required_wood - wood_in)
+	%Stone/Count.text = str(required_stone - stone_in)
+	%Minion/Count.text = str(required_minions - minions_in)
+
 func disable():
 	enabled = false
 
 func enable():
 	enabled = true
 
-func is_payment_valid(minion: Minion) -> bool:
-	var level: Level = minion.army.get_level()
-	var food_stock = level.get_food_stock()
-	var wood_stock = level.get_wood_stock()
-	var stone_stock = level.get_stone_stock()
-	var horde_size = level.get_horde_size()
-	var meets_required_goods = food_stock >= required_food and wood_stock >= required_wood and stone_stock >= required_stone and horde_size > required_minions
+func is_payment_valid(minion: Minion = null) -> bool:
+	var food_stock
+	var wood_stock
+	var stone_stock
+	var horde_size
+	if minion:
+		var level: Level = minion.army.get_level()
+		food_stock = level.get_food_stock()
+		wood_stock = level.get_wood_stock()
+		stone_stock = level.get_stone_stock()
+		horde_size = level.get_horde_size()
+	else:
+		food_stock = food_in
+		wood_stock = wood_in
+		stone_stock = stone_in
+		horde_size = minions_in
+	var meets_required_goods = food_stock >= required_food and wood_stock >= required_wood and stone_stock >= required_stone and ((minion and horde_size > required_minions) or horde_size == required_minions)
 
 	return meets_required_goods
 
 func charge_payment(minion: Minion):
-	if enabled:
-		var level: Level = minion.army.get_level()
-		level.update_food_stock(-required_food)
-		level.update_wood_stock(-required_wood)
-		level.update_stone_stock(-required_stone)
+	if not enabled:
+		return
+	var level: Level = minion.army.get_level()
+	var payed_food_amount := 0
+	var payed_wood_amount := 0
+	var payed_stone_amount := 0
+	var payed_minions_amount := 0
+
+	if allow_partial_payment:
+		if minion.resource_held:
+			if minion.resource_held.type == "Food":
+				payed_food_amount = 1
+			if minion.resource_held.type == "Wood":
+				payed_wood_amount = 1
+			if minion.resource_held.type == "Stone":
+				payed_stone_amount = 1
+		if required_minions - minions_in > 0 and not minion.is_leading:
+			payed_minions_amount = 1
+	else:
+		payed_food_amount = required_food
+		payed_wood_amount = required_wood
+		payed_stone_amount = required_stone
+		payed_minions_amount = required_minions
+
+	minions_in += payed_minions_amount
+	food_in += payed_food_amount
+	wood_in += payed_wood_amount
+	stone_in += payed_stone_amount
+
+	level.update_food_stock(-payed_food_amount)
+	level.update_wood_stock(-payed_wood_amount)
+	level.update_stone_stock(-payed_stone_amount)
+
+	if payed_minions_amount:
+		if allow_partial_payment and not minion.is_leading:
+			minion.kill()
+		else:
+			minion.army.kill_randomly(payed_minions_amount)
+	if one_time_pay:
+		update_resources_count()
+
+	if is_payment_valid():
 		payed.emit(minion)
