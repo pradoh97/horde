@@ -42,3 +42,4 @@ mouse_scroll_up={
 2d_physics/layer_5="minion_target_area"
 2d_physics/layer_9="resource_interaction_area"
 2d_physics/layer_10="mouse_area"
+2d_physics/layer_20="enemy"
