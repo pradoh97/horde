@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cfu1phpk1aprv"]
+[gd_scene load_steps=6 format=3 uid="uid://cfu1phpk1aprv"]
 
 [ext_resource type="Script" uid="uid://ckf3rnw286huo" path="res://resources/fare.gd" id="1_rcysw"]
 [ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="2_gd0k2"]
@@ -6,91 +6,105 @@
 [ext_resource type="Texture2D" uid="uid://dteeqtomkve4" path="res://assets/Wood.png" id="4_vna4q"]
 [ext_resource type="Texture2D" uid="uid://bb8n2voct7ge7" path="res://assets/Stone.png" id="5_wiue6"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yl18d"]
-size = Vector2(98, 90)
-
-[node name="Fare" type="Area2D"]
-collision_layer = 256
-collision_mask = 4
+[node name="Fare" type="Node2D"]
 script = ExtResource("1_rcysw")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_yl18d")
-
 [node name="Resources" type="HBoxContainer" parent="."]
-unique_name_in_owner = true
-offset_left = -503.0
-offset_top = -239.0
-offset_right = 509.0
-offset_bottom = -64.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -518.5
+offset_right = 518.5
+offset_bottom = 169.0
+grow_horizontal = 2
+theme_override_constants/separation = 64
 alignment = 1
 
-[node name="Minion" type="HBoxContainer" parent="Resources"]
+[node name="RequiredResources" type="HBoxContainer" parent="Resources"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Icon" type="TextureRect" parent="Resources/Minion"]
+[node name="Minion" type="HBoxContainer" parent="Resources/RequiredResources"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="Resources/RequiredResources/Minion"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("2_gd0k2")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Count" type="Label" parent="Resources/Minion"]
+[node name="Count" type="Label" parent="Resources/RequiredResources/Minion"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "0  "
 horizontal_alignment = 1
 
-[node name="Food" type="HBoxContainer" parent="Resources"]
+[node name="Food" type="HBoxContainer" parent="Resources/RequiredResources"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Icon" type="TextureRect" parent="Resources/Food"]
+[node name="Icon" type="TextureRect" parent="Resources/RequiredResources/Food"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("3_tcvl5")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Count" type="Label" parent="Resources/Food"]
+[node name="Count" type="Label" parent="Resources/RequiredResources/Food"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "0  "
 horizontal_alignment = 1
 
-[node name="Wood" type="HBoxContainer" parent="Resources"]
+[node name="Wood" type="HBoxContainer" parent="Resources/RequiredResources"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Icon" type="TextureRect" parent="Resources/Wood"]
+[node name="Icon" type="TextureRect" parent="Resources/RequiredResources/Wood"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("4_vna4q")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Count" type="Label" parent="Resources/Wood"]
+[node name="Count" type="Label" parent="Resources/RequiredResources/Wood"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "0  "
 horizontal_alignment = 1
 
-[node name="Stone" type="HBoxContainer" parent="Resources"]
+[node name="Stone" type="HBoxContainer" parent="Resources/RequiredResources"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Icon" type="TextureRect" parent="Resources/Stone"]
+[node name="Icon" type="TextureRect" parent="Resources/RequiredResources/Stone"]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("5_wiue6")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Count" type="Label" parent="Resources/Stone"]
+[node name="Count" type="Label" parent="Resources/RequiredResources/Stone"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "0  "
 horizontal_alignment = 1
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="ExchangedResource" type="HBoxContainer" parent="Resources"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="Resources/ExchangedResource"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "=====> "
+
+[node name="TextureRect" type="TextureRect" parent="Resources/ExchangedResource"]
+layout_mode = 2
+
+[node name="Count" type="Label" parent="Resources/ExchangedResource"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "  0"

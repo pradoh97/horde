@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://bx2ov2sv7h0q0"]
 
 [ext_resource type="Script" uid="uid://c25l2c3djphnx" path="res://resources/buildings/city.gd" id="1_vgvu4"]
-[ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="2_w14l4"]
 [ext_resource type="PackedScene" uid="uid://dgo07mr2aq1ys" path="res://resources/buildings/stock_pile.tscn" id="3_cofpr"]
 [ext_resource type="PackedScene" uid="uid://ca3qgsc7fa08u" path="res://resources/generators/king_convert.tscn" id="4_8prh0"]
 [ext_resource type="PackedScene" uid="uid://jlp2kdp37ndb" path="res://resources/generators/weapon_rack.tscn" id="5_04ykx"]
+[ext_resource type="PackedScene" uid="uid://cfu1phpk1aprv" path="res://resources/fare.tscn" id="5_i25wv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0b4ue"]
 size = Vector2(507, 365)
@@ -30,28 +30,6 @@ polygon = PackedVector2Array(-0.10925293, -29.025726, -0.10925293, -194.65273, 1
 unique_name_in_owner = true
 polygon = PackedVector2Array(1, -30, 1, -190, 133, -190, 133, -283, 185, -283, 185, -333, 246, -333, 246, -283, 300, -283, 300, -191, 446, -191, 446, -30)
 
-[node name="Resources" type="HBoxContainer" parent="."]
-unique_name_in_owner = true
-offset_left = 95.0
-offset_top = -557.0
-offset_right = 327.0
-offset_bottom = -382.0
-alignment = 1
-
-[node name="MinionIcon" type="TextureRect" parent="Resources"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("2_w14l4")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="MinionCount" type="Label" parent="Resources"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 128
-text = "0  "
-horizontal_alignment = 1
-
 [node name="StockPile" parent="." instance=ExtResource("3_cofpr")]
 position = Vector2(-1260, -384)
 
@@ -60,7 +38,11 @@ position = Vector2(233, -887)
 
 [node name="WeaponRack" parent="." instance=ExtResource("5_04ykx")]
 position = Vector2(1235, -1159)
-enabled = false
+
+[node name="Fare" parent="." instance=ExtResource("5_i25wv")]
+position = Vector2(215, -561)
+required_minions = 5
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="activated" from="KingConvert" to="." method="_on_king_convert_activated"]
+[connection signal="payed" from="Fare" to="." method="_on_fare_payed"]
