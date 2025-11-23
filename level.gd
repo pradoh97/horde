@@ -4,9 +4,9 @@ signal day_passed
 @export var day_duration: int = 3
 var horde_size: int = 0
 var horde_strength: int = 0
-var wood_stock: int = 0
-var food_stock: int = 0
-var stone_stock: int = 0
+var wood_stock: int = 30
+var food_stock: int = 30
+var stone_stock: int = 30
 var king_count: int = 0
 
 func _ready():
@@ -17,6 +17,9 @@ func _ready():
 	$Army.level = self
 	update_horde_size()
 	update_horde_strength()
+	update_food_stock()
+	update_wood_stock()
+	update_stone_stock()
 
 
 func update_food_stock(update_by: int = 0):
