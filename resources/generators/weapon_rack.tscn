@@ -205,7 +205,7 @@ width = 4.0
 default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
 
 [node name="Fare" parent="." instance=ExtResource("3_noosq")]
-position = Vector2(-206, -333)
+position = Vector2(7, -333)
 required_wood = 1
 required_stone = 1
 exchanged_resource = ExtResource("3_c3c41")
