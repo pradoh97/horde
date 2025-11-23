@@ -39,10 +39,12 @@ position = Vector2(233, -887)
 [node name="WeaponRack" parent="." instance=ExtResource("5_04ykx")]
 position = Vector2(1235, -1159)
 
-[node name="Fare" parent="." instance=ExtResource("5_i25wv")]
+[node name="CaptureFare" parent="." instance=ExtResource("5_i25wv")]
 position = Vector2(215, -561)
+one_time_pay = true
+allow_partial_payment = true
 required_minions = 5
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="activated" from="KingConvert" to="." method="_on_king_convert_activated"]
-[connection signal="payed" from="Fare" to="." method="_on_fare_payed"]
+[connection signal="payed" from="CaptureFare" to="." method="_on_capture_fare_payed"]

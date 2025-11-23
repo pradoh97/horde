@@ -13,24 +13,24 @@ func spawn_troop():
 	new_minion.velocity = Vector2(randf_range(-max_spawn_speed, max_spawn_speed), randf_range(-max_spawn_speed, max_spawn_speed))
 
 func _on_body_entered(minion: Minion):
-	if not captured and minion.army and not minion.is_leading and $Fare.is_payment_valid(minion):
-		$Fare.charge_payment(minion)
+	if not captured and minion.army and ($CaptureFare.is_payment_valid(minion) or $CaptureFare.allow_partial_payment):
+		$CaptureFare.charge_payment(minion)
 
 func _on_level_day_passed():
 	if captured:
 		spawn_troop()
 		$WeaponRack._on_level_day_passed()
 
-
-
 func _on_king_convert_activated():
 	$WeaponRack.enable()
 
 
-func _on_fare_payed(_minion):
+func _on_capture_fare_payed(_minion):
 	var tween = create_tween()
 	tween.set_parallel()
 	tween.tween_property($KingConvert, "modulate", Color(1.0, 1.0, 1.0, 1.0), tween_duration)
+	tween.tween_property($CaptureFare, "modulate", Color.TRANSPARENT, tween_duration)
+	tween.finished.connect($CaptureFare.queue_free)
 	$KingConvert.enable()
 	capture_building()
 	$StockPile.capture_building()
