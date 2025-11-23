@@ -87,6 +87,11 @@ func kill_minion(minion: Minion):
 	get_level().update_horde_strength()
 	minion_picked_collectible(minion)
 
+func kill_randomly(amount_to_kill: int):
+	for minion_count in range(0, amount_to_kill):
+		minions.filter(func(minion): return not minion.is_leading)[0].kill()
+
+
 func minion_picked_collectible(minion: Minion):
 	free_minions.erase(minion)
 
