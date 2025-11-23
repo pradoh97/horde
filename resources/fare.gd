@@ -15,6 +15,7 @@ signal payed(minion: Minion)
 @export var exchanged_resource: Texture2D = null
 @export var exchange_amount: int = 0
 
+
 var food_in: int = 0
 var wood_in: int = 0
 var stone_in: int = 0
@@ -79,11 +80,11 @@ func charge_payment(minion: Minion):
 
 	if allow_partial_payment:
 		if minion.resource_held:
-			if minion.resource_held.type == "Food":
+			if minion.resource_held.type == "Food" and food_in < required_food:
 				payed_food_amount = 1
-			if minion.resource_held.type == "Wood":
+			if minion.resource_held.type == "Wood" and wood_in < required_wood:
 				payed_wood_amount = 1
-			if minion.resource_held.type == "Stone":
+			if minion.resource_held.type == "Stone" and stone_in < required_stone:
 				payed_stone_amount = 1
 		if required_minions - minions_in > 0 and not minion.is_leading:
 			payed_minions_amount = 1
