@@ -110,7 +110,7 @@ func minion_dropped_collectible(minion: Minion):
 func assign_leader():
 	camera.reparent(leader)
 	camera.global_position = leader.global_position
-	leader.is_leading = true
+	leader.become_leader()
 
 	for minion in minions:
 		if not minion.is_leading:
