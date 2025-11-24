@@ -12,7 +12,7 @@ signal attacked(damage)
 @export var distance_treshold: float = 700.0
 @export var work_distance_treshold_factor: float = 3.0
 @export var attack := 5
-@export var health := 100
+@export var health := 10
 const minion_scene: PackedScene = preload("res://minion/minion.tscn")
 
 var recruit_cost: int = 0
