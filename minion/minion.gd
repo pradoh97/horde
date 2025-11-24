@@ -38,6 +38,8 @@ var battling := false
 
 func _ready():
 	set_physics_process(false)
+	%Health.value = health
+	%Health.max_value = health
 
 static func new_minion() -> Minion:
 	return minion_scene.instantiate()
@@ -116,8 +118,8 @@ func work():
 
 func stop_work():
 	$ActivityAnimations.stop()
-	$ActivityProgress.value = 0
-	$ActivityProgress.visible = false
+	%ActivityProgress.value = 0
+	%ActivityProgress.modulate = Color.TRANSPARENT
 	working = false
 	army.minion_stopped_working(self)
 	if not is_leading:
@@ -182,6 +184,13 @@ func disengage_fight():
 
 func receive_damage(damage):
 	health -= damage
+	var health_tween = create_tween()
+	var health_tween_duration: float = 1.0
+
+	health_tween.tween_property(%Health, "value", health, health_tween_duration)
+	if $HealthAnimation.is_playing():
+		$HealthAnimation.stop()
+	$HealthAnimation.play("hurt")
 	if health <= 0:
 		kill()
 
