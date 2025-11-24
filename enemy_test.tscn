@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cydmr5pkv4ije"]
+[gd_scene load_steps=8 format=3 uid="uid://cydmr5pkv4ije"]
 
 [ext_resource type="Script" uid="uid://c3jmebpaao3f3" path="res://enemy_test.gd" id="1_tegdf"]
 [ext_resource type="Texture2D" uid="uid://bed6t8ps6taem" path="res://assets/Weapons/Shield_1/Shield_1_400%.png" id="1_tekfo"]
@@ -6,7 +6,47 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tegdf"]
 size = Vector2(146, 144)
 
-[node name="enemy_test" type="Area2D"]
+[sub_resource type="Animation" id="Animation_tegdf"]
+resource_name = "attacking"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(0.27739242, 1),
+"update": 0,
+"values": [0.0, 6.283185307179586]
+}
+
+[sub_resource type="Animation" id="Animation_c6iok"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5det1"]
+_data = {
+&"RESET": SubResource("Animation_c6iok"),
+&"attacking": SubResource("Animation_tegdf")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c6iok"]
+size = Vector2(820, 820)
+
+[node name="EnemyTest" type="Area2D"]
 collision_layer = 524288
 collision_mask = 4
 script = ExtResource("1_tegdf")
@@ -17,4 +57,21 @@ shape = SubResource("RectangleShape2D_tegdf")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_tekfo")
 
+[node name="AttackCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5det1")
+}
+
+[node name="BattleArea" type="Area2D" parent="."]
+collision_layer = 524288
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BattleArea"]
+shape = SubResource("RectangleShape2D_c6iok")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="body_exited" from="BattleArea" to="." method="_on_battle_area_body_exited"]
