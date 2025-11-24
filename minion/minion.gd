@@ -38,6 +38,8 @@ var battling := false
 
 func _ready():
 	set_physics_process(false)
+	if not army:
+		%Health.modulate = Color.TRANSPARENT
 	%Health.value = health
 	%Health.max_value = health
 
@@ -105,8 +107,12 @@ func be_disbanded():
 	reached_destination = false
 
 func become_leader():
+	show_health_bar()
 	$Sprite2D.self_modulate = Color("#f68a9e")
 	is_leading = true
+
+func show_health_bar():
+	%Health.modulate = Color.WHITE
 
 func work():
 	working = true

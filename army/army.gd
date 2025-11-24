@@ -64,6 +64,7 @@ func disband_minions():
 
 func recruit_minion(minion: Minion):
 	minion.set_physics_process(true)
+	minion.show_health_bar()
 	minions.append(minion)
 	minion.army = self
 	if override_minions_properties:
