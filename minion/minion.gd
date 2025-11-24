@@ -222,7 +222,7 @@ func _on_activity_animations_animation_finished(_anim_name):
 		stop_work()
 		work_done.emit()
 	else:
-		var damage: int = randi_range(ceil(attack*0.4), attack)
+		var damage: float = randi_range(ceil(attack*0.4), attack)
 		if weapon_held:
 			damage *= randf_range(ceil(attack*1.2), 1.5)
 		%State/Properties3/LastAttack.text = "Last damage dealt: " + str(damage)
