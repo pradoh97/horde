@@ -82,6 +82,8 @@ func kill_minion(minion: Minion):
 		var old_leader = minions.find(minion)
 		leader = minions[old_leader + 1]
 		assign_leader()
+	if minion.weapon_held:
+		armed_minions.erase(minion)
 	minions.erase(minion)
 	get_level().update_horde_size()
 	get_level().update_horde_strength()
