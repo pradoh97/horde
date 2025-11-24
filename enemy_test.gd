@@ -2,12 +2,25 @@ class_name Enemy extends Area2D
 
 @export var attack: int = 5
 @export var health: int = 10
+@export var miss_chances: int = 4
+@export var hit_chances: int = 1
+var attack_chance := []
 var target_enemy: Minion = null
 @warning_ignore("unused_signal")
 
 signal died(enemy)
 signal requested_new_enemy(enemy)
 signal attacked
+
+func _ready():
+	var chances := []
+	chances.resize(miss_chances)
+	chances.fill(0)
+	attack_chance.append_array(chances)
+	chances.resize(hit_chances)
+	chances.fill(1)
+	attack_chance.append_array(chances)
+	attack_chance.shuffle()
 
 func receive_damage(damage: int = 0):
 	health -= damage
@@ -17,13 +30,14 @@ func receive_damage(damage: int = 0):
 func die():
 	attack = 0
 	died.emit(self)
+	disengage_fight()
 	$CollisionShape2D.set_deferred("disabled", true)
 	var tween = create_tween()
 	tween.tween_property(self, "modulate", Color.TRANSPARENT, 1)
 	tween.finished.connect(queue_free)
 
 func perform_attack():
-	var success = [0, 0, 0, 1].pick_random()
+	var success = attack_chance.pick_random()
 	if success:
 		attacked.emit(randi_range(ceil(attack*0.4), attack))
 

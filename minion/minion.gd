@@ -165,7 +165,7 @@ func convert_to_king():
 func engage_fight(enemy: Enemy):
 	battling = true
 
-	if not target_enemy and weapon_held:
+	if not target_enemy:
 		target_enemy = enemy
 		if not target_enemy.died.is_connected(_on_enemy_died):
 			target_enemy.died.connect(_on_enemy_died)
@@ -214,6 +214,8 @@ func _on_activity_animations_animation_finished(_anim_name):
 		work_done.emit()
 	else:
 		var damage: int = randi_range(ceil(attack*0.4), attack)
+		if weapon_held:
+			damage *= randf_range(ceil(attack*1.2), 1.5)
 		%State/Properties3/LastAttack.text = "Last damage dealt: " + str(damage)
 		attacked.emit(damage)
 		if target_enemy:
