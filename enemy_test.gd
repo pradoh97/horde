@@ -22,7 +22,7 @@ func _ready():
 	attack_chance.append_array(chances)
 	attack_chance.shuffle()
 
-func receive_damage(damage: int = 0):
+func receive_damage(damage = 0):
 	health -= damage
 	if health <= 0:
 		die()
@@ -53,8 +53,12 @@ func engage_fight(minion: Minion):
 func disengage_fight():
 	$AnimationPlayer.stop()
 	$AttackCooldown.stop()
-	requested_new_enemy.disconnect(target_enemy._on_enemy_requested_new_enemy)
-	target_enemy.targeted_by.erase(self)
+	if target_enemy:
+		if attacked.is_connected(target_enemy.receive_damage):
+			attacked.disconnect(target_enemy.receive_damage)
+		if requested_new_enemy.is_connected(target_enemy._on_enemy_requested_new_enemy):
+			requested_new_enemy.disconnect(target_enemy._on_enemy_requested_new_enemy)
+		target_enemy.targeted_by = target_enemy.targeted_by.filter(func(enemy):return enemy != self)
 	target_enemy = null
 
 func _on_body_entered(minion: Minion):
@@ -69,7 +73,24 @@ func _on_attack_cooldown_timeout():
 
 func _on_battle_area_body_exited(body):
 	if body == target_enemy:
-		if target_enemy.targeted_by.find(self) >= 0:
+		if target_enemy.targeted_by.find(self) >= 0 and target_enemy.health > 0:
 			target_enemy.disengage_fight()
+		disengage_fight()
+		requested_new_enemy.emit(self)
+
+
+func _on_area_entered(area):
+	if area.get_parent() is Minion:
+		var minion: Minion = area.get_parent()
+		minion.engage_fight(self)
+		engage_fight(minion)
+
+
+func _on_battle_area_area_exited(area):
+	if area.get_parent() is Minion:
+		var body = area.get_parent()
+		if body == target_enemy:
+			if target_enemy.targeted_by.find(self) >= 0 and target_enemy.health > 0:
+				target_enemy.disengage_fight()
 			disengage_fight()
 			requested_new_enemy.emit(self)
