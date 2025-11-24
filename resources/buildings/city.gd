@@ -34,3 +34,8 @@ func _on_capture_fare_payed(_minion):
 	$KingConvert.enable()
 	capture_building()
 	$StockPile.capture_building()
+
+
+func _on_area_entered(area):
+	if area.get_parent() and area.get_parent() is Minion:
+		_on_body_entered(area.get_parent())

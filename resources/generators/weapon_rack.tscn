@@ -12,7 +12,7 @@ size = Vector2(244, 244)
 
 [node name="WeaponRack" type="Area2D"]
 collision_layer = 256
-collision_mask = 4
+collision_mask = 20
 script = ExtResource("1_c3c41")
 max_collectibles = 1
 generation_factor = 0.0
@@ -211,5 +211,6 @@ required_stone = 1
 exchanged_resource = ExtResource("3_c3c41")
 exchange_amount = 1
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="payed" from="Fare" to="." method="_on_fare_payed"]

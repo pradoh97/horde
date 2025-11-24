@@ -47,3 +47,8 @@ func _on_level_day_passed():
 	if collectibles_available < max_collectibles and enabled:
 		collectibles_available += floor(1*generation_factor)
 		update_count_label()
+
+
+func _on_area_entered(area):
+	if area.get_parent() and area.get_parent() is Minion:
+		_on_body_entered(area.get_parent())

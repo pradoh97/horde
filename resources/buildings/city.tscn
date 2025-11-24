@@ -11,7 +11,7 @@ size = Vector2(507, 365)
 
 [node name="City" type="Area2D"]
 collision_layer = 256
-collision_mask = 4
+collision_mask = 20
 script = ExtResource("1_vgvu4")
 inner_color_converted = Color(0.24705882, 0.43137255, 0.8, 1)
 outer_color_converted = Color(0.88235295, 0.8039216, 0.15686275, 1)
@@ -45,6 +45,7 @@ one_time_pay = true
 allow_partial_payment = true
 required_minions = 5
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="activated" from="KingConvert" to="." method="_on_king_convert_activated"]
 [connection signal="payed" from="CaptureFare" to="." method="_on_capture_fare_payed"]

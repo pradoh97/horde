@@ -21,3 +21,8 @@ func _on_body_entered(minion: Minion):
 
 func _on_fare_payed(minion: Minion):
 	minion.pick_up_collectible(collectible_generated)
+
+
+func _on_area_entered(area):
+	if area.get_parent() and area.get_parent() is Minion:
+		_on_body_entered(area.get_parent())

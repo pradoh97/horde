@@ -13,3 +13,8 @@ func _on_body_entered(minion: Minion):
 func capture_building():
 	$CollisionShape2D.set_deferred("disabled", false)
 	super()
+
+
+func _on_area_entered(area):
+	if area.get_parent() and area.get_parent() is Minion:
+		_on_body_entered(area.get_parent())

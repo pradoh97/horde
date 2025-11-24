@@ -9,6 +9,7 @@ func enable():
 	$Fare.enable()
 
 func _on_fare_payed(minion: Minion):
+	$Fare.disable()
 	if minion.is_leading:
 		minion.convert_to_king()
 	else:
@@ -23,3 +24,8 @@ func _on_fare_payed(minion: Minion):
 func _on_body_entered(minion: Minion):
 	if minion.is_leading and ($Fare as Fare).is_payment_valid(minion):
 		$Fare.charge_payment(minion)
+
+
+func _on_area_entered(area):
+	if area.get_parent() and area.get_parent() is Minion:
+		_on_body_entered(area.get_parent())
