@@ -92,8 +92,34 @@ position = Vector2(1153, -150)
 
 [node name="UI" parent="." instance=ExtResource("10_2orkt")]
 
-[node name="enemy_test" parent="." instance=ExtResource("11_2orkt")]
-position = Vector2(938, -3052)
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="enemy_test" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(1631, -4591)
+
+[node name="enemy_test2" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(1294, -4597)
+
+[node name="enemy_test3" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(-2949, -5179)
+
+[node name="enemy_test4" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(-2881, -4766)
+
+[node name="enemy_test5" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(-821, -5090)
+
+[node name="enemy_test6" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(1449, -4499)
+
+[node name="enemy_test7" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(1381, -4805)
+
+[node name="enemy_test8" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(129, -5332)
+
+[node name="enemy_test9" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(-641, -3971)
 
 [connection signal="day_passed" from="." to="ResourceGenerators/WoodMine" method="_on_level_day_passed"]
 [connection signal="day_passed" from="." to="ResourceGenerators/FoodFarm" method="_on_level_day_passed"]
