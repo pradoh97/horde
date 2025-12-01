@@ -16,6 +16,7 @@ var free_minions: Array[Minion] = []
 var camera: Camera2D = null
 var level: Level = null
 var armed_minions: Array[Minion] = []
+var commanded_with_arrow_keys := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,9 +39,14 @@ func _ready():
 			minion.max_speed_left_behind = max_speed_left_behind
 
 func _physics_process(_delta):
-	if Input.is_action_just_pressed("mouse_click"):
+	var arrows_direction = Input.get_vector("left","right","up","down")
+	if commanded_with_arrow_keys and not arrows_direction:
+		disband_minions()
+	if Input.is_action_just_pressed("mouse_click") or arrows_direction:
+		commanded_with_arrow_keys = arrows_direction != Vector2.ZERO
 		command_minions()
-	if Input.is_action_pressed("mouse_click") and chase:
+	if (Input.is_action_pressed("mouse_click") or arrows_direction) and chase:
+		commanded_with_arrow_keys = arrows_direction != Vector2.ZERO
 		command_minions()
 	if Input.is_action_just_released("mouse_click"):
 		disband_minions()
