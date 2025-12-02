@@ -51,6 +51,7 @@ drag_top_margin = 0.5
 drag_right_margin = 0.5
 drag_bottom_margin = 0.5
 script = ExtResource("4_km5ld")
+initial_zoom_percentage = 1.0
 
 [node name="WildMinions" type="Node2D" parent="."]
 position = Vector2(769, -1070)
@@ -93,6 +94,7 @@ position = Vector2(1153, -150)
 [node name="UI" parent="." instance=ExtResource("10_2orkt")]
 
 [node name="Enemies" type="Node2D" parent="."]
+position = Vector2(1077, -1626)
 
 [node name="enemy_test" parent="Enemies" instance=ExtResource("11_2orkt")]
 position = Vector2(1631, -4591)
@@ -107,7 +109,7 @@ position = Vector2(-2949, -5179)
 position = Vector2(-2881, -4766)
 
 [node name="enemy_test5" parent="Enemies" instance=ExtResource("11_2orkt")]
-position = Vector2(-821, -5090)
+position = Vector2(-1310, -6103)
 
 [node name="enemy_test6" parent="Enemies" instance=ExtResource("11_2orkt")]
 position = Vector2(1449, -4499)
@@ -116,10 +118,10 @@ position = Vector2(1449, -4499)
 position = Vector2(1381, -4805)
 
 [node name="enemy_test8" parent="Enemies" instance=ExtResource("11_2orkt")]
-position = Vector2(129, -5332)
+position = Vector2(-586, -5844)
 
 [node name="enemy_test9" parent="Enemies" instance=ExtResource("11_2orkt")]
-position = Vector2(-641, -3971)
+position = Vector2(-2393, -4400)
 
 [connection signal="day_passed" from="." to="ResourceGenerators/WoodMine" method="_on_level_day_passed"]
 [connection signal="day_passed" from="." to="ResourceGenerators/FoodFarm" method="_on_level_day_passed"]
