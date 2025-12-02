@@ -10,10 +10,9 @@ func _on_body_entered(minion: Minion):
 	if minion.resource_held:
 		minion.drop_resource()
 
-func capture_building():
+func capture_building(army: Army = null):
 	$CollisionShape2D.set_deferred("disabled", false)
-	super()
-
+	super(army)
 
 func _on_area_entered(area):
 	if area.get_parent() and area.get_parent() is Minion:

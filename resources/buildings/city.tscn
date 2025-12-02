@@ -31,13 +31,13 @@ unique_name_in_owner = true
 polygon = PackedVector2Array(1, -30, 1, -190, 133, -190, 133, -283, 185, -283, 185, -333, 246, -333, 246, -283, 300, -283, 300, -191, 446, -191, 446, -30)
 
 [node name="StockPile" parent="." instance=ExtResource("3_cofpr")]
-position = Vector2(-1260, -384)
+position = Vector2(-1560, -926)
 
 [node name="KingConvert" parent="." instance=ExtResource("4_8prh0")]
-position = Vector2(233, -887)
+position = Vector2(233, -1398)
 
 [node name="WeaponRack" parent="." instance=ExtResource("5_04ykx")]
-position = Vector2(1235, -1159)
+position = Vector2(1684, -1159)
 
 [node name="CaptureFare" parent="." instance=ExtResource("5_i25wv")]
 position = Vector2(215, -561)

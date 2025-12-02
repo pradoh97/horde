@@ -25,15 +25,15 @@ func _on_king_convert_activated():
 	$WeaponRack.enable()
 
 
-func _on_capture_fare_payed(_minion):
+func _on_capture_fare_payed(minion):
 	var tween = create_tween()
 	tween.set_parallel()
 	tween.tween_property($KingConvert, "modulate", Color(1.0, 1.0, 1.0, 1.0), tween_duration)
 	tween.tween_property($CaptureFare, "modulate", Color.TRANSPARENT, tween_duration)
 	tween.finished.connect($CaptureFare.queue_free)
 	$KingConvert.enable()
-	capture_building()
-	$StockPile.capture_building()
+	capture_building(minion.army)
+	$StockPile.capture_building(minion.army)
 
 
 func _on_area_entered(area):
