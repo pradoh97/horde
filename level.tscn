@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://qm3e3y4bogel"]
+[gd_scene load_steps=12 format=3 uid="uid://qm3e3y4bogel"]
 
 [ext_resource type="Script" uid="uid://buhwamjhhmanh" path="res://level.gd" id="1_0b4ue"]
 [ext_resource type="PackedScene" uid="uid://dmrc341gv6ohb" path="res://army/army.tscn" id="1_vonw3"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://5vjdi3lh2uj8" path="res://resources/generators/wood_mine.tscn" id="6_8cye3"]
 [ext_resource type="PackedScene" uid="uid://feywkuh1juuv" path="res://resources/generators/food_farm.tscn" id="7_2orkt"]
 [ext_resource type="PackedScene" uid="uid://j26qs1wki8oi" path="res://resources/generators/stone_mine.tscn" id="8_aicyk"]
-[ext_resource type="PackedScene" uid="uid://cv8bjon3iyvf4" path="res://ui.tscn" id="10_2orkt"]
 [ext_resource type="PackedScene" uid="uid://cydmr5pkv4ije" path="res://enemy_test.tscn" id="11_2orkt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u52ul"]
@@ -91,8 +90,6 @@ position = Vector2(1153, -150)
 
 [node name="DayTicker" type="Timer" parent="."]
 
-[node name="UI" parent="." instance=ExtResource("10_2orkt")]
-
 [node name="Enemies" type="Node2D" parent="."]
 position = Vector2(1077, -1626)
 
@@ -116,6 +113,42 @@ position = Vector2(1449, -4499)
 
 [node name="enemy_test7" parent="Enemies" instance=ExtResource("11_2orkt")]
 position = Vector2(1381, -4805)
+
+[node name="enemy_test10" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(1681, -4921)
+
+[node name="enemy_test11" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(-1034, -5783)
+
+[node name="enemy_test12" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(-2563, -4902)
+
+[node name="enemy_test13" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(-2557, -5489)
+
+[node name="enemy_test14" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(-2245, -4951)
+
+[node name="enemy_test15" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(-1321, -5868)
+
+[node name="enemy_test16" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(-753, -3954)
+
+[node name="enemy_test17" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(-833, -6156)
+
+[node name="enemy_test18" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(1204, -5037)
+
+[node name="enemy_test19" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(1565, -4695)
+
+[node name="enemy_test20" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(1088, -4750)
+
+[node name="enemy_test21" parent="Enemies" instance=ExtResource("11_2orkt")]
+position = Vector2(-2630, -5270)
 
 [node name="enemy_test8" parent="Enemies" instance=ExtResource("11_2orkt")]
 position = Vector2(-586, -5844)

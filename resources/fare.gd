@@ -55,11 +55,10 @@ func is_payment_valid(minion: Minion = null) -> bool:
 	var stone_stock
 	var horde_size
 	if minion:
-		var level: Level = minion.army.get_level()
-		food_stock = level.get_food_stock()
-		wood_stock = level.get_wood_stock()
-		stone_stock = level.get_stone_stock()
-		horde_size = level.get_horde_size()
+		food_stock = minion.army.get_food_stock()
+		wood_stock = minion.army.get_wood_stock()
+		stone_stock = minion.army.get_stone_stock()
+		horde_size = minion.army.get_horde_size()
 	else:
 		food_stock = food_in
 		wood_stock = wood_in
@@ -72,7 +71,6 @@ func is_payment_valid(minion: Minion = null) -> bool:
 func charge_payment(minion: Minion):
 	if not enabled:
 		return
-	var level: Level = minion.army.get_level()
 	var payed_food_amount := 0
 	var payed_wood_amount := 0
 	var payed_stone_amount := 0
@@ -99,9 +97,9 @@ func charge_payment(minion: Minion):
 	wood_in += payed_wood_amount
 	stone_in += payed_stone_amount
 
-	level.update_food_stock(-payed_food_amount)
-	level.update_wood_stock(-payed_wood_amount)
-	level.update_stone_stock(-payed_stone_amount)
+	minion.army.update_food_stock(-payed_food_amount)
+	minion.army.update_wood_stock(-payed_wood_amount)
+	minion.army.update_stone_stock(-payed_stone_amount)
 
 	if payed_minions_amount:
 		if allow_partial_payment and not minion.is_leading:

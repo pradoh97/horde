@@ -1,10 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmrc341gv6ohb"]
+[gd_scene load_steps=4 format=3 uid="uid://dmrc341gv6ohb"]
 
 [ext_resource type="Script" uid="uid://c5j3lcr2fbv7p" path="res://army/army.gd" id="1_ucctm"]
 [ext_resource type="PackedScene" uid="uid://dfvp6yysbr662" path="res://minion/minion.tscn" id="2_dpr6x"]
+[ext_resource type="PackedScene" uid="uid://cv8bjon3iyvf4" path="res://ui.tscn" id="3_502ww"]
 
 [node name="Army" type="Node2D"]
 script = ExtResource("1_ucctm")
 
 [node name="Minion" parent="." instance=ExtResource("2_dpr6x")]
 position = Vector2(0, -283)
+
+[node name="UI" parent="." instance=ExtResource("3_502ww")]

@@ -6,6 +6,12 @@ class_name Army extends Node2D
 @export var deceleration_factor: float = 0.025
 @export var full_stop_speed: float = 40
 @export var max_speed_left_behind: = 1000
+var horde_size: int = 0
+var horde_strength: int = 0
+var wood_stock: int = 0
+var food_stock: int = 0
+var stone_stock: int = 0
+var king_count: int = 0
 
 var following_orders: bool = false
 var last_mouse_direction: Vector2 = Vector2.ZERO
@@ -24,6 +30,7 @@ func _ready():
 	leader.set_physics_process(true)
 	minion_dropped_collectible(leader)
 	camera = $Camera2D
+	
 	for minion in get_children():
 		if minion is Minion:
 			minions.append(minion)
@@ -37,6 +44,12 @@ func _ready():
 			minion.deceleration_factor = deceleration_factor
 			minion.full_stop_speed = full_stop_speed
 			minion.max_speed_left_behind = max_speed_left_behind
+	
+	update_horde_size()
+	update_horde_strength()
+	update_food_stock()
+	update_wood_stock()
+	update_stone_stock()
 
 func _physics_process(_delta):
 	var arrows_direction = Input.get_vector("left","right","up","down")
@@ -50,6 +63,55 @@ func _physics_process(_delta):
 		command_minions()
 	if Input.is_action_just_released("mouse_click"):
 		disband_minions()
+
+func update_food_stock(update_by: int = 0):
+	food_stock += update_by
+	$UI.update_food_count_label(food_stock)
+
+func update_wood_stock(update_by: int = 0):
+	wood_stock += update_by
+	$UI.update_wood_count_label(wood_stock)
+
+func update_stone_stock(update_by: int = 0):
+	stone_stock += update_by
+	$UI.update_stone_count_label(stone_stock)
+
+func update_king_count(update_by: int = 0):
+	king_count += update_by
+	$UI.update_king_count_label(king_count)
+
+func update_horde_size():
+	horde_size = minions.size()
+	$UI.update_horde_size_label(horde_size)
+
+func update_horde_strength():
+	horde_strength = armed_minions.size()
+	$UI.update_horde_strength_label(horde_strength)
+
+func get_food_stock() -> int:
+	return food_stock
+
+func get_wood_stock() -> int:
+	return wood_stock
+
+func get_stone_stock() -> int:
+	return stone_stock
+
+func get_horde_size() -> int:
+	return horde_size
+
+func get_horde_strength() -> int:
+	return horde_strength
+
+func update_resource_count(resource: CollectibleResource):
+	if resource.type == "Wood":
+		update_wood_stock(1)
+	if resource.type == "Stone":
+		update_stone_stock(1)
+	if resource.type == "Food":
+		update_food_stock(1)
+	if resource is Weapon:
+		update_horde_strength()
 
 func command_minions():
 	chase = true
@@ -80,8 +142,8 @@ func recruit_minion(minion: Minion):
 		minion.full_stop_speed = full_stop_speed
 		minion.max_speed_left_behind = max_speed_left_behind
 	free_minions.append(minion)
-	get_level().update_horde_size()
-	get_level().update_horde_strength()
+	update_horde_size()
+	update_horde_strength()
 
 
 func kill_minion(minion: Minion):
@@ -92,8 +154,8 @@ func kill_minion(minion: Minion):
 	if minion.weapon_held:
 		armed_minions.erase(minion)
 	minions.erase(minion)
-	get_level().update_horde_size()
-	get_level().update_horde_strength()
+	update_horde_size()
+	update_horde_strength()
 	minion_picked_collectible(minion)
 
 func kill_randomly(amount_to_kill: int):
@@ -134,9 +196,6 @@ func get_free_minion() -> Minion:
 		minion = free_minions[0]
 
 	return minion
-
-func get_level() -> Level:
-	return level
 
 func _on_mouse_area_entered(area):
 	var minion: Minion = area.get_parent()

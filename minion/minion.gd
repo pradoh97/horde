@@ -150,14 +150,14 @@ func pick_up_collectible(collectible: CollectibleResource):
 			weapon_held.pick_random()
 			%Weapon.texture = weapon_held.texture
 			army.minion_armed(self)
-			army.get_level().update_resource_count(collectible)
+			army.update_resource_count(collectible)
 	elif not resource_held:
 		resource_held = collectible
 		%Resource.texture = collectible.texture
 		army.minion_picked_collectible(self)
 
 func drop_resource():
-	army.get_level().update_resource_count(resource_held)
+	army.update_resource_count(resource_held)
 	army.minion_dropped_collectible(self)
 	resource_held = null
 	%Resource.texture = null
@@ -172,7 +172,7 @@ func enable_collision():
 	$CollisionShape2D.set_deferred("disabled", false)
 
 func convert_to_king():
-	army.get_level().update_king_count(+1)
+	army.update_king_count(+1)
 	%Crown.visible = true
 
 func engage_fight(enemy: Enemy):
@@ -217,10 +217,10 @@ func _on_infect_area_area_entered(area):
 	#Minion in the army hits an unregistered minion. To join the hitting minion has to be in an army and the minion being hit does not.
 	var minion: Minion = area.get_parent()
 	if not minion == self and not minion.army and army:
-		var purchase_able = army.get_level().get_food_stock() >= minion.recruit_cost and minion.recruit_cost > 0
+		var purchase_able = army.get_food_stock() >= minion.recruit_cost and minion.recruit_cost > 0
 		if purchase_able or minion.recruit_cost == 0:
 			if purchase_able:
-				army.get_level().update_food_stock(-2)
+				army.update_food_stock(-2)
 			if not leader:
 				minion.leader = self
 			else:
