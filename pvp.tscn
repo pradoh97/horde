@@ -1,0 +1,145 @@
+[gd_scene load_steps=10 format=3 uid="uid://ckfu7he0vgiab"]
+
+[ext_resource type="Script" uid="uid://buhwamjhhmanh" path="res://level.gd" id="1_rhnph"]
+[ext_resource type="PackedScene" uid="uid://dmrc341gv6ohb" path="res://army/army.tscn" id="3_2g6lf"]
+[ext_resource type="Script" uid="uid://frlxd6kknd4j" path="res://camera_2d.gd" id="4_515uu"]
+[ext_resource type="PackedScene" uid="uid://dfvp6yysbr662" path="res://minion/minion.tscn" id="5_ayoke"]
+[ext_resource type="PackedScene" uid="uid://5vjdi3lh2uj8" path="res://resources/generators/wood_mine.tscn" id="6_dbhfh"]
+[ext_resource type="PackedScene" uid="uid://feywkuh1juuv" path="res://resources/generators/food_farm.tscn" id="7_gm6ju"]
+[ext_resource type="PackedScene" uid="uid://j26qs1wki8oi" path="res://resources/generators/stone_mine.tscn" id="8_754py"]
+[ext_resource type="PackedScene" uid="uid://bx2ov2sv7h0q0" path="res://resources/buildings/city.tscn" id="9_brqpx"]
+[ext_resource type="PackedScene" uid="uid://cydmr5pkv4ije" path="res://enemy_test.tscn" id="10_o3uy6"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_rhnph")
+
+[node name="Army" parent="." instance=ExtResource("3_2g6lf")]
+position = Vector2(-113, -2477)
+override_minions_properties = true
+max_speed = 2000.0
+acceleration = 200.0
+deceleration_factor = 0.15
+full_stop_speed = 160.0
+max_speed_left_behind = 2500
+player_number = 1
+
+[node name="Camera2D" type="Camera2D" parent="Army"]
+position = Vector2(0, -83)
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.5
+drag_top_margin = 0.5
+drag_right_margin = 0.5
+drag_bottom_margin = 0.5
+script = ExtResource("4_515uu")
+initial_zoom_percentage = 1.0
+
+[node name="WildMinions" type="Node2D" parent="."]
+position = Vector2(769, -1070)
+
+[node name="WildMinion" parent="WildMinions" instance=ExtResource("5_ayoke")]
+position = Vector2(-839, -326)
+
+[node name="WildMinion2" parent="WildMinions" instance=ExtResource("5_ayoke")]
+position = Vector2(-782, -513)
+
+[node name="WildMinion3" parent="WildMinions" instance=ExtResource("5_ayoke")]
+position = Vector2(-1004, -486)
+
+[node name="WildMinion4" parent="WildMinions" instance=ExtResource("5_ayoke")]
+position = Vector2(-1088, -355)
+
+[node name="WildMinion5" parent="WildMinions" instance=ExtResource("5_ayoke")]
+position = Vector2(-1325, -1488)
+
+[node name="ResourceGenerators" type="Node2D" parent="."]
+position = Vector2(-2320, -651)
+
+[node name="WoodMine" parent="ResourceGenerators" instance=ExtResource("6_dbhfh")]
+position = Vector2(782, 7)
+use_first_free_minion = true
+
+[node name="FoodFarm" parent="ResourceGenerators" instance=ExtResource("7_gm6ju")]
+position = Vector2(951, -1497)
+use_first_free_minion = true
+
+[node name="StoneMine" parent="ResourceGenerators" instance=ExtResource("8_754py")]
+position = Vector2(827, 1515)
+use_first_free_minion = true
+
+[node name="City" parent="." instance=ExtResource("9_brqpx")]
+position = Vector2(1153, -150)
+
+[node name="DayTicker" type="Timer" parent="."]
+
+[node name="Enemies" type="Node2D" parent="."]
+position = Vector2(1077, -1626)
+
+[node name="enemy_test" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(1631, -4591)
+
+[node name="enemy_test2" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(1294, -4597)
+
+[node name="enemy_test3" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(-2949, -5179)
+
+[node name="enemy_test4" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(-2881, -4766)
+
+[node name="enemy_test5" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(-1310, -6103)
+
+[node name="enemy_test6" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(1449, -4499)
+
+[node name="enemy_test7" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(1381, -4805)
+
+[node name="enemy_test10" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(1681, -4921)
+
+[node name="enemy_test11" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(-1034, -5783)
+
+[node name="enemy_test12" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(-2563, -4902)
+
+[node name="enemy_test13" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(-2557, -5489)
+
+[node name="enemy_test14" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(-2245, -4951)
+
+[node name="enemy_test15" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(-1321, -5868)
+
+[node name="enemy_test16" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(-753, -3954)
+
+[node name="enemy_test17" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(-833, -6156)
+
+[node name="enemy_test18" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(1204, -5037)
+
+[node name="enemy_test19" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(1565, -4695)
+
+[node name="enemy_test20" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(1088, -4750)
+
+[node name="enemy_test21" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(-2630, -5270)
+
+[node name="enemy_test8" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(-586, -5844)
+
+[node name="enemy_test9" parent="Enemies" instance=ExtResource("10_o3uy6")]
+position = Vector2(-2393, -4400)
+
+[connection signal="day_passed" from="." to="ResourceGenerators/WoodMine" method="_on_level_day_passed"]
+[connection signal="day_passed" from="." to="ResourceGenerators/FoodFarm" method="_on_level_day_passed"]
+[connection signal="day_passed" from="." to="ResourceGenerators/StoneMine" method="_on_level_day_passed"]
+[connection signal="day_passed" from="." to="City" method="_on_level_day_passed"]
+[connection signal="timeout" from="DayTicker" to="." method="_on_day_ticker_timeout"]
