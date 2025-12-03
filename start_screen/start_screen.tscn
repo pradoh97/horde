@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://csiutgc4ly6df"]
+
+[ext_resource type="Script" uid="uid://buc2s06yc2kj1" path="res://start_screen/start_screen.gd" id="1_rs4r3"]
+[ext_resource type="PackedScene" uid="uid://qm3e3y4bogel" path="res://single_player.tscn" id="2_og173"]
+[ext_resource type="PackedScene" uid="uid://ckfu7he0vgiab" path="res://pvp.tscn" id="3_2bupo"]
+
+[node name="StartScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rs4r3")
+single_player_scene = ExtResource("2_og173")
+pvp_scene = ExtResource("3_2bupo")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="SinglePlayer" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Single player"
+
+[node name="PlayerVSPlayer" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Player vs player"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/SinglePlayer" to="." method="_on_single_player_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/PlayerVSPlayer" to="." method="_on_player_vs_player_pressed"]
