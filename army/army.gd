@@ -6,6 +6,7 @@ class_name Army extends Node2D
 @export var deceleration_factor: float = 0.025
 @export var full_stop_speed: float = 40
 @export var max_speed_left_behind: = 1000
+@export var player_number := 0
 var horde_size: int = 0
 var horde_strength: int = 0
 var wood_stock: int = 0
@@ -20,7 +21,6 @@ var leader: Minion = null
 var minions: Array[Minion] = []
 var free_minions: Array[Minion] = []
 var camera: Camera2D = null
-var level: Level = null
 var armed_minions: Array[Minion] = []
 var commanded_with_arrow_keys := false
 
@@ -52,16 +52,24 @@ func _ready():
 	update_stone_stock()
 
 func _physics_process(_delta):
-	var arrows_direction = Input.get_vector("left","right","up","down")
+	var arrows_direction
+	
+	if player_number == 0:
+		arrows_direction = Input.get_vector("left", "right", "up", "down")
+		if not Input.get_vector("left_p2", "right_p2", "up_p2", "down_p2") == Vector2.ZERO:
+			arrows_direction = Input.get_vector("left_p2", "right_p2", "up_p2", "down_p2")
+		if not Input.get_vector("left_p1", "right_p1", "up_p1", "down_p1") == Vector2.ZERO:
+			arrows_direction = Input.get_vector("left_p1", "right_p1", "up_p1", "down_p1")
+	else:
+		arrows_direction = Input.get_vector("left_p" + str(player_number),"right_p" + str(player_number),"up_p" + str(player_number),"down_p" + str(player_number))
 	if commanded_with_arrow_keys and not arrows_direction:
 		disband_minions()
-	if Input.is_action_just_pressed("mouse_click") or arrows_direction:
+	
+	var player_giving_orders = player_number == 0 and Input.is_action_just_pressed("mouse_click") or arrows_direction
+	if player_giving_orders:
 		commanded_with_arrow_keys = arrows_direction != Vector2.ZERO
 		command_minions()
-	if (Input.is_action_pressed("mouse_click") or arrows_direction) and chase:
-		commanded_with_arrow_keys = arrows_direction != Vector2.ZERO
-		command_minions()
-	if Input.is_action_just_released("mouse_click"):
+	if player_number == 0 and Input.is_action_just_released("mouse_click"):
 		disband_minions()
 
 func update_food_stock(update_by: int = 0):

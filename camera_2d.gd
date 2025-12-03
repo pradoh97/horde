@@ -16,13 +16,17 @@ func _ready():
 	zoom = max_zoom*initial_zoom_percentage
 
 func _input(event):
-	if event.is_action_pressed("mouse_scroll_down"):
+	var player_number: int = get_parent().army.player_number
+	
+	var valid_zoom_out_input = (player_number == 0 and (event.is_action_pressed("mouse_scroll_down") or event.is_action_pressed("zoom_out_p1") or event.is_action_pressed("zoom_out_p2"))) or (not player_number == 0 and event.is_action_pressed("zoom_out_p" + str(player_number)))
+	var valid_zoom_in_input = (player_number == 0 and (event.is_action_pressed("mouse_scroll_up") or event.is_action_pressed("zoom_in_p1") or event.is_action_pressed("zoom_in_p2"))) or (not player_number == 0 and event.is_action_pressed("zoom_in_p" + str(player_number)))
+	if valid_zoom_out_input:
 		zoom_step = clamp(zoom_step - 1, min_steps, max_steps)
 		if zoom_step > min_steps:
 			zoom_tween = create_tween()
 			zoom_tween.tween_property(self, "zoom", zoom_step_factor * zoom_step, tween_duration)
 
-	if event.is_action_pressed("mouse_scroll_up"):
+	if valid_zoom_in_input:
 		zoom_step = clamp(zoom_step + 1, min_steps, max_steps)
 		if zoom_step <= max_steps:
 			zoom_tween = create_tween()
