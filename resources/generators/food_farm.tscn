@@ -9,7 +9,7 @@ size = Vector2(244, 244)
 
 [node name="FoodFarm" type="Area2D"]
 collision_layer = 256
-collision_mask = 4
+collision_mask = 20
 script = ExtResource("1_0hywr")
 collectible_generated = ExtResource("2_5nvex")
 
@@ -39,4 +39,5 @@ offset_bottom = -96.0
 theme_override_font_sizes/font_size = 128
 horizontal_alignment = 1
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

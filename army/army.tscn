@@ -7,5 +7,6 @@
 script = ExtResource("1_ucctm")
 
 [node name="Minion" parent="." instance=ExtResource("2_dpr6x")]
-modulate = Color(0.9649556, 0.5406639, 0.6186059, 1)
-position = Vector2(0, -283)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Minion"]
+unique_name_in_owner = true

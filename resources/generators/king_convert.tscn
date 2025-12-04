@@ -1,10 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://ca3qgsc7fa08u"]
+[gd_scene load_steps=5 format=3 uid="uid://ca3qgsc7fa08u"]
 
 [ext_resource type="Script" uid="uid://rqhvsm51ihcc" path="res://resources/generators/king_convert.gd" id="1_k4cm6"]
 [ext_resource type="Texture2D" uid="uid://tnan5c0opfkr" path="res://assets/crown.png" id="2_8wrg4"]
 [ext_resource type="PackedScene" uid="uid://cfu1phpk1aprv" path="res://resources/fare.tscn" id="3_i1ngk"]
 
-[node name="KingConvert" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i1ngk"]
+size = Vector2(334, 234)
+
+[node name="KingConvert" type="Area2D"]
+collision_layer = 256
+collision_mask = 20
 script = ExtResource("1_k4cm6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -13,9 +18,16 @@ scale = Vector2(0.7734375, 0.7734375)
 texture = ExtResource("2_8wrg4")
 
 [node name="Fare" parent="." instance=ExtResource("3_i1ngk")]
+position = Vector2(0, -265)
+one_time_pay = true
+enabled = false
 required_food = 5
 required_wood = 10
 required_stone = 10
-one_time_pay = true
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_i1ngk")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="payed" from="Fare" to="." method="_on_fare_payed"]

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddg1hmtul38yu"]
+
+[ext_resource type="Script" uid="uid://frlxd6kknd4j" path="res://player/camera.gd" id="1_e32tf"]
+
+[node name="Camera2D" type="Camera2D"]
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.5
+drag_top_margin = 0.5
+drag_right_margin = 0.5
+drag_bottom_margin = 0.5
+script = ExtResource("1_e32tf")
+initial_zoom_percentage = 1.0

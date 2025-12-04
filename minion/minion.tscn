@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dfvp6yysbr662"]
+[gd_scene load_steps=20 format=3 uid="uid://dfvp6yysbr662"]
 
 [ext_resource type="Script" uid="uid://fl3ky4apq7p7" path="res://minion/minion.gd" id="1_ywcdx"]
 [ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="2_war54"]
@@ -6,6 +6,12 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vonw3"]
 size = Vector2(124, 124)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ywcdx"]
+size = Vector2(360, 360)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpaw6"]
+size = Vector2(168, 154)
 
 [sub_resource type="Animation" id="Animation_0b4ue"]
 length = 0.001
@@ -63,12 +69,6 @@ _data = {
 &"disbanded": SubResource("Animation_oi3di")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ywcdx"]
-size = Vector2(360, 360)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpaw6"]
-size = Vector2(168, 154)
-
 [sub_resource type="Animation" id="Animation_0fku1"]
 length = 0.001
 tracks/0/type = "value"
@@ -98,14 +98,14 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ActivityProgress:visible")
+tracks/2/path = NodePath("ActivityProgress:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_kq32j"]
@@ -139,14 +139,14 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ActivityProgress:visible")
+tracks/2/path = NodePath("ActivityProgress:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
+"times": PackedFloat32Array(0.2, 3.86, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mf6bm"]
@@ -155,13 +155,98 @@ _data = {
 &"working": SubResource("Animation_kq32j")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q51ak"]
-bg_color = Color(0.24705882, 0.43137255, 0.8, 1)
+[sub_resource type="Animation" id="Animation_y477t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Health:theme_override_styles/fill:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.060014643, 0.54671335, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Health:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-55, -128)]
+}
+
+[sub_resource type="Animation" id="Animation_q51ak"]
+resource_name = "hurt"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Health:theme_override_styles/fill:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 4.141059, 1),
+"update": 0,
+"values": [Color(0.060014643, 0.54671335, 0, 1), Color(0.5211406, 0.5211406, 0.5211405, 1), Color(0.060014643, 0.54671335, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Health:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35000002, 0.4, 0.45000002, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-55, -128), Vector2(-54, -125.63), Vector2(-46.74, -130.225), Vector2(-56, -127), Vector2(-55, -128), Vector2(-54, -125), Vector2(-39.94, -130.225), Vector2(-56, -127), Vector2(-55, -128), Vector2(-54, -125), Vector2(-55, -128)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kru6o"]
+_data = {
+&"RESET": SubResource("Animation_y477t"),
+&"hurt": SubResource("Animation_q51ak")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y477t"]
+bg_color = Color(0.8373749, 0, 0.20931473, 1)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 corner_detail = 6
+shadow_color = Color(0, 0, 0, 0)
+anti_aliasing = false
+anti_aliasing_size = 0.01
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q51ak"]
+bg_color = Color(0.060014643, 0.54671335, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+anti_aliasing = false
+anti_aliasing_size = 0.092
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kru6o"]
+bg_color = Color(0.30585772, 0.4351716, 0.733399, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+anti_aliasing = false
+anti_aliasing_size = 0.092
 
 [node name="Minion" type="CharacterBody2D"]
 collision_layer = 4
@@ -173,13 +258,24 @@ metadata/_edit_group_ = true
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_war54")
 
+[node name="Resource" type="Sprite2D" parent="Sprite2D"]
+unique_name_in_owner = true
+position = Vector2(-142, 0)
+scale = Vector2(0.1, 0.1)
+
+[node name="Crown" type="Sprite2D" parent="Sprite2D"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(-1.9999999, -36)
+scale = Vector2(0.46875, 0.453125)
+texture = ExtResource("3_q51ak")
+
+[node name="Weapon" type="Sprite2D" parent="Sprite2D"]
+unique_name_in_owner = true
+position = Vector2(142, 0)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_vonw3")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_f2txt")
-}
 
 [node name="InfectArea" type="Area2D" parent="."]
 collision_layer = 8
@@ -190,41 +286,127 @@ shape = SubResource("RectangleShape2D_ywcdx")
 
 [node name="DestinationArea" type="Area2D" parent="."]
 collision_layer = 16
-collision_mask = 512
+collision_mask = 525056
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DestinationArea"]
 shape = SubResource("RectangleShape2D_cpaw6")
 
-[node name="Resource" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(-142, 0)
-scale = Vector2(0.1, 0.1)
-
-[node name="Crown" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(-1.9999999, -36)
-scale = Vector2(0.46875, 0.453125)
-texture = ExtResource("3_q51ak")
-
-[node name="Weapon" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(142, 0)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_f2txt")
+}
 
 [node name="ActivityAnimations" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_mf6bm")
 }
 
-[node name="ActivityProgress" type="ProgressBar" parent="."]
-visible = false
+[node name="HealthAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_kru6o")
+}
+
+[node name="Health" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+z_index = 20
 clip_contents = true
-offset_left = -56.0
-offset_top = -129.0
-offset_right = 56.0
-offset_bottom = -102.0
+offset_left = -55.0
+offset_top = -128.0
+offset_right = 55.0
+offset_bottom = -111.0
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_y477t")
 theme_override_styles/fill = SubResource("StyleBoxFlat_q51ak")
 step = 1.0
+value = 100.0
 show_percentage = false
+
+[node name="ActivityProgress" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+z_index = 20
+clip_contents = true
+offset_left = -55.0
+offset_top = -107.0
+offset_right = 55.0
+offset_bottom = -89.0
+size_flags_vertical = 3
+theme_override_styles/fill = SubResource("StyleBoxFlat_kru6o")
+step = 1.0
+show_percentage = false
+
+[node name="State" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -406.0
+offset_right = 100.0
+offset_bottom = -130.0
+grow_horizontal = 2
+theme_override_constants/separation = 32
+
+[node name="Properties1" type="VBoxContainer" parent="State"]
+visible = false
+layout_mode = 2
+
+[node name="Battling" type="Label" parent="State/Properties1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="Working" type="Label" parent="State/Properties1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="HoldingItem" type="Label" parent="State/Properties1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="Armed" type="Label" parent="State/Properties1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="Properties2" type="VBoxContainer" parent="State"]
+visible = false
+layout_mode = 2
+
+[node name="CanMove" type="Label" parent="State/Properties2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="IsBusy" type="Label" parent="State/Properties2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="LeftBehind" type="Label" parent="State/Properties2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="FollowingOrders" type="Label" parent="State/Properties2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="Properties3" type="VBoxContainer" parent="State"]
+layout_mode = 2
+
+[node name="Health" type="Label" parent="State/Properties3"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="LastAttack" type="Label" parent="State/Properties3"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Last damage dealt:"
+
+[node name="TargetEnemy" type="Label" parent="State/Properties3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="TargetedBy" type="Label" parent="State/Properties3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
 
 [connection signal="area_entered" from="InfectArea" to="." method="_on_infect_area_area_entered"]
 [connection signal="animation_finished" from="ActivityAnimations" to="." method="_on_activity_animations_animation_finished"]

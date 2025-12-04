@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://fcr0jybfv1cu"]
 
 [ext_resource type="Script" uid="uid://csvocenqac3ml" path="res://resources/buildings/building.gd" id="1_vondu"]
-[ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="2_0srbn"]
+[ext_resource type="PackedScene" uid="uid://cfu1phpk1aprv" path="res://resources/fare.tscn" id="2_vondu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0b4ue"]
 size = Vector2(507, 365)
 
 [node name="Building" type="Area2D"]
 collision_layer = 256
-collision_mask = 4
+collision_mask = 20
 script = ExtResource("1_vondu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -23,25 +23,7 @@ polygon = PackedVector2Array(-0.10925293, -29.025726, -0.10925293, -194.65273, 1
 [node name="Polygon2D" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(1, -30, 1, -190, 133, -190, 133, -283, 185, -283, 185, -333, 246, -333, 246, -283, 300, -283, 300, -191, 446, -191, 446, -30)
 
-[node name="Requirements" type="HBoxContainer" parent="."]
-offset_left = 95.0
-offset_top = -557.0
-offset_right = 327.0
-offset_bottom = -382.0
-alignment = 1
-
-[node name="MinionIcon" type="TextureRect" parent="Requirements"]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("2_0srbn")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="MinionCount" type="Label" parent="Requirements"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_font_sizes/font_size = 128
-text = "0  "
-horizontal_alignment = 1
+[node name="Fare" parent="." instance=ExtResource("2_vondu")]
+one_time_pay = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
