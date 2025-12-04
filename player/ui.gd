@@ -1,5 +1,11 @@
 class_name UI extends CanvasLayer
 
+func set_to_bottom_right():
+	$HBoxContainer.set_anchor_and_offset(SIDE_BOTTOM, 1.0, 0)
+	$HBoxContainer.set_anchor_and_offset(SIDE_RIGHT, 1.0, 1)
+	$HBoxContainer.set_anchor_and_offset(SIDE_TOP, 0.863, 0)
+	$HBoxContainer.set_anchor_and_offset(SIDE_LEFT, 0.84, -593)
+
 func update_food_count_label(new_value: int = 0):
 	%FoodCount.text = str(new_value)
 

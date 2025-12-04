@@ -9,6 +9,7 @@ var zoom_step_factor: Vector2 = Vector2(0.1, 0.1)
 var zoom_step = 0
 var max_steps = 0
 var min_steps = 1
+var army : Army
 
 func _ready():
 	zoom_step = ceili((max_zoom.x-min_zoom.x)/zoom_step_factor.x/2)
@@ -16,8 +17,8 @@ func _ready():
 	zoom = max_zoom*initial_zoom_percentage
 
 func _input(event):
-	var player_number: int = get_parent().army.player_number
-	
+	var player_number: int = army.player_number
+
 	var valid_zoom_out_input = (player_number == 0 and (event.is_action_pressed("mouse_scroll_down") or event.is_action_pressed("zoom_out_p1") or event.is_action_pressed("zoom_out_p2"))) or (not player_number == 0 and event.is_action_pressed("zoom_out_p" + str(player_number)))
 	var valid_zoom_in_input = (player_number == 0 and (event.is_action_pressed("mouse_scroll_up") or event.is_action_pressed("zoom_in_p1") or event.is_action_pressed("zoom_in_p2"))) or (not player_number == 0 and event.is_action_pressed("zoom_in_p" + str(player_number)))
 	if valid_zoom_out_input:
