@@ -64,16 +64,10 @@ func _physics_process(_delta):
 			leader_direction = (leader.global_position - global_position).normalized()
 		else:
 			var player_number = army.player_number
-			
-			var numbered_player_direction 
+
+			var numbered_player_direction
 			if not player_number == 0:
 				numbered_player_direction = Input.get_vector("left_p" + str(player_number), "right_p" + str(player_number), "up_p" + str(player_number), "down_p" + str(player_number))
-			
-			
-			var valid_movement_input = (
-				(player_number == 0 and not Input.get_vector("left","right","up","down") == Vector2.ZERO or Input.get_vector("left_p1", "right_p1", "up_p1" ,"down_p1") or Input.get_vector("left_p2", "right_p2", "up_p2" ,"down_p2") or numbered_player_direction ) or
-				(not player_number == 0 and numbered_player_direction)
-			)
 			var arrows_direction = Input.get_vector("left","right","up","down")
 			if not arrows_direction:
 				arrows_direction = Input.get_vector("left_p2", "right_p2", "up_p2", "down_p2")
@@ -81,7 +75,7 @@ func _physics_process(_delta):
 					arrows_direction = Input.get_vector("left_p1", "right_p1", "up_p1", "down_p1")
 				if not player_number == 0 :
 					arrows_direction  = numbered_player_direction
-				
+
 			if arrows_direction:
 				leader_direction = arrows_direction
 			else:
