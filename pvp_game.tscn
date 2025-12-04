@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://b44ktaers706o" path="res://pvp_game.gd" id="1_kdvxg"]
 [ext_resource type="PackedScene" uid="uid://ckfu7he0vgiab" path="res://pvp.tscn" id="1_naeid"]
-[ext_resource type="Script" uid="uid://frlxd6kknd4j" path="res://player/camera_2d.gd" id="3_7iun5"]
 [ext_resource type="PackedScene" uid="uid://cv8bjon3iyvf4" path="res://player/ui.tscn" id="4_yehle"]
+[ext_resource type="PackedScene" uid="uid://ddg1hmtul38yu" path="res://player/camera.tscn" id="5_g0aon"]
 
 [sub_resource type="Gradient" id="Gradient_yehle"]
 offsets = PackedFloat32Array(0.053333335, 0.52666664, 0.96)
@@ -40,14 +40,13 @@ render_target_update_mode = 4
 [node name="Level" parent="VBoxContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_naeid")]
 position = Vector2(281, 169)
 
-[node name="Player1Camera" type="Camera2D" parent="VBoxContainer/SubViewportContainer/SubViewport"]
-unique_name_in_owner = true
-position = Vector2(579, 150)
-script = ExtResource("3_7iun5")
-initial_zoom_percentage = 0.2
-
 [node name="Player1UI" parent="VBoxContainer/SubViewportContainer/SubViewport" instance=ExtResource("4_yehle")]
 unique_name_in_owner = true
+
+[node name="Player1Camera" parent="VBoxContainer/SubViewportContainer/SubViewport" instance=ExtResource("5_g0aon")]
+unique_name_in_owner = true
+position = Vector2(0, -83)
+initial_zoom_percentage = 0.2
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
 layout_mode = 2
@@ -64,13 +63,12 @@ handle_input_locally = false
 size = Vector2i(512, 648)
 render_target_update_mode = 4
 
-[node name="Player2Camera" type="Camera2D" parent="VBoxContainer/SubViewportContainer2/SubViewport"]
-unique_name_in_owner = true
-position = Vector2(568, 180)
-script = ExtResource("3_7iun5")
-initial_zoom_percentage = 0.2
-
 [node name="Player2UI" parent="VBoxContainer/SubViewportContainer2/SubViewport" instance=ExtResource("4_yehle")]
 unique_name_in_owner = true
+
+[node name="Player2Camera" parent="VBoxContainer/SubViewportContainer2/SubViewport" instance=ExtResource("5_g0aon")]
+unique_name_in_owner = true
+position = Vector2(0, -83)
+initial_zoom_percentage = 0.2
 
 [connection signal="army_ready" from="VBoxContainer/SubViewportContainer/SubViewport/Level" to="." method="_on_level_army_ready"]

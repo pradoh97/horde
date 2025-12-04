@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://buhwamjhhmanh" path="res://level.gd" id="1_yqrgk"]
 [ext_resource type="Script" uid="uid://dwgxsi4vbqent" path="res://player/mouse.gd" id="2_wbw6n"]
 [ext_resource type="PackedScene" uid="uid://dmrc341gv6ohb" path="res://army/army.tscn" id="3_qyajh"]
-[ext_resource type="Script" uid="uid://frlxd6kknd4j" path="res://player/camera_2d.gd" id="4_36k1t"]
+[ext_resource type="PackedScene" uid="uid://ddg1hmtul38yu" path="res://player/camera.tscn" id="4_wbw6n"]
 [ext_resource type="PackedScene" uid="uid://dfvp6yysbr662" path="res://minion/minion.tscn" id="5_05g3g"]
 [ext_resource type="PackedScene" uid="uid://5vjdi3lh2uj8" path="res://resources/generators/wood_mine.tscn" id="6_nodma"]
 [ext_resource type="PackedScene" uid="uid://feywkuh1juuv" path="res://resources/generators/food_farm.tscn" id="7_v8cud"]
@@ -36,16 +36,8 @@ polygon = PackedVector2Array(876, 681, 841, 681, 841, 711, 876, 711)
 [node name="Army" parent="." instance=ExtResource("3_qyajh")]
 position = Vector2(-113, -2477)
 
-[node name="Camera2D" type="Camera2D" parent="Army"]
+[node name="Camera2D" parent="Army" instance=ExtResource("4_wbw6n")]
 position = Vector2(0, -83)
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-drag_left_margin = 0.5
-drag_top_margin = 0.5
-drag_right_margin = 0.5
-drag_bottom_margin = 0.5
-script = ExtResource("4_36k1t")
-initial_zoom_percentage = 1.0
 
 [node name="WildMinions" type="Node2D" parent="."]
 position = Vector2(769, -1070)
