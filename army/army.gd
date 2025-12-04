@@ -1,12 +1,21 @@
 class_name Army extends Node2D
 
-@export var override_minions_properties: bool = false
-@export var max_speed = 600.0
-@export var acceleration: float = 100.0
-@export var deceleration_factor: float = 0.025
-@export var full_stop_speed: float = 40
-@export var max_speed_left_behind: = 1000
+@export var override_minions_properties: bool = true
+@export var max_speed = 2000.0
+@export var acceleration: float = 200.0
+@export var deceleration_factor: float = 0.15
+@export var full_stop_speed: float = 160
+@export var max_speed_left_behind: = 2500
 @export var player_number := 0
+var ui: UI = null :
+	set(new_ui):
+		ui = new_ui
+		update_horde_size()
+		update_horde_strength()
+		update_food_stock()
+		update_wood_stock()
+		update_stone_stock()
+
 var horde_size: int = 0
 var horde_strength: int = 0
 var wood_stock: int = 0
@@ -29,8 +38,10 @@ func _ready():
 	leader = (get_child(0) as Minion)
 	leader.set_physics_process(true)
 	minion_dropped_collectible(leader)
-	camera = $Camera2D
-	
+	if get_node_or_null("Camera2D"):
+		camera = $Camera2D
+		camera.army = self
+
 	for minion in get_children():
 		if minion is Minion:
 			minions.append(minion)
@@ -44,16 +55,10 @@ func _ready():
 			minion.deceleration_factor = deceleration_factor
 			minion.full_stop_speed = full_stop_speed
 			minion.max_speed_left_behind = max_speed_left_behind
-	
-	update_horde_size()
-	update_horde_strength()
-	update_food_stock()
-	update_wood_stock()
-	update_stone_stock()
 
 func _physics_process(_delta):
 	var arrows_direction
-	
+
 	if player_number == 0:
 		arrows_direction = Input.get_vector("left", "right", "up", "down")
 		if not Input.get_vector("left_p2", "right_p2", "up_p2", "down_p2") == Vector2.ZERO:
@@ -64,7 +69,7 @@ func _physics_process(_delta):
 		arrows_direction = Input.get_vector("left_p" + str(player_number),"right_p" + str(player_number),"up_p" + str(player_number),"down_p" + str(player_number))
 	if commanded_with_arrow_keys and not arrows_direction:
 		disband_minions()
-	
+
 	var player_giving_orders = player_number == 0 and Input.is_action_just_pressed("mouse_click") or arrows_direction
 	if player_giving_orders:
 		commanded_with_arrow_keys = arrows_direction != Vector2.ZERO
@@ -74,27 +79,34 @@ func _physics_process(_delta):
 
 func update_food_stock(update_by: int = 0):
 	food_stock += update_by
-	$UI.update_food_count_label(food_stock)
+	ui.update_food_count_label(food_stock)
 
 func update_wood_stock(update_by: int = 0):
 	wood_stock += update_by
-	$UI.update_wood_count_label(wood_stock)
+	ui.update_wood_count_label(wood_stock)
 
 func update_stone_stock(update_by: int = 0):
 	stone_stock += update_by
-	$UI.update_stone_count_label(stone_stock)
+	ui.update_stone_count_label(stone_stock)
 
 func update_king_count(update_by: int = 0):
 	king_count += update_by
-	$UI.update_king_count_label(king_count)
+	ui.update_king_count_label(king_count)
 
 func update_horde_size():
 	horde_size = minions.size()
-	$UI.update_horde_size_label(horde_size)
+	ui.update_horde_size_label(horde_size)
 
 func update_horde_strength():
 	horde_strength = armed_minions.size()
-	$UI.update_horde_strength_label(horde_strength)
+	ui.update_horde_strength_label(horde_strength)
+
+
+func get_ui() -> CanvasLayer:
+	return ui
+
+func get_remote_transform() -> RemoteTransform2D:
+	return %RemoteTransform2D
 
 func get_food_stock() -> int:
 	return food_stock
@@ -187,8 +199,9 @@ func minion_dropped_collectible(minion: Minion):
 	free_minions.append(minion)
 
 func assign_leader():
-	camera.reparent(leader)
-	camera.global_position = leader.global_position
+	if camera:
+		camera.reparent(leader)
+		camera.global_position = leader.global_position
 	leader.become_leader()
 
 	for minion in minions:
