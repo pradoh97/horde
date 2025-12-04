@@ -7,7 +7,7 @@ func _ready():
 	%Polygon2D2.color = outer_color_converted
 
 func _on_body_entered(minion: Minion):
-	if minion.resource_held:
+	if minion.resource_held and minion.army == controlled_by:
 		minion.drop_resource()
 
 func capture_building(army: Army = null):
