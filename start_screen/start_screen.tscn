@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://buc2s06yc2kj1" path="res://start_screen/start_screen.gd" id="1_rs4r3"]
 [ext_resource type="PackedScene" uid="uid://qm3e3y4bogel" path="res://single_player.tscn" id="2_og173"]
-[ext_resource type="PackedScene" uid="uid://ckfu7he0vgiab" path="res://pvp.tscn" id="3_2bupo"]
+[ext_resource type="PackedScene" uid="uid://cs7bvrcuaixoc" path="res://pvp_game.tscn" id="3_og173"]
 
 [node name="StartScreen" type="Control"]
 layout_mode = 3
@@ -13,7 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rs4r3")
 single_player_scene = ExtResource("2_og173")
-pvp_scene = ExtResource("3_2bupo")
+pvp_scene = ExtResource("3_og173")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1

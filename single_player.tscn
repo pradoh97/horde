@@ -1,15 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://qm3e3y4bogel"]
+[gd_scene load_steps=13 format=3 uid="uid://qm3e3y4bogel"]
 
 [ext_resource type="Script" uid="uid://buhwamjhhmanh" path="res://level.gd" id="1_yqrgk"]
-[ext_resource type="Script" uid="uid://dwgxsi4vbqent" path="res://mouse.gd" id="2_wbw6n"]
+[ext_resource type="Script" uid="uid://dwgxsi4vbqent" path="res://player/mouse.gd" id="2_wbw6n"]
 [ext_resource type="PackedScene" uid="uid://dmrc341gv6ohb" path="res://army/army.tscn" id="3_qyajh"]
-[ext_resource type="Script" uid="uid://frlxd6kknd4j" path="res://camera_2d.gd" id="4_36k1t"]
+[ext_resource type="Script" uid="uid://frlxd6kknd4j" path="res://player/camera_2d.gd" id="4_36k1t"]
 [ext_resource type="PackedScene" uid="uid://dfvp6yysbr662" path="res://minion/minion.tscn" id="5_05g3g"]
 [ext_resource type="PackedScene" uid="uid://5vjdi3lh2uj8" path="res://resources/generators/wood_mine.tscn" id="6_nodma"]
 [ext_resource type="PackedScene" uid="uid://feywkuh1juuv" path="res://resources/generators/food_farm.tscn" id="7_v8cud"]
 [ext_resource type="PackedScene" uid="uid://j26qs1wki8oi" path="res://resources/generators/stone_mine.tscn" id="8_q5ejs"]
 [ext_resource type="PackedScene" uid="uid://bx2ov2sv7h0q0" path="res://resources/buildings/city.tscn" id="9_imu0f"]
-[ext_resource type="PackedScene" uid="uid://cydmr5pkv4ije" path="res://enemy_test.tscn" id="10_7l0ak"]
+[ext_resource type="PackedScene" uid="uid://cydmr5pkv4ije" path="res://enemy/enemy_test.tscn" id="10_7l0ak"]
+[ext_resource type="PackedScene" uid="uid://cv8bjon3iyvf4" path="res://player/ui.tscn" id="11_wbw6n"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u52ul"]
 radius = 62.649822
@@ -34,12 +35,6 @@ polygon = PackedVector2Array(876, 681, 841, 681, 841, 711, 876, 711)
 
 [node name="Army" parent="." instance=ExtResource("3_qyajh")]
 position = Vector2(-113, -2477)
-override_minions_properties = true
-max_speed = 2000.0
-acceleration = 200.0
-deceleration_factor = 0.15
-full_stop_speed = 160.0
-max_speed_left_behind = 2500
 
 [node name="Camera2D" type="Camera2D" parent="Army"]
 position = Vector2(0, -83)
@@ -156,8 +151,11 @@ position = Vector2(-586, -5844)
 [node name="enemy_test9" parent="Enemies" instance=ExtResource("10_7l0ak")]
 position = Vector2(-2393, -4400)
 
+[node name="UI" parent="." instance=ExtResource("11_wbw6n")]
+
 [connection signal="day_passed" from="." to="ResourceGenerators/WoodMine" method="_on_level_day_passed"]
 [connection signal="day_passed" from="." to="ResourceGenerators/FoodFarm" method="_on_level_day_passed"]
 [connection signal="day_passed" from="." to="ResourceGenerators/StoneMine" method="_on_level_day_passed"]
 [connection signal="day_passed" from="." to="City" method="_on_level_day_passed"]
+[connection signal="ready" from="Army" to="." method="_on_army_ready" flags=18]
 [connection signal="timeout" from="DayTicker" to="." method="_on_day_ticker_timeout"]

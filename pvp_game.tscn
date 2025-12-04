@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://cs7bvrcuaixoc"]
+
+[ext_resource type="Script" uid="uid://b44ktaers706o" path="res://pvp_game.gd" id="1_kdvxg"]
+[ext_resource type="PackedScene" uid="uid://ckfu7he0vgiab" path="res://pvp.tscn" id="1_naeid"]
+[ext_resource type="Script" uid="uid://frlxd6kknd4j" path="res://player/camera_2d.gd" id="3_7iun5"]
+[ext_resource type="PackedScene" uid="uid://cv8bjon3iyvf4" path="res://player/ui.tscn" id="4_yehle"]
+
+[sub_resource type="Gradient" id="Gradient_yehle"]
+offsets = PackedFloat32Array(0.053333335, 0.52666664, 0.96)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_g0aon"]
+gradient = SubResource("Gradient_yehle")
+width = 128
+
+[node name="PVPGame" type="Node"]
+script = ExtResource("1_kdvxg")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(512, 648)
+render_target_update_mode = 4
+
+[node name="Level" parent="VBoxContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_naeid")]
+position = Vector2(281, 169)
+
+[node name="Player1Camera" type="Camera2D" parent="VBoxContainer/SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+position = Vector2(579, 150)
+script = ExtResource("3_7iun5")
+initial_zoom_percentage = 0.2
+
+[node name="Player1UI" parent="VBoxContainer/SubViewportContainer/SubViewport" instance=ExtResource("4_yehle")]
+unique_name_in_owner = true
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+texture = SubResource("GradientTexture1D_g0aon")
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(512, 648)
+render_target_update_mode = 4
+
+[node name="Player2Camera" type="Camera2D" parent="VBoxContainer/SubViewportContainer2/SubViewport"]
+unique_name_in_owner = true
+position = Vector2(568, 180)
+script = ExtResource("3_7iun5")
+initial_zoom_percentage = 0.2
+
+[node name="Player2UI" parent="VBoxContainer/SubViewportContainer2/SubViewport" instance=ExtResource("4_yehle")]
+unique_name_in_owner = true
+
+[connection signal="army_ready" from="VBoxContainer/SubViewportContainer/SubViewport/Level" to="." method="_on_level_army_ready"]
