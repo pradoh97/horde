@@ -143,7 +143,11 @@ func work():
 	work_zone_position = global_position
 	if not is_leading:
 		$CollisionShape2D.set_deferred("disabled", true)
-	$ActivityAnimations.play("working")
+
+	if battling:
+		$ActivityAnimations.play("working", -1, 2.0)
+	else:
+		$ActivityAnimations.play("working")
 
 func stop_work():
 	$ActivityAnimations.stop()
@@ -238,10 +242,6 @@ func _on_activity_animations_animation_finished(_anim_name):
 		stop_work()
 		work_done.emit()
 	else:
-		var damage: float = randi_range(ceil($Combatant.attack*0.4), $Combatant.attack)
-		if weapon_held:
-			damage *= randf_range(ceil($Combatant.attack*1.2), 1.5)
-		%State/Properties3/LastAttack.text = "Last damage dealt: " + str(damage)
 		combatant_node.perform_attack()
 		if $Combatant.target_combatant:
-			$ActivityAnimations.play("working")
+			$ActivityAnimations.play("working", -1, 2.0)
