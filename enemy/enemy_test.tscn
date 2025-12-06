@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cydmr5pkv4ije"]
+[gd_scene load_steps=9 format=3 uid="uid://cydmr5pkv4ije"]
 
 [ext_resource type="Script" uid="uid://c3jmebpaao3f3" path="res://enemy/enemy_test.gd" id="1_tegdf"]
 [ext_resource type="Texture2D" uid="uid://bed6t8ps6taem" path="res://assets/Weapons/Shield_1/Shield_1_400%.png" id="1_tekfo"]
+[ext_resource type="Script" uid="uid://bbtgdv35jnm86" path="res://combatant.gd" id="3_fwi0t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tegdf"]
 size = Vector2(146, 144)
@@ -71,6 +72,10 @@ collision_mask = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BattleArea"]
 shape = SubResource("RectangleShape2D_c6iok")
+
+[node name="Combatant" type="Node" parent="." node_paths=PackedStringArray("combatant_entity")]
+script = ExtResource("3_fwi0t")
+combatant_entity = NodePath("..")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

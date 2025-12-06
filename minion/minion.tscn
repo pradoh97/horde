@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=3 uid="uid://dfvp6yysbr662"]
+[gd_scene load_steps=21 format=3 uid="uid://dfvp6yysbr662"]
 
 [ext_resource type="Script" uid="uid://fl3ky4apq7p7" path="res://minion/minion.gd" id="1_ywcdx"]
 [ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="2_war54"]
 [ext_resource type="Texture2D" uid="uid://tnan5c0opfkr" path="res://assets/crown.png" id="3_q51ak"]
+[ext_resource type="Script" uid="uid://bbtgdv35jnm86" path="res://combatant.gd" id="4_y477t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vonw3"]
 size = Vector2(124, 124)
@@ -407,6 +408,11 @@ theme_override_font_sizes/font_size = 32
 [node name="TargetedBy" type="Label" parent="State/Properties3"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
+
+[node name="Combatant" type="Node" parent="." node_paths=PackedStringArray("combatant_entity")]
+script = ExtResource("4_y477t")
+combatant_entity = NodePath("..")
+miss_chances = 0
 
 [connection signal="area_entered" from="InfectArea" to="." method="_on_infect_area_area_entered"]
 [connection signal="animation_finished" from="ActivityAnimations" to="." method="_on_activity_animations_animation_finished"]
