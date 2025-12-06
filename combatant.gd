@@ -45,16 +45,12 @@ func disengage_fight(combatant: Combatant):
 	if attacked.is_connected(combatant.receive_damage):
 		attacked.disconnect(combatant.receive_damage)
 
-	if died.is_connected(combatant._on_combatant_died):
-		died.disconnect(combatant._on_combatant_died)
-
 	target_combatant = null
 
 	disengaged_fight.emit(self)
 
 	if disengaged_fight.is_connected(combatant._on_combatant_disengaged_fight):
 		disengaged_fight.disconnect(combatant._on_combatant_disengaged_fight)
-
 
 func disconnect_signals():
 	if target_combatant:
@@ -127,6 +123,3 @@ func _on_area_entered(combatant: Combatant):
 func _on_battle_area_area_exited(combatant: Combatant):
 	if combatant == target_combatant:
 		disengage_fight(combatant)
-
-func _on_combatant_died(_combatant: Combatant):
-	pass
