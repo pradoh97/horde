@@ -146,7 +146,7 @@ func stop_work():
 func get_army_followers_count() -> int:
 	return army.get_followers_count()
 
-func kill():
+func die(_combatant: Combatant = null):
 	army.kill_minion(self)
 	queue_free()
 
