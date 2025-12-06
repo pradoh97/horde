@@ -40,8 +40,6 @@ func _ready():
 	set_physics_process(false)
 	if not army:
 		%Health.modulate = Color.TRANSPARENT
-	%Health.value = $Combatant.health
-	%Health.max_value = $Combatant.health
 
 	if combatant_node:
 		combatant_node.died.connect(die)
@@ -49,6 +47,8 @@ func _ready():
 		combatant_node.combatant_minion = self
 		combatant_node.engaged_fight.connect(engage_fight)
 		combatant_node.received_damage.connect(receive_damage)
+		%Health.value = combatant_node.health
+		%Health.max_value = combatant_node.health
 
 func _physics_process(_delta):
 	left_behind = not is_leading and global_position.distance_to(leader.global_position) >= distance_treshold
@@ -110,9 +110,9 @@ func set_debug():
 	%State/Properties2/IsBusy.text = "Is busy: " + str(is_busy)
 	%State/Properties2/LeftBehind.text = "Left behind: " + str(left_behind)
 	%State/Properties2/FollowingOrders.text = "Following orders: " + str(following_orders)
-	%State/Properties3/Health.text = "Health: " + str($Combatant.health)
-	$State/Properties3/TargetEnemy.text = "Target enemy: " + str($Combatant.target_combatant)
-	$State/Properties3/TargetedBy.text = "Targeted by: " + str($Combatant.targeted_by)
+	%State/Properties3/Health.text = "Health: " + str(combatant_node.health)
+	$State/Properties3/TargetEnemy.text = "Target enemy: " + str(combatant_node.target_combatant)
+	$State/Properties3/TargetedBy.text = "Targeted by: " + str(combatant_node.targeted_by)
 
 func get_army() -> Army:
 	return army
@@ -243,5 +243,5 @@ func _on_activity_animations_animation_finished(_anim_name):
 		work_done.emit()
 	else:
 		combatant_node.perform_attack()
-		if $Combatant.target_combatant:
+		if combatant_node.target_combatant:
 			$ActivityAnimations.play("working", -1, 2.0)
