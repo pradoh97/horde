@@ -423,12 +423,6 @@ visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 
-[node name="LastAttack" type="Label" parent="State/Properties3"]
-visible = false
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Last damage dealt:"
-
 [node name="TargetEnemy" type="Label" parent="State/Properties3"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
