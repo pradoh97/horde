@@ -367,6 +367,7 @@ show_percentage = false
 
 [node name="State" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = -406.0
@@ -376,7 +377,6 @@ grow_horizontal = 2
 theme_override_constants/separation = 32
 
 [node name="Properties1" type="VBoxContainer" parent="State"]
-visible = false
 layout_mode = 2
 
 [node name="Battling" type="Label" parent="State/Properties1"]
