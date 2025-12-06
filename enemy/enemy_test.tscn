@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cydmr5pkv4ije"]
+[gd_scene load_steps=9 format=3 uid="uid://cydmr5pkv4ije"]
 
 [ext_resource type="Script" uid="uid://c3jmebpaao3f3" path="res://enemy/enemy_test.gd" id="1_tegdf"]
 [ext_resource type="Texture2D" uid="uid://bed6t8ps6taem" path="res://assets/Weapons/Shield_1/Shield_1_400%.png" id="1_tekfo"]
+[ext_resource type="Script" uid="uid://bbtgdv35jnm86" path="res://combatant.gd" id="3_fwi0t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tegdf"]
-size = Vector2(146, 144)
+size = Vector2(210, 210)
 
 [sub_resource type="Animation" id="Animation_c6iok"]
 length = 0.001
@@ -46,10 +47,11 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c6iok"]
 size = Vector2(820, 820)
 
-[node name="EnemyTest" type="Area2D"]
+[node name="EnemyTest" type="Area2D" node_paths=PackedStringArray("combatant_node")]
 collision_layer = 524288
-collision_mask = 20
+collision_mask = 4
 script = ExtResource("1_tegdf")
+combatant_node = NodePath("Combatant")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tegdf")
@@ -66,14 +68,23 @@ libraries = {
 }
 
 [node name="BattleArea" type="Area2D" parent="."]
-collision_layer = 524288
-collision_mask = 20
+collision_layer = 64
+collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BattleArea"]
 shape = SubResource("RectangleShape2D_c6iok")
+debug_color = Color(0.64705884, 0.5176471, 0.23137255, 0.41960785)
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="Combatant" type="Area2D" parent="." node_paths=PackedStringArray("battle_area_node")]
+collision_layer = 32
+collision_mask = 32
+script = ExtResource("3_fwi0t")
+battle_area_node = NodePath("../BattleArea")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Combatant"]
+shape = SubResource("RectangleShape2D_tegdf")
+debug_color = Color(0.5294118, 0.03529412, 0.08627451, 0.41960785)
+
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
-[connection signal="area_exited" from="BattleArea" to="." method="_on_battle_area_area_exited"]
-[connection signal="body_exited" from="BattleArea" to="." method="_on_battle_area_body_exited"]
+[connection signal="area_exited" from="BattleArea" to="Combatant" method="_on_battle_area_area_exited"]
+[connection signal="area_entered" from="Combatant" to="Combatant" method="_on_area_entered"]

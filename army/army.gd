@@ -18,9 +18,9 @@ var ui: UI = null :
 
 var horde_size: int = 0
 var horde_strength: int = 0
-var wood_stock: int = 0
-var food_stock: int = 0
-var stone_stock: int = 0
+var wood_stock: int = 20
+var food_stock: int = 20
+var stone_stock: int = 20
 var king_count: int = 0
 
 var following_orders: bool = false
@@ -180,7 +180,7 @@ func kill_minion(minion: Minion):
 
 func kill_randomly(amount_to_kill: int):
 	for minion_count in range(0, amount_to_kill):
-		minions.filter(func(minion): return not minion.is_leading)[0].kill()
+		minions.filter(func(minion): return not minion.is_leading)[0].die()
 
 
 func minion_picked_collectible(minion: Minion):
