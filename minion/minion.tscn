@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dfvp6yysbr662"]
+[gd_scene load_steps=23 format=3 uid="uid://dfvp6yysbr662"]
 
 [ext_resource type="Script" uid="uid://fl3ky4apq7p7" path="res://minion/minion.gd" id="1_ywcdx"]
 [ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="2_war54"]
@@ -7,6 +7,12 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vonw3"]
 size = Vector2(124, 124)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y477t"]
+size = Vector2(288, 310)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kru6o"]
+size = Vector2(820, 820)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ywcdx"]
 size = Vector2(360, 360)
@@ -249,12 +255,17 @@ corner_detail = 6
 anti_aliasing = false
 anti_aliasing_size = 0.092
 
-[node name="Minion" type="CharacterBody2D"]
+[node name="Minion" type="CharacterBody2D" node_paths=PackedStringArray("combatant_node")]
 collision_layer = 4
 collision_mask = 269
 input_pickable = true
 script = ExtResource("1_ywcdx")
+combatant_node = NodePath("Combatant")
 metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vonw3")
+debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_war54")
@@ -275,8 +286,24 @@ texture = ExtResource("3_q51ak")
 unique_name_in_owner = true
 position = Vector2(142, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_vonw3")
+[node name="Combatant" type="Area2D" parent="." node_paths=PackedStringArray("battle_area_node")]
+collision_layer = 32
+collision_mask = 32
+script = ExtResource("4_y477t")
+miss_chances = 0
+battle_area_node = NodePath("../BattleArea")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Combatant"]
+shape = SubResource("RectangleShape2D_y477t")
+debug_color = Color(0.5290658, 0.036357958, 0.08690574, 0.41960785)
+
+[node name="BattleArea" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BattleArea"]
+shape = SubResource("RectangleShape2D_kru6o")
+debug_color = Color(0.6458105, 0.5160507, 0.2304365, 0.41960785)
 
 [node name="InfectArea" type="Area2D" parent="."]
 collision_layer = 8
@@ -284,6 +311,7 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InfectArea"]
 shape = SubResource("RectangleShape2D_ywcdx")
+debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="DestinationArea" type="Area2D" parent="."]
 collision_layer = 16
@@ -291,6 +319,7 @@ collision_mask = 525056
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DestinationArea"]
 shape = SubResource("RectangleShape2D_cpaw6")
+debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -338,7 +367,6 @@ show_percentage = false
 
 [node name="State" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = -406.0
@@ -409,10 +437,7 @@ theme_override_font_sizes/font_size = 32
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 
-[node name="Combatant" type="Node" parent="." node_paths=PackedStringArray("combatant_entity")]
-script = ExtResource("4_y477t")
-combatant_entity = NodePath("..")
-miss_chances = 0
-
+[connection signal="area_entered" from="Combatant" to="Combatant" method="_on_area_entered"]
+[connection signal="area_exited" from="BattleArea" to="Combatant" method="_on_battle_area_area_exited"]
 [connection signal="area_entered" from="InfectArea" to="." method="_on_infect_area_area_entered"]
 [connection signal="animation_finished" from="ActivityAnimations" to="." method="_on_activity_animations_animation_finished"]

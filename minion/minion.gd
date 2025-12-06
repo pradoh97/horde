@@ -2,7 +2,6 @@ extends CharacterBody2D
 class_name Minion
 
 signal work_done
-signal attacked(damage)
 
 @export var max_speed = 600.0
 @export var max_speed_left_behind: float = 800.0
@@ -11,6 +10,8 @@ signal attacked(damage)
 @export var full_stop_speed: float = 40
 @export var distance_treshold: float = 700.0
 @export var work_distance_treshold_factor: float = 3.0
+@export var combatant_node: Combatant = null
+@export var weapon_attack_modifier: float = 2
 const minion_scene: PackedScene = preload("res://minion/minion.tscn")
 
 var recruit_cost: int = 0
@@ -32,6 +33,9 @@ var working: bool = false
 var work_zone_position: Vector2 = Vector2.ZERO
 var battling := false
 
+static func new_minion() -> Minion:
+	return minion_scene.instantiate()
+
 func _ready():
 	set_physics_process(false)
 	if not army:
@@ -39,8 +43,12 @@ func _ready():
 	%Health.value = $Combatant.health
 	%Health.max_value = $Combatant.health
 
-static func new_minion() -> Minion:
-	return minion_scene.instantiate()
+	if combatant_node:
+		combatant_node.died.connect(die)
+		combatant_node.disengaged_fight.connect(disengage_fight)
+		combatant_node.combatant_minion = self
+		combatant_node.engaged_fight.connect(engage_fight)
+		combatant_node.received_damage.connect(receive_damage)
 
 func _physics_process(_delta):
 	left_behind = not is_leading and global_position.distance_to(leader.global_position) >= distance_treshold
@@ -103,8 +111,11 @@ func set_debug():
 	%State/Properties2/LeftBehind.text = "Left behind: " + str(left_behind)
 	%State/Properties2/FollowingOrders.text = "Following orders: " + str(following_orders)
 	%State/Properties3/Health.text = "Health: " + str($Combatant.health)
-	$State/Properties3/TargetEnemy.text = "Target enemy: " + str($Combatant.target_enemy)
+	$State/Properties3/TargetEnemy.text = "Target enemy: " + str($Combatant.target_combatant)
 	$State/Properties3/TargetedBy.text = "Targeted by: " + str($Combatant.targeted_by)
+
+func get_army() -> Army:
+	return army
 
 func be_commanded():
 	if not following_orders:
@@ -155,6 +166,7 @@ func pick_up_collectible(collectible: CollectibleResource):
 		if not weapon_held:
 			weapon_held = collectible as Weapon
 			weapon_held.pick_random()
+			combatant_node.attack_modifier = weapon_attack_modifier
 			%Weapon.texture = weapon_held.texture
 			army.minion_armed(self)
 			army.update_resource_count(collectible)
@@ -183,45 +195,28 @@ func convert_to_king():
 	%Crown.visible = true
 
 func get_combatant_node() -> Combatant:
-	return $Combatant
+	return combatant_node
 
-func engage_fight(combatant: Combatant):
+func engage_fight(_combatant: Combatant):
 	battling = true
+	work()
 
-	if not $Combatant.target_enemy:
-		$Combatant.target_enemy = combatant
-		if not $Combatant.target_enemy.died.is_connected(_on_enemy_died):
-			$Combatant.target_enemy.died.connect(_on_enemy_died)
-		if not $Combatant.target_enemy.requested_new_enemy.is_connected(_on_enemy_requested_new_enemy):
-			$Combatant.target_enemy.requested_new_enemy.connect(_on_enemy_requested_new_enemy)
-		if not attacked.is_connected($Combatant.target_enemy.receive_damage):
-			attacked.connect($Combatant.target_enemy.receive_damage)
-		work()
-
-func disengage_fight():
+func disengage_fight(_combatant: Combatant = null):
 	battling = false
-	$Combatant.target_enemy = null
-	stop_work()
+	if combatant_node.health > 0:
+		stop_work()
 
-func receive_damage(damage):
-	$Combatant.health -= damage
+func receive_damage():
 	var health_tween = create_tween()
 	var health_tween_duration: float = 1.0
 
-	health_tween.tween_property(%Health, "value", $Combatant.health, health_tween_duration)
+	health_tween.tween_property(%Health, "value", combatant_node.health, health_tween_duration)
 	if $HealthAnimation.is_playing():
 		$HealthAnimation.stop()
 	$HealthAnimation.play("hurt")
-	if $Combatant.health <= 0:
-		kill()
 
-func _on_enemy_died(enemy: Enemy):
-	$Combatant.targeted_by.erase(enemy)
-	$Combatant.target_enemy = null
+func _on_enemy_died(_enemy: Enemy):
 	disengage_fight()
-
-func _on_enemy_requested_new_enemy(enemy: Enemy):
-	enemy.engage_fight($Combatant)
 
 func _on_infect_area_area_entered(area):
 	#Minion in the army hits an unregistered minion. To join the hitting minion has to be in an army and the minion being hit does not.
@@ -247,6 +242,6 @@ func _on_activity_animations_animation_finished(_anim_name):
 		if weapon_held:
 			damage *= randf_range(ceil($Combatant.attack*1.2), 1.5)
 		%State/Properties3/LastAttack.text = "Last damage dealt: " + str(damage)
-		attacked.emit(damage)
-		if $Combatant.target_enemy:
+		combatant_node.perform_attack()
+		if $Combatant.target_combatant:
 			$ActivityAnimations.play("working")

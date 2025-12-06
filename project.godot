@@ -15,10 +15,6 @@ run/main_scene="uid://csiutgc4ly6df"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
-[display]
-
-window/size/mode=3
-
 [input]
 
 ui_left={
@@ -164,6 +160,8 @@ right_p2={
 2d_physics/layer_3="minion"
 2d_physics/layer_4="minion_infect_area"
 2d_physics/layer_5="minion_target_area"
+2d_physics/layer_6="combatant_area"
+2d_physics/layer_7="battle_area"
 2d_physics/layer_9="resource_interaction_area"
 2d_physics/layer_10="mouse_area"
 2d_physics/layer_20="enemy"
