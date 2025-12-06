@@ -103,7 +103,7 @@ func charge_payment(minion: Minion):
 
 	if payed_minions_amount:
 		if allow_partial_payment and not minion.is_leading:
-			minion.kill()
+			minion.die()
 		else:
 			minion.army.kill_randomly(payed_minions_amount)
 	if one_time_pay:
