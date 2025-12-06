@@ -79,8 +79,6 @@ debug_color = Color(0.64705884, 0.5176471, 0.23137255, 0.41960785)
 collision_layer = 32
 collision_mask = 32
 script = ExtResource("3_fwi0t")
-health = 100
-miss_chances = 0
 battle_area_node = NodePath("../BattleArea")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Combatant"]
