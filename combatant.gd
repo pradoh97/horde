@@ -67,17 +67,20 @@ func perform_attack():
 func engage_fight(combatant: Combatant):
 	if not target_combatant:
 		target_combatant = combatant
+
 		target_combatant.targeted_by.append(self)
+		if not target_combatant.died.is_connected(_on_combatant_disengaged_fight):
+			target_combatant.died.connect(_on_combatant_disengaged_fight)
 
 		if combatant.combatant_enemy:
 			combatant.engage_fight(self)
 
 		if not attacked.is_connected(combatant.receive_damage):
 			attacked.connect(combatant.receive_damage)
-		if not disengaged_fight.is_connected(combatant._on_combatant_disengaged_fight):
-			disengaged_fight.connect(combatant._on_combatant_disengaged_fight)
+		if not disengaged_fight.is_connected(combatant._on_target_combatant_disengaged_fight):
+			disengaged_fight.connect(combatant._on_target_combatant_disengaged_fight)
 
-	engaged_fight.emit(self)
+		engaged_fight.emit(self)
 
 func find_new_target():
 	if get_overlapping_areas().size():
