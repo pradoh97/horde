@@ -106,7 +106,7 @@ func get_ui() -> CanvasLayer:
 	return ui
 
 func get_remote_transform() -> RemoteTransform2D:
-	return %RemoteTransform2D
+	return leader.get_remote_transform()
 
 func get_food_stock() -> int:
 	return food_stock
@@ -142,7 +142,6 @@ func halt_minions():
 	chase = false
 	for minion in minions:
 		minion.reached_destination = true
-
 
 func disband_minions():
 	chase = false
@@ -199,10 +198,12 @@ func minion_dropped_collectible(minion: Minion):
 	free_minions.append(minion)
 
 func assign_leader():
-	if camera:
-		camera.reparent(leader)
-		camera.global_position = leader.global_position
 	leader.become_leader()
+	if camera:
+		if player_number == 0:
+			camera.reparent(leader)
+		camera.global_position = leader.global_position
+		leader.get_remote_transform().remote_path = camera.get_path()
 
 	for minion in minions:
 		if not minion.is_leading:

@@ -32,6 +32,7 @@ var weapon_held: Weapon = null
 var working: bool = false
 var work_zone_position: Vector2 = Vector2.ZERO
 var battling := false
+var remote_transform_node: RemoteTransform2D = null
 
 static func new_minion() -> Minion:
 	return minion_scene.instantiate()
@@ -130,6 +131,9 @@ func be_disbanded():
 	reached_destination = false
 
 func become_leader():
+	if not remote_transform_node:
+		remote_transform_node = RemoteTransform2D.new()
+	add_child(remote_transform_node)
 	show_health_bar()
 	$Sprite2D.self_modulate = Color("#f68a9e")
 	is_leading = true
@@ -160,6 +164,9 @@ func stop_work():
 
 func get_army_followers_count() -> int:
 	return army.get_followers_count()
+
+func get_remote_transform() -> RemoteTransform2D:
+	return remote_transform_node
 
 func die(_combatant: Combatant = null):
 	army.kill_minion(self)
