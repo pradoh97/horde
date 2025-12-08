@@ -12,6 +12,7 @@ signal work_done
 @export var work_distance_treshold_factor: float = 3.0
 @export var combatant_node: Combatant = null
 @export var weapon_attack_modifier: float = 2
+@export var health_tween_duration: float = 0.25
 const minion_scene: PackedScene = preload("res://minion/minion.tscn")
 
 var recruit_cost: int = 0
@@ -32,7 +33,8 @@ var weapon_held: Weapon = null
 var working: bool = false
 var work_zone_position: Vector2 = Vector2.ZERO
 var battling := false
-
+var remote_transform_node: RemoteTransform2D = null
+var number: int = -1
 static func new_minion() -> Minion:
 	return minion_scene.instantiate()
 
@@ -111,8 +113,25 @@ func set_debug():
 	%State/Properties2/LeftBehind.text = "Left behind: " + str(left_behind)
 	%State/Properties2/FollowingOrders.text = "Following orders: " + str(following_orders)
 	%State/Properties3/Health.text = "Health: " + str(combatant_node.health)
-	$State/Properties3/TargetEnemy.text = "Target enemy: " + str(combatant_node.target_combatant)
-	$State/Properties3/TargetedBy.text = "Targeted by: " + str(combatant_node.targeted_by)
+
+	if combatant_node.target_combatant:
+		if combatant_node.target_combatant.combatant_minion:
+			$State/Properties3/TargetEnemy.text = "Target enemy: " + str(combatant_node.target_combatant.get_parent().number)
+		else:
+			$State/Properties3/TargetEnemy.text = "Target enemy: " + str(combatant_node.target_combatant.combatant_enemy)
+	else:
+		$State/Properties3/TargetEnemy.text = "Targeted by: none"
+
+	if combatant_node.targeted_by.size():
+		$State/Properties3/TargetedBy.text = "Targeted by: "
+		for combatant in combatant_node.targeted_by:
+			if combatant.combatant_minion:
+				$State/Properties3/TargetedBy.text += str(combatant.get_parent().number) + ", "
+			else:
+				$State/Properties3/TargetedBy.text += str(combatant.combatant_enemy) + ", "
+	else:
+		$State/Properties3/TargetedBy.text = "Targeted by: none"
+	%State/Properties3/Number.text = "Minion N°: " + str(number)
 
 func get_army() -> Army:
 	return army
@@ -130,6 +149,9 @@ func be_disbanded():
 	reached_destination = false
 
 func become_leader():
+	if not remote_transform_node:
+		remote_transform_node = RemoteTransform2D.new()
+		add_child(remote_transform_node)
 	show_health_bar()
 	$Sprite2D.self_modulate = Color("#f68a9e")
 	is_leading = true
@@ -160,6 +182,9 @@ func stop_work():
 
 func get_army_followers_count() -> int:
 	return army.get_followers_count()
+
+func get_remote_transform() -> RemoteTransform2D:
+	return remote_transform_node
 
 func die(_combatant: Combatant = null):
 	army.kill_minion(self)
@@ -212,12 +237,11 @@ func disengage_fight(_combatant: Combatant = null):
 
 func receive_damage():
 	var health_tween = create_tween()
-	var health_tween_duration: float = 1.0
-
 	health_tween.tween_property(%Health, "value", combatant_node.health, health_tween_duration)
 	if $HealthAnimation.is_playing():
 		$HealthAnimation.stop()
 	$HealthAnimation.play("hurt")
+
 
 func _on_enemy_died(_enemy: Enemy):
 	disengage_fight()

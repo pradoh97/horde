@@ -7,6 +7,3 @@
 script = ExtResource("1_ucctm")
 
 [node name="Minion" parent="." instance=ExtResource("2_dpr6x")]
-
-[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Minion"]
-unique_name_in_owner = true
