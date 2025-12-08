@@ -38,6 +38,7 @@ position = Vector2(-113, -2477)
 
 [node name="Camera2D" parent="Army" instance=ExtResource("4_wbw6n")]
 position = Vector2(0, -83)
+initial_zoom = Vector2(0.8, 0.8)
 
 [node name="WildMinions" type="Node2D" parent="."]
 position = Vector2(769, -1070)

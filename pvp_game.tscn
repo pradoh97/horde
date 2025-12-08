@@ -46,7 +46,6 @@ unique_name_in_owner = true
 [node name="Player1Camera" parent="VBoxContainer/SubViewportContainer/SubViewport" instance=ExtResource("5_g0aon")]
 unique_name_in_owner = true
 position = Vector2(0, -83)
-initial_zoom_percentage = 0.2
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
 layout_mode = 2
@@ -69,6 +68,5 @@ unique_name_in_owner = true
 [node name="Player2Camera" parent="VBoxContainer/SubViewportContainer2/SubViewport" instance=ExtResource("5_g0aon")]
 unique_name_in_owner = true
 position = Vector2(0, -83)
-initial_zoom_percentage = 0.2
 
 [connection signal="army_ready" from="VBoxContainer/SubViewportContainer/SubViewport/Level" to="." method="_on_level_army_ready"]
