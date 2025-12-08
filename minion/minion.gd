@@ -34,7 +34,7 @@ var working: bool = false
 var work_zone_position: Vector2 = Vector2.ZERO
 var battling := false
 var remote_transform_node: RemoteTransform2D = null
-
+var number: int = -1
 static func new_minion() -> Minion:
 	return minion_scene.instantiate()
 
@@ -113,8 +113,25 @@ func set_debug():
 	%State/Properties2/LeftBehind.text = "Left behind: " + str(left_behind)
 	%State/Properties2/FollowingOrders.text = "Following orders: " + str(following_orders)
 	%State/Properties3/Health.text = "Health: " + str(combatant_node.health)
-	$State/Properties3/TargetEnemy.text = "Target enemy: " + str(combatant_node.target_combatant)
-	$State/Properties3/TargetedBy.text = "Targeted by: " + str(combatant_node.targeted_by)
+
+	if combatant_node.target_combatant:
+		if combatant_node.target_combatant.combatant_minion:
+			$State/Properties3/TargetEnemy.text = "Target enemy: " + str(combatant_node.target_combatant.get_parent().number)
+		else:
+			$State/Properties3/TargetEnemy.text = "Target enemy: " + str(combatant_node.target_combatant.combatant_enemy)
+	else:
+		$State/Properties3/TargetEnemy.text = "Targeted by: none"
+
+	if combatant_node.targeted_by.size():
+		$State/Properties3/TargetedBy.text = "Targeted by: "
+		for combatant in combatant_node.targeted_by:
+			if combatant.combatant_minion:
+				$State/Properties3/TargetedBy.text += str(combatant.get_parent().number) + ", "
+			else:
+				$State/Properties3/TargetedBy.text += str(combatant.combatant_enemy) + ", "
+	else:
+		$State/Properties3/TargetedBy.text = "Targeted by: none"
+	%State/Properties3/Number.text = "Minion N°: " + str(number)
 
 func get_army() -> Army:
 	return army
@@ -134,7 +151,7 @@ func be_disbanded():
 func become_leader():
 	if not remote_transform_node:
 		remote_transform_node = RemoteTransform2D.new()
-	add_child(remote_transform_node)
+		add_child(remote_transform_node)
 	show_health_bar()
 	$Sprite2D.self_modulate = Color("#f68a9e")
 	is_leading = true

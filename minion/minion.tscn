@@ -366,7 +366,6 @@ show_percentage = false
 
 [node name="State" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = -406.0
@@ -383,14 +382,17 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 
 [node name="Working" type="Label" parent="State/Properties1"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 
 [node name="HoldingItem" type="Label" parent="State/Properties1"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 
 [node name="Armed" type="Label" parent="State/Properties1"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 
@@ -427,6 +429,10 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 
 [node name="TargetedBy" type="Label" parent="State/Properties3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+
+[node name="Number" type="Label" parent="State/Properties3"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 
