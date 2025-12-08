@@ -12,6 +12,7 @@ signal work_done
 @export var work_distance_treshold_factor: float = 3.0
 @export var combatant_node: Combatant = null
 @export var weapon_attack_modifier: float = 2
+@export var health_tween_duration: float = 0.25
 const minion_scene: PackedScene = preload("res://minion/minion.tscn")
 
 var recruit_cost: int = 0
@@ -219,12 +220,11 @@ func disengage_fight(_combatant: Combatant = null):
 
 func receive_damage():
 	var health_tween = create_tween()
-	var health_tween_duration: float = 1.0
-
 	health_tween.tween_property(%Health, "value", combatant_node.health, health_tween_duration)
 	if $HealthAnimation.is_playing():
 		$HealthAnimation.stop()
 	$HealthAnimation.play("hurt")
+
 
 func _on_enemy_died(_enemy: Enemy):
 	disengage_fight()
