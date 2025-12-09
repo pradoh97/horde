@@ -55,11 +55,6 @@ func die():
 	attack = 0
 	died.emit(self)
 
-func disable_collisions():
-	$CollisionShape2D.set_deferred("disabled", true)
-	if battle_area_node:
-		battle_area_node.get_node("CollisionShape2D").set_deferred("disabled", true)
-
 func disengage_fight(combatant: Combatant = self, emit_disengage_signal: bool = true):
 	target_combatant = null
 	unregister_targeter(combatant)
@@ -81,7 +76,6 @@ func engage_fight(combatant: Combatant):
 	if target_combatant: return
 
 	target_combatant = combatant
-	target_combatant.engage_fight(self)
 	target_combatant.register_targeter(self)
 
 	if not target_combatant.died.is_connected(_on_target_combatant_died):
@@ -92,6 +86,8 @@ func engage_fight(combatant: Combatant):
 		performed_attack.connect(target_combatant.receive_damage)
 	if not disengaged_fight.is_connected(target_combatant._on_combatant_disengaged_fighting):
 		disengaged_fight.connect(target_combatant._on_combatant_disengaged_fighting)
+	if not engaged_fight.is_connected(target_combatant._on_combatant_engaged_fighting):
+		engaged_fight.connect(target_combatant._on_combatant_engaged_fighting)
 
 	engaged_fight.emit(self)
 
@@ -152,6 +148,11 @@ func _on_battle_area_area_exited(combatant: Combatant):
 	unregister_target_in_area(combatant)
 	disengage_fight(combatant)
 
+func _on_combatant_engaged_fighting(combatant: Combatant):
+	engage_fight(combatant)
+	register_targeter(combatant)
+	register_target_in_area(combatant)
+
 func disconnect_signals(combatant: Combatant):
 	if combatant.died.is_connected(_on_target_combatant_died):
 		combatant.died.disconnect(_on_target_combatant_died)
@@ -161,3 +162,5 @@ func disconnect_signals(combatant: Combatant):
 		performed_attack.disconnect(combatant.receive_damage)
 	if disengaged_fight.is_connected(combatant._on_combatant_disengaged_fighting):
 		disengaged_fight.disconnect(combatant._on_combatant_disengaged_fighting)
+	if engaged_fight.is_connected(combatant._on_combatant_engaged_fighting):
+		engaged_fight.disconnect(combatant._on_combatant_engaged_fighting)

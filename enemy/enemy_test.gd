@@ -12,7 +12,6 @@ func _ready():
 func die(_combatant: Combatant):
 	combatant_node.disengaged_fight.disconnect(disengage_fight)
 	$CollisionShape2D.set_deferred("disabled", true)
-	combatant_node.disable_collisions()
 	var tween = create_tween()
 	tween.tween_property(self, "modulate", Color.TRANSPARENT, 1)
 	tween.finished.connect(queue_free)
