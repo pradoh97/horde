@@ -15,7 +15,6 @@ var target_combatant: Combatant = null
 var targeted_by: Array[Combatant] = []
 var targets_in_area: Array[Combatant] = []
 
-@warning_ignore("unused_signal")
 signal died(combatant: Combatant)
 signal engaged_fight(combatant: Combatant)
 signal disengaged_fight(combatant: Combatant)
