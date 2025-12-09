@@ -10,7 +10,9 @@ func _ready():
 		combatant_node.engaged_fight.connect(engage_fight)
 
 func die(_combatant: Combatant):
+	combatant_node.disengaged_fight.disconnect(disengage_fight)
 	$CollisionShape2D.set_deferred("disabled", true)
+	combatant_node.disable_collisions()
 	var tween = create_tween()
 	tween.tween_property(self, "modulate", Color.TRANSPARENT, 1)
 	tween.finished.connect(queue_free)
@@ -29,10 +31,6 @@ func attack():
 
 func get_combatant_node() -> Combatant:
 	return combatant_node
-
-func _on_body_entered(enemy):
-	enemy.engage_fight(combatant_node)
-	engage_fight(enemy.get_combatant_node())
 
 func _on_attack_cooldown_timeout():
 	combatant_node.perform_attack()
