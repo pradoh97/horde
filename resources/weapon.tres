@@ -15,4 +15,5 @@
 [resource]
 script = ExtResource("11_yngc0")
 available_textures = Array[Texture2D]([ExtResource("1_jb2me"), ExtResource("2_qc7t2"), ExtResource("3_2lxx5"), ExtResource("4_nboxh"), ExtResource("5_6osje"), ExtResource("6_upcfj"), ExtResource("7_blxqs"), ExtResource("8_1clcy"), ExtResource("9_r3ywq"), ExtResource("10_ku1of")])
+type = 3
 metadata/_custom_type_script = "uid://crdkenqflrsr7"
