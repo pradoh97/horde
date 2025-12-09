@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://bbtgdv35jnm86" path="res://combatant.gd" id="3_fwi0t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tegdf"]
-size = Vector2(210, 210)
+size = Vector2(300, 300)
 
 [sub_resource type="Animation" id="Animation_c6iok"]
 length = 0.001

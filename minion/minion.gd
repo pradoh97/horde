@@ -114,23 +114,8 @@ func set_debug():
 	%State/Properties2/FollowingOrders.text = "Following orders: " + str(following_orders)
 	%State/Properties3/Health.text = "Health: " + str(combatant_node.health)
 
-	if combatant_node.target_combatant:
-		if combatant_node.target_combatant.combatant_minion:
-			$State/Properties3/TargetEnemy.text = "Target enemy: " + str(combatant_node.target_combatant.get_parent().number)
-		else:
-			$State/Properties3/TargetEnemy.text = "Target enemy: " + str(combatant_node.target_combatant.combatant_enemy)
-	else:
-		$State/Properties3/TargetEnemy.text = "Targeted by: none"
-
-	if combatant_node.targeted_by.size():
-		$State/Properties3/TargetedBy.text = "Targeted by: "
-		for combatant in combatant_node.targeted_by:
-			if combatant.combatant_minion:
-				$State/Properties3/TargetedBy.text += str(combatant.get_parent().number) + ", "
-			else:
-				$State/Properties3/TargetedBy.text += str(combatant.combatant_enemy) + ", "
-	else:
-		$State/Properties3/TargetedBy.text = "Targeted by: none"
+	$State/Properties3/TargetEnemy.text = "Target enemy: " + str(combatant_node.target_combatant)
+	$State/Properties3/TargetedBy.text = "Targeted by: " + str(combatant_node.targeted_by)
 	%State/Properties3/Number.text = "Minion N°: " + str(number)
 
 func get_army() -> Army:
@@ -187,6 +172,9 @@ func get_remote_transform() -> RemoteTransform2D:
 	return remote_transform_node
 
 func die(_combatant: Combatant = null):
+	#Prevent node from attempting to disengage from a fight if it should die.
+	combatant_node.disengaged_fight.disconnect(disengage_fight)
+
 	army.kill_minion(self)
 	queue_free()
 
@@ -231,9 +219,8 @@ func engage_fight(_combatant: Combatant):
 	work()
 
 func disengage_fight(_combatant: Combatant = null):
+	stop_work()
 	battling = false
-	if combatant_node.health > 0:
-		stop_work()
 
 func receive_damage():
 	var health_tween = create_tween()
@@ -241,10 +228,6 @@ func receive_damage():
 	if $HealthAnimation.is_playing():
 		$HealthAnimation.stop()
 	$HealthAnimation.play("hurt")
-
-
-func _on_enemy_died(_enemy: Enemy):
-	disengage_fight()
 
 func _on_infect_area_area_entered(area):
 	#Minion in the army hits an unregistered minion. To join the hitting minion has to be in an army and the minion being hit does not.
