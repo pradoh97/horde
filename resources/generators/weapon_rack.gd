@@ -19,7 +19,7 @@ func _on_body_entered(minion: Minion):
 		$Fare.charge_payment(minion)
 
 
-func _on_fare_payed(minion: Minion):
+func _on_fare_paid(minion: Minion):
 	minion.pick_up_collectible(collectible_generated)
 
 

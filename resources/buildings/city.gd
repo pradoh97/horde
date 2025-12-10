@@ -25,7 +25,7 @@ func _on_king_convert_activated():
 	$WeaponRack.enable()
 
 
-func _on_capture_fare_payed(minion):
+func _on_capture_fare_paid(minion):
 	var tween = create_tween()
 	tween.set_parallel()
 	tween.tween_property($KingConvert, "modulate", Color(1.0, 1.0, 1.0, 1.0), tween_duration)

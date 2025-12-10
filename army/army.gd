@@ -12,15 +12,10 @@ var ui: UI = null :
 		ui = new_ui
 		update_horde_size()
 		update_horde_strength()
-		update_food_stock()
-		update_wood_stock()
-		update_stone_stock()
 
+var stockpile: Stockpile = null
 var horde_size: int = 0
 var horde_strength: int = 0
-var wood_stock: int = 0
-var food_stock: int = 0
-var stone_stock: int = 0
 var king_count: int = 0
 
 var following_orders: bool = false
@@ -38,6 +33,8 @@ func _ready():
 	leader = (get_child(0) as Minion)
 	leader.set_physics_process(true)
 	minion_dropped_collectible(leader)
+
+	leader.set_physics_process(true)
 	if get_node_or_null("Camera2D"):
 		camera = $Camera2D
 		camera.army = self
@@ -77,18 +74,6 @@ func _physics_process(_delta):
 	if player_number == 0 and Input.is_action_just_released("mouse_click"):
 		disband_minions()
 
-func update_food_stock(update_by: int = 0):
-	food_stock += update_by
-	ui.update_food_count_label(food_stock)
-
-func update_wood_stock(update_by: int = 0):
-	wood_stock += update_by
-	ui.update_wood_count_label(wood_stock)
-
-func update_stone_stock(update_by: int = 0):
-	stone_stock += update_by
-	ui.update_stone_count_label(stone_stock)
-
 func update_king_count(update_by: int = 0):
 	king_count += update_by
 	ui.update_king_count_label(king_count)
@@ -101,37 +86,17 @@ func update_horde_strength():
 	horde_strength = armed_minions.size()
 	ui.update_horde_strength_label(horde_strength)
 
-
 func get_ui() -> CanvasLayer:
 	return ui
 
 func get_remote_transform() -> RemoteTransform2D:
 	return leader.get_remote_transform()
 
-func get_food_stock() -> int:
-	return food_stock
-
-func get_wood_stock() -> int:
-	return wood_stock
-
-func get_stone_stock() -> int:
-	return stone_stock
-
 func get_horde_size() -> int:
 	return horde_size
 
 func get_horde_strength() -> int:
 	return horde_strength
-
-func update_resource_count(resource: CollectibleResource):
-	if resource.type == "Wood":
-		update_wood_stock(1)
-	if resource.type == "Stone":
-		update_stone_stock(1)
-	if resource.type == "Food":
-		update_food_stock(1)
-	if resource is Weapon:
-		update_horde_strength()
 
 func command_minions():
 	chase = true
@@ -165,7 +130,6 @@ func recruit_minion(minion: Minion):
 	update_horde_size()
 	update_horde_strength()
 
-
 func kill_minion(minion: Minion):
 	if minion.is_leading and minions.size() > 1:
 		var old_leader = minions.find(minion)
@@ -194,6 +158,7 @@ func minion_stopped_working(minion: Minion):
 
 func minion_armed(minion: Minion):
 	armed_minions.append(minion)
+	update_horde_strength()
 
 func minion_dropped_collectible(minion: Minion):
 	free_minions.append(minion)

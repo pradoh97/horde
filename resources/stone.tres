@@ -4,7 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://bb8n2voct7ge7" path="res://assets/Stone.png" id="2_c7xck"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_c7xck")
 type = 1
 texture = ExtResource("2_c7xck")
+quantity = 15
 metadata/_custom_type_script = "uid://ccriiwtes1i48"

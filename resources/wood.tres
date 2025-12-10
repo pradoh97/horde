@@ -4,7 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://dteeqtomkve4" path="res://assets/Wood.png" id="2_r76xb"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_gt3uy")
-type = "Wood"
 texture = ExtResource("2_r76xb")
+quantity = 15
 metadata/_custom_type_script = "uid://ccriiwtes1i48"

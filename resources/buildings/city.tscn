@@ -42,10 +42,15 @@ position = Vector2(1684, -1159)
 [node name="CaptureFare" parent="." instance=ExtResource("5_i25wv")]
 position = Vector2(215, -561)
 one_time_pay = true
+enabled = null
 allow_partial_payment = true
+required_food = null
+required_wood = null
+required_stone = null
 required_minions = 5
+exchange_amount = null
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="activated" from="KingConvert" to="." method="_on_king_convert_activated"]
-[connection signal="payed" from="CaptureFare" to="." method="_on_capture_fare_payed"]
+[connection signal="paid" from="CaptureFare" to="." method="_on_capture_fare_paid"]

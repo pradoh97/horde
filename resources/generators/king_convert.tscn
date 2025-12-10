@@ -30,4 +30,4 @@ shape = SubResource("RectangleShape2D_i1ngk")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="payed" from="Fare" to="." method="_on_fare_payed"]
+[connection signal="paid" from="Fare" to="." method="_on_fare_paid"]

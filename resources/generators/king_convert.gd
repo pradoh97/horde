@@ -8,7 +8,7 @@ func _ready():
 func enable():
 	$Fare.enable()
 
-func _on_fare_payed(minion: Minion):
+func _on_fare_paid(minion: Minion):
 	$Fare.disable()
 	if minion.is_leading:
 		minion.convert_to_king()

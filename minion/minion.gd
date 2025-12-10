@@ -54,7 +54,7 @@ func _ready():
 
 func _physics_process(_delta):
 	left_behind = not is_leading and global_position.distance_to(leader.global_position) >= distance_treshold
-	interrupt_work = (not is_leading and global_position.distance_to(leader.global_position) >= distance_treshold * work_distance_treshold_factor) or (is_leading and working and global_position.distance_to(work_zone_position) >= distance_treshold * work_distance_treshold_factor)
+	interrupt_work = working and ((not is_leading and global_position.distance_to(leader.global_position) >= distance_treshold * work_distance_treshold_factor) or (is_leading and global_position.distance_to(work_zone_position) >= distance_treshold * work_distance_treshold_factor))
 
 	is_busy = (working or battling) and not is_leading
 	can_move = not is_busy and (left_behind or following_orders and not reached_destination)
@@ -157,10 +157,10 @@ func work():
 		$ActivityAnimations.play("working")
 
 func stop_work():
+	working = false
 	$ActivityAnimations.stop()
 	%ActivityProgress.value = 0
 	%ActivityProgress.modulate = Color.TRANSPARENT
-	working = false
 	army.minion_stopped_working(self)
 	if not is_leading:
 		$CollisionShape2D.set_deferred("disabled", false)
@@ -186,14 +186,12 @@ func pick_up_collectible(collectible: CollectibleResource):
 			combatant_node.attack_modifier = weapon_attack_modifier
 			%Weapon.texture = weapon_held.texture
 			army.minion_armed(self)
-			army.update_resource_count(collectible)
 	elif not resource_held:
 		resource_held = collectible
 		%Resource.texture = collectible.texture
 		army.minion_picked_collectible(self)
 
 func drop_resource():
-	army.update_resource_count(resource_held)
 	army.minion_dropped_collectible(self)
 	resource_held = null
 	%Resource.texture = null
@@ -232,11 +230,18 @@ func receive_damage():
 func _on_infect_area_area_entered(area):
 	#Minion in the army hits an unregistered minion. To join the hitting minion has to be in an army and the minion being hit does not.
 	var minion: Minion = area.get_parent()
-	if not minion == self and not minion.army and army:
-		var purchase_able = army.get_food_stock() >= minion.recruit_cost and minion.recruit_cost > 0
+	var collided_with_itself = minion == self
+	var collision_between_wild_minions = not minion.army and not army
+
+	if collided_with_itself or collision_between_wild_minions: return
+
+	var recruit_is_not_in_army = not minion.army
+
+	if recruit_is_not_in_army:
+		var purchase_able = minion.recruit_cost > 0 and army.stockpile.get_food_stock() >= minion.recruit_cost
 		if purchase_able or minion.recruit_cost == 0:
 			if purchase_able:
-				army.update_food_stock(-2)
+				army.stockpile.update_resources(CollectibleResource.TYPE.FOOD, -2)
 			if not leader:
 				minion.leader = self
 			else:

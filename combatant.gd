@@ -61,6 +61,7 @@ func disengage_fight(combatant: Combatant = self, emit_disengage_signal: bool = 
 	if emit_disengage_signal:
 		disengaged_fight.emit(combatant)
 	disconnect_signals(combatant)
+
 	if health > 0:
 		find_new_target()
 
@@ -136,6 +137,7 @@ func _on_target_combatant_died(combatant: Combatant):
 	unregister_target_in_area(combatant)
 	disengage_fight()
 	disconnect_signals(combatant)
+
 
 func _on_targeter_combatant_died(combatant: Combatant):
 	unregister_targeter(combatant)

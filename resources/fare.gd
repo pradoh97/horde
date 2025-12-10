@@ -1,7 +1,7 @@
 @tool
 class_name Fare extends Node2D
 
-signal payed(minion: Minion)
+signal paid(minion: Minion)
 
 @export var one_time_pay: bool = false
 @export var enabled: bool = true
@@ -54,10 +54,15 @@ func is_payment_valid(minion: Minion = null) -> bool:
 	var wood_stock
 	var stone_stock
 	var horde_size
-	if minion:
-		food_stock = minion.army.get_food_stock()
-		wood_stock = minion.army.get_wood_stock()
-		stone_stock = minion.army.get_stone_stock()
+
+	var minion_in_army = minion and minion.army
+	var army_owns_stockpile = minion_in_army and minion.army.stockpile
+
+	if army_owns_stockpile:
+		var stockpile: Stockpile = minion.army.stockpile
+		food_stock = stockpile.get_food_stock()
+		wood_stock = stockpile.get_wood_stock()
+		stone_stock = stockpile.get_stone_stock()
 		horde_size = minion.army.get_horde_size()
 	else:
 		food_stock = food_in
@@ -69,45 +74,50 @@ func is_payment_valid(minion: Minion = null) -> bool:
 	return meets_required_goods
 
 func charge_payment(minion: Minion):
-	if not enabled:
-		return
-	var payed_food_amount := 0
-	var payed_wood_amount := 0
-	var payed_stone_amount := 0
-	var payed_minions_amount := 0
+	if not enabled: return
+	var paid_food_amount := 0
+	var paid_wood_amount := 0
+	var paid_stone_amount := 0
+	var paid_minions_amount := 0
+
+	var minion_in_army = minion and minion.army
+	var army_owns_stockpile = minion_in_army and minion.army.stockpile
 
 	if allow_partial_payment:
 		if minion.resource_held:
-			if minion.resource_held.type == "Food" and food_in < required_food:
-				payed_food_amount = 1
-			if minion.resource_held.type == "Wood" and wood_in < required_wood:
-				payed_wood_amount = 1
-			if minion.resource_held.type == "Stone" and stone_in < required_stone:
-				payed_stone_amount = 1
+			if minion.resource_held.type == CollectibleResource.TYPE.FOOD and food_in < required_food:
+				paid_food_amount = 1
+			if minion.resource_held.type == CollectibleResource.TYPE.WOOD and wood_in < required_wood:
+				paid_wood_amount = 1
+			if minion.resource_held.type == CollectibleResource.TYPE.STONE and stone_in < required_stone:
+				paid_stone_amount = 1
 		if required_minions - minions_in > 0 and not minion.is_leading:
-			payed_minions_amount = 1
+			paid_minions_amount = 1
 	else:
-		payed_food_amount = required_food
-		payed_wood_amount = required_wood
-		payed_stone_amount = required_stone
-		payed_minions_amount = required_minions
+		paid_food_amount = required_food
+		paid_wood_amount = required_wood
+		paid_stone_amount = required_stone
+		paid_minions_amount = required_minions
 
-	minions_in += payed_minions_amount
-	food_in += payed_food_amount
-	wood_in += payed_wood_amount
-	stone_in += payed_stone_amount
+	minions_in += paid_minions_amount
+	food_in += paid_food_amount
+	wood_in += paid_wood_amount
+	stone_in += paid_stone_amount
 
-	minion.army.update_food_stock(-payed_food_amount)
-	minion.army.update_wood_stock(-payed_wood_amount)
-	minion.army.update_stone_stock(-payed_stone_amount)
+	if army_owns_stockpile:
+		var stockpile: Stockpile = minion.army.stockpile
+		stockpile.update_resources(CollectibleResource.TYPE.FOOD, -paid_food_amount)
+		stockpile.update_resources(CollectibleResource.TYPE.WOOD, -paid_wood_amount)
+		stockpile.update_resources(CollectibleResource.TYPE.STONE, -paid_stone_amount)
 
-	if payed_minions_amount:
+
+	if paid_minions_amount:
 		if allow_partial_payment and not minion.is_leading:
 			minion.die()
 		else:
-			minion.army.kill_randomly(payed_minions_amount)
+			minion.army.kill_randomly(paid_minions_amount)
 	if one_time_pay:
 		update_resources_count()
 
 	if is_payment_valid():
-		payed.emit(minion)
+		paid.emit(minion)

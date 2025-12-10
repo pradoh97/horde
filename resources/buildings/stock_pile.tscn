@@ -1,6 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dgo07mr2aq1ys"]
+[gd_scene load_steps=7 format=3 uid="uid://dgo07mr2aq1ys"]
 
 [ext_resource type="Script" uid="uid://cfakhptjyaq25" path="res://resources/buildings/stock_pile.gd" id="1_v8kwb"]
+[ext_resource type="Script" uid="uid://ccriiwtes1i48" path="res://resources/collectible_resource.gd" id="2_5141w"]
+[ext_resource type="Resource" uid="uid://borfhlix76jsd" path="res://resources/wood.tres" id="3_dw45n"]
+[ext_resource type="Resource" uid="uid://t204tbra7epx" path="res://resources/food.tres" id="4_1lp7t"]
+[ext_resource type="Resource" uid="uid://dqefr2qjrypyr" path="res://resources/stone.tres" id="5_0jmlg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0b4ue"]
 size = Vector2(507, 219)
@@ -9,6 +13,7 @@ size = Vector2(507, 219)
 collision_layer = 256
 collision_mask = 20
 script = ExtResource("1_v8kwb")
+stock = Array[ExtResource("2_5141w")]([ExtResource("3_dw45n"), ExtResource("4_1lp7t"), ExtResource("5_0jmlg")])
 inner_color_converted = Color(0.74138474, 0.7413847, 0.74138457, 1)
 outer_color_converted = Color(0.8627451, 0.41568628, 0.1254902, 1)
 
@@ -28,4 +33,6 @@ position = Vector2(2, 0.79208493)
 polygon = PackedVector2Array(-0.10925293, -29.025726, -0.10925293, -114.56851, 129, -192.79208, 303, -192.79208, 442, -107.79208, 442, -29.026)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

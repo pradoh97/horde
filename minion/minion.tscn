@@ -366,6 +366,7 @@ show_percentage = false
 
 [node name="State" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = -406.0
