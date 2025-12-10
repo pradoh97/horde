@@ -8,5 +8,4 @@ resource_local_to_scene = true
 script = ExtResource("1_j6d7s")
 type = 2
 texture = ExtResource("2_vuuqq")
-quantity = 15
 metadata/_custom_type_script = "uid://ccriiwtes1i48"
