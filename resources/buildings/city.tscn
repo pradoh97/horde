@@ -1,13 +1,37 @@
-[gd_scene load_steps=7 format=3 uid="uid://bx2ov2sv7h0q0"]
+[gd_scene load_steps=14 format=3 uid="uid://bx2ov2sv7h0q0"]
 
 [ext_resource type="Script" uid="uid://c25l2c3djphnx" path="res://resources/buildings/city.gd" id="1_vgvu4"]
+[ext_resource type="Script" uid="uid://ccriiwtes1i48" path="res://resources/collectible_resource.gd" id="3_aigao"]
 [ext_resource type="PackedScene" uid="uid://dgo07mr2aq1ys" path="res://resources/buildings/stock_pile.tscn" id="3_cofpr"]
 [ext_resource type="PackedScene" uid="uid://ca3qgsc7fa08u" path="res://resources/generators/king_convert.tscn" id="4_8prh0"]
+[ext_resource type="Texture2D" uid="uid://dteeqtomkve4" path="res://assets/Wood.png" id="4_dklla"]
 [ext_resource type="PackedScene" uid="uid://jlp2kdp37ndb" path="res://resources/generators/weapon_rack.tscn" id="5_04ykx"]
+[ext_resource type="Texture2D" uid="uid://cvxgjdnf4ic5e" path="res://assets/Worm.png" id="5_bbxje"]
 [ext_resource type="PackedScene" uid="uid://cfu1phpk1aprv" path="res://resources/fare.tscn" id="5_i25wv"]
+[ext_resource type="Texture2D" uid="uid://bb8n2voct7ge7" path="res://assets/Stone.png" id="6_g8mkc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0b4ue"]
 size = Vector2(507, 365)
+
+[sub_resource type="Resource" id="Resource_c0mwd"]
+resource_local_to_scene = true
+script = ExtResource("3_aigao")
+texture = ExtResource("4_dklla")
+metadata/_custom_type_script = "uid://ccriiwtes1i48"
+
+[sub_resource type="Resource" id="Resource_7aus8"]
+resource_local_to_scene = true
+script = ExtResource("3_aigao")
+type = 2
+texture = ExtResource("5_bbxje")
+metadata/_custom_type_script = "uid://ccriiwtes1i48"
+
+[sub_resource type="Resource" id="Resource_2gnrm"]
+resource_local_to_scene = true
+script = ExtResource("3_aigao")
+type = 1
+texture = ExtResource("6_g8mkc")
+metadata/_custom_type_script = "uid://ccriiwtes1i48"
 
 [node name="City" type="Area2D"]
 collision_layer = 256
@@ -32,6 +56,7 @@ polygon = PackedVector2Array(1, -30, 1, -190, 133, -190, 133, -283, 185, -283, 1
 
 [node name="StockPile" parent="." instance=ExtResource("3_cofpr")]
 position = Vector2(-1560, -926)
+stock = Array[ExtResource("3_aigao")]([SubResource("Resource_c0mwd"), SubResource("Resource_7aus8"), SubResource("Resource_2gnrm")])
 
 [node name="KingConvert" parent="." instance=ExtResource("4_8prh0")]
 position = Vector2(233, -1398)

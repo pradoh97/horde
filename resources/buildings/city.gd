@@ -7,10 +7,9 @@ class_name City extends Building
 func spawn_troop():
 	var new_minion: Minion = Minion.new_minion()
 	new_minion.disable_collision()
-	new_minion.global_position = global_position
 	new_minion.recruit_cost = recruit_food_cost
 	get_parent().add_child(new_minion)
-	new_minion.velocity = Vector2(randf_range(-max_spawn_speed, max_spawn_speed), randf_range(-max_spawn_speed, max_spawn_speed))
+	new_minion.global_position = global_position
 
 func _on_body_entered(minion: Minion):
 	if not captured and minion.army and ($CaptureFare.is_payment_valid(minion) or $CaptureFare.allow_partial_payment):

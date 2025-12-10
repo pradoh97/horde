@@ -1,12 +1,56 @@
-[gd_scene load_steps=8 format=3 uid="uid://ckfu7he0vgiab"]
+[gd_scene load_steps=18 format=3 uid="uid://ckfu7he0vgiab"]
 
 [ext_resource type="Script" uid="uid://buhwamjhhmanh" path="res://level.gd" id="1_rhnph"]
 [ext_resource type="PackedScene" uid="uid://dmrc341gv6ohb" path="res://army/army.tscn" id="3_2g6lf"]
+[ext_resource type="Script" uid="uid://ccriiwtes1i48" path="res://resources/collectible_resource.gd" id="4_b1ajd"]
+[ext_resource type="Texture2D" uid="uid://dteeqtomkve4" path="res://assets/Wood.png" id="5_2g6lf"]
 [ext_resource type="PackedScene" uid="uid://dfvp6yysbr662" path="res://minion/minion.tscn" id="5_ayoke"]
 [ext_resource type="PackedScene" uid="uid://5vjdi3lh2uj8" path="res://resources/generators/wood_mine.tscn" id="6_dbhfh"]
+[ext_resource type="Texture2D" uid="uid://cvxgjdnf4ic5e" path="res://assets/Worm.png" id="7_515uu"]
 [ext_resource type="PackedScene" uid="uid://feywkuh1juuv" path="res://resources/generators/food_farm.tscn" id="7_gm6ju"]
 [ext_resource type="PackedScene" uid="uid://j26qs1wki8oi" path="res://resources/generators/stone_mine.tscn" id="8_754py"]
+[ext_resource type="Texture2D" uid="uid://bb8n2voct7ge7" path="res://assets/Stone.png" id="9_ayoke"]
 [ext_resource type="PackedScene" uid="uid://bx2ov2sv7h0q0" path="res://resources/buildings/city.tscn" id="9_brqpx"]
+
+[sub_resource type="Resource" id="Resource_dbhfh"]
+resource_local_to_scene = true
+script = ExtResource("4_b1ajd")
+texture = ExtResource("5_2g6lf")
+metadata/_custom_type_script = "uid://ccriiwtes1i48"
+
+[sub_resource type="Resource" id="Resource_gm6ju"]
+resource_local_to_scene = true
+script = ExtResource("4_b1ajd")
+type = 2
+texture = ExtResource("7_515uu")
+metadata/_custom_type_script = "uid://ccriiwtes1i48"
+
+[sub_resource type="Resource" id="Resource_754py"]
+resource_local_to_scene = true
+script = ExtResource("4_b1ajd")
+type = 1
+texture = ExtResource("9_ayoke")
+metadata/_custom_type_script = "uid://ccriiwtes1i48"
+
+[sub_resource type="Resource" id="Resource_brqpx"]
+resource_local_to_scene = true
+script = ExtResource("4_b1ajd")
+texture = ExtResource("5_2g6lf")
+metadata/_custom_type_script = "uid://ccriiwtes1i48"
+
+[sub_resource type="Resource" id="Resource_o3uy6"]
+resource_local_to_scene = true
+script = ExtResource("4_b1ajd")
+type = 2
+texture = ExtResource("7_515uu")
+metadata/_custom_type_script = "uid://ccriiwtes1i48"
+
+[sub_resource type="Resource" id="Resource_l4ei6"]
+resource_local_to_scene = true
+script = ExtResource("4_b1ajd")
+type = 1
+texture = ExtResource("9_ayoke")
+metadata/_custom_type_script = "uid://ccriiwtes1i48"
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_rhnph")
@@ -37,14 +81,17 @@ position = Vector2(-2320, -651)
 [node name="WoodMine" parent="BaseA/ResourceGenerators" instance=ExtResource("6_dbhfh")]
 position = Vector2(782, 7)
 use_first_free_minion = true
+collectible_generated = SubResource("Resource_dbhfh")
 
 [node name="FoodFarm" parent="BaseA/ResourceGenerators" instance=ExtResource("7_gm6ju")]
 position = Vector2(951, -1497)
 use_first_free_minion = true
+collectible_generated = SubResource("Resource_gm6ju")
 
 [node name="StoneMine" parent="BaseA/ResourceGenerators" instance=ExtResource("8_754py")]
 position = Vector2(827, 1515)
 use_first_free_minion = true
+collectible_generated = SubResource("Resource_754py")
 
 [node name="City" parent="BaseA" instance=ExtResource("9_brqpx")]
 position = Vector2(1153, -150)
@@ -76,14 +123,17 @@ position = Vector2(-2320, -651)
 [node name="WoodMine" parent="BaseB/ResourceGenerators" instance=ExtResource("6_dbhfh")]
 position = Vector2(782, 7)
 use_first_free_minion = true
+collectible_generated = SubResource("Resource_brqpx")
 
 [node name="FoodFarm" parent="BaseB/ResourceGenerators" instance=ExtResource("7_gm6ju")]
 position = Vector2(951, -1497)
 use_first_free_minion = true
+collectible_generated = SubResource("Resource_o3uy6")
 
 [node name="StoneMine" parent="BaseB/ResourceGenerators" instance=ExtResource("8_754py")]
 position = Vector2(827, 1515)
 use_first_free_minion = true
+collectible_generated = SubResource("Resource_l4ei6")
 
 [node name="City" parent="BaseB" instance=ExtResource("9_brqpx")]
 position = Vector2(1153, -150)
