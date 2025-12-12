@@ -30,7 +30,7 @@ func _on_body_entered(minion: Minion):
 		$Fare.charge_payment(minion)
 
 
-func _on_fare_paid(minion: Minion):
+func _on_fare_paid(_minion: Minion):
 	call_deferred("spawn_minion")
 
 
