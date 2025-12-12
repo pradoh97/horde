@@ -120,6 +120,7 @@ func recruit_minion(minion: Minion):
 	minions.append(minion)
 	minion.number = minions.find(minion)
 	minion.army = self
+	assign_leader(minion)
 	if override_minions_properties:
 		minion.acceleration = acceleration
 		minion.max_speed = max_speed
@@ -163,14 +164,15 @@ func minion_armed(minion: Minion):
 func minion_dropped_collectible(minion: Minion):
 	free_minions.append(minion)
 
-func assign_leader():
+func assign_leader(aspiring_minion: Minion = null):
 	leader.become_leader()
 	if camera:
 		if player_number == 0:
 			camera.reparent(leader)
 		camera.global_position = leader.global_position
 		leader.get_remote_transform().remote_path = camera.get_path()
-
+	if aspiring_minion:
+		aspiring_minion.leader = leader
 	for minion in minions:
 		if not minion.is_leading:
 			minion.leader = leader
