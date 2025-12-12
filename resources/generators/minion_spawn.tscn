@@ -1,0 +1,847 @@
+[gd_scene load_steps=5 format=3 uid="uid://blok8hrirwhht"]
+
+[ext_resource type="Script" uid="uid://bmcemvojhcrxl" path="res://resources/generators/minion_spawn.gd" id="1_rxxow"]
+[ext_resource type="Texture2D" uid="uid://os84bgw76vq" path="res://icon.svg" id="3_km6gj"]
+[ext_resource type="PackedScene" uid="uid://cfu1phpk1aprv" path="res://resources/fare.tscn" id="6_ltc6a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ainy"]
+size = Vector2(244, 244)
+
+[node name="MinionSpawn" type="Area2D"]
+collision_layer = 256
+collision_mask = 20
+script = ExtResource("1_rxxow")
+max_collectibles = 1
+generation_factor = 0.0
+work_required = false
+enabled = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1ainy")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+scale = Vector2(0.546875, 0.5468749)
+texture = ExtResource("3_km6gj")
+region_rect = Rect2(0, 0, 90, 96)
+
+[node name="Straw" type="Node2D" parent="Visuals"]
+metadata/_edit_group_ = true
+
+[node name="Line2D8" type="Line2D" parent="Visuals/Straw"]
+position = Vector2(-41.000008, 63)
+rotation = 0.26179942
+scale = Vector2(0.8001688, 0.8001688)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D9" type="Line2D" parent="Visuals/Straw"]
+position = Vector2(-40.000008, 56.000004)
+rotation = 0.5235988
+scale = Vector2(0.80016875, 0.80016875)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D12" type="Line2D" parent="Visuals/Straw"]
+position = Vector2(-38, 58.99999)
+rotation = 0.45981497
+scale = Vector2(0.80016875, 0.80016875)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D10" type="Line2D" parent="Visuals/Straw"]
+position = Vector2(-41.000008, 58.999992)
+rotation = 0.35643739
+scale = Vector2(0.8001683, 0.8001683)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D11" type="Line2D" parent="Visuals/Straw"]
+position = Vector2(-38, 55.99999)
+rotation = 0.6342214
+scale = Vector2(0.80016845, 0.80016845)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D4" type="Line2D" parent="Visuals/Straw"]
+position = Vector2(-35, 68)
+rotation = 0.2617994
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D5" type="Line2D" parent="Visuals/Straw"]
+position = Vector2(-32, 62.000004)
+rotation = 0.5235988
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D6" type="Line2D" parent="Visuals/Straw"]
+position = Vector2(-34, 64)
+rotation = 0.35643744
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D7" type="Line2D" parent="Visuals/Straw"]
+position = Vector2(-31, 58.999992)
+rotation = 0.6342214
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Straw2" type="Node2D" parent="Visuals"]
+position = Vector2(-34, 72)
+rotation = -0.5629368
+scale = Vector2(0.8248918, 0.8248918)
+metadata/_edit_group_ = true
+
+[node name="Line2D8" type="Line2D" parent="Visuals/Straw2"]
+position = Vector2(-8.014881, -2.3236694)
+rotation = 0.26179942
+scale = Vector2(0.8001688, 0.8001688)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D9" type="Line2D" parent="Visuals/Straw2"]
+position = Vector2(-7.014881, -9.323673)
+rotation = 0.5235988
+scale = Vector2(0.80016875, 0.80016875)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D12" type="Line2D" parent="Visuals/Straw2"]
+position = Vector2(-5.0148735, -6.323681)
+rotation = 0.45981497
+scale = Vector2(0.80016875, 0.80016875)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D10" type="Line2D" parent="Visuals/Straw2"]
+position = Vector2(-8.014877, -6.323681)
+rotation = 0.35643739
+scale = Vector2(0.8001683, 0.8001683)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D11" type="Line2D" parent="Visuals/Straw2"]
+position = Vector2(-5.0148735, -9.323685)
+rotation = 0.6342214
+scale = Vector2(0.80016845, 0.80016845)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D4" type="Line2D" parent="Visuals/Straw2"]
+position = Vector2(-2.0148735, 2.6763306)
+rotation = 0.2617994
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D5" type="Line2D" parent="Visuals/Straw2"]
+position = Vector2(0.9851303, -3.3236694)
+rotation = 0.5235988
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D6" type="Line2D" parent="Visuals/Straw2"]
+position = Vector2(-1.0148735, -1.3236694)
+rotation = 0.35643744
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D7" type="Line2D" parent="Visuals/Straw2"]
+position = Vector2(1.9851208, -6.323681)
+rotation = 0.6342214
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Straw3" type="Node2D" parent="Visuals"]
+position = Vector2(-21.999998, 68)
+rotation = -1.2639827
+scale = Vector2(0.9681734, 0.9681734)
+metadata/_edit_group_ = true
+
+[node name="Line2D8" type="Line2D" parent="Visuals/Straw3"]
+position = Vector2(-8.014881, -2.3236694)
+rotation = 0.26179942
+scale = Vector2(0.8001688, 0.8001688)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D9" type="Line2D" parent="Visuals/Straw3"]
+position = Vector2(-7.014881, -9.323673)
+rotation = 0.5235988
+scale = Vector2(0.80016875, 0.80016875)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D12" type="Line2D" parent="Visuals/Straw3"]
+position = Vector2(-5.0148735, -6.323681)
+rotation = 0.45981497
+scale = Vector2(0.80016875, 0.80016875)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D10" type="Line2D" parent="Visuals/Straw3"]
+position = Vector2(-8.014877, -6.323681)
+rotation = 0.35643739
+scale = Vector2(0.8001683, 0.8001683)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D11" type="Line2D" parent="Visuals/Straw3"]
+position = Vector2(-5.0148735, -9.323685)
+rotation = 0.6342214
+scale = Vector2(0.80016845, 0.80016845)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D4" type="Line2D" parent="Visuals/Straw3"]
+position = Vector2(-2.0148735, 2.6763306)
+rotation = 0.2617994
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D5" type="Line2D" parent="Visuals/Straw3"]
+position = Vector2(0.9851303, -3.3236694)
+rotation = 0.5235988
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D6" type="Line2D" parent="Visuals/Straw3"]
+position = Vector2(-1.0148735, -1.3236694)
+rotation = 0.35643744
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D7" type="Line2D" parent="Visuals/Straw3"]
+position = Vector2(1.9851208, -6.323681)
+rotation = 0.6342214
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Straw4" type="Node2D" parent="Visuals"]
+position = Vector2(-11, 72)
+rotation = -1.8343489
+metadata/_edit_group_ = true
+
+[node name="Line2D8" type="Line2D" parent="Visuals/Straw4"]
+position = Vector2(-8.014881, -2.3236694)
+rotation = 0.26179942
+scale = Vector2(0.8001688, 0.8001688)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D9" type="Line2D" parent="Visuals/Straw4"]
+position = Vector2(-7.014881, -9.323673)
+rotation = 0.5235988
+scale = Vector2(0.80016875, 0.80016875)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D12" type="Line2D" parent="Visuals/Straw4"]
+position = Vector2(-5.0148735, -6.323681)
+rotation = 0.45981497
+scale = Vector2(0.80016875, 0.80016875)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D10" type="Line2D" parent="Visuals/Straw4"]
+position = Vector2(-8.014877, -6.323681)
+rotation = 0.35643739
+scale = Vector2(0.8001683, 0.8001683)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D11" type="Line2D" parent="Visuals/Straw4"]
+position = Vector2(-5.0148735, -9.323685)
+rotation = 0.6342214
+scale = Vector2(0.80016845, 0.80016845)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D4" type="Line2D" parent="Visuals/Straw4"]
+position = Vector2(-2.0148735, 2.6763306)
+rotation = 0.2617994
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D5" type="Line2D" parent="Visuals/Straw4"]
+position = Vector2(0.9851303, -3.3236694)
+rotation = 0.5235988
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D6" type="Line2D" parent="Visuals/Straw4"]
+position = Vector2(-1.0148735, -1.3236694)
+rotation = 0.35643744
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D7" type="Line2D" parent="Visuals/Straw4"]
+position = Vector2(1.9851208, -6.323681)
+rotation = 0.6342214
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Straw5" type="Node2D" parent="Visuals"]
+position = Vector2(1.0000019, 70)
+rotation = -2.2307317
+metadata/_edit_group_ = true
+
+[node name="Line2D8" type="Line2D" parent="Visuals/Straw5"]
+position = Vector2(-8.014881, -2.3236694)
+rotation = 0.26179942
+scale = Vector2(0.8001688, 0.8001688)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D9" type="Line2D" parent="Visuals/Straw5"]
+position = Vector2(-7.014881, -9.323673)
+rotation = 0.5235988
+scale = Vector2(0.80016875, 0.80016875)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D12" type="Line2D" parent="Visuals/Straw5"]
+position = Vector2(-5.0148735, -6.323681)
+rotation = 0.45981497
+scale = Vector2(0.80016875, 0.80016875)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D10" type="Line2D" parent="Visuals/Straw5"]
+position = Vector2(-8.014877, -6.323681)
+rotation = 0.35643739
+scale = Vector2(0.8001683, 0.8001683)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D11" type="Line2D" parent="Visuals/Straw5"]
+position = Vector2(-5.0148735, -9.323685)
+rotation = 0.6342214
+scale = Vector2(0.80016845, 0.80016845)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D4" type="Line2D" parent="Visuals/Straw5"]
+position = Vector2(-2.0148735, 2.6763306)
+rotation = 0.2617994
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D5" type="Line2D" parent="Visuals/Straw5"]
+position = Vector2(0.9851303, -3.3236694)
+rotation = 0.5235988
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D6" type="Line2D" parent="Visuals/Straw5"]
+position = Vector2(-1.0148735, -1.3236694)
+rotation = 0.35643744
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D7" type="Line2D" parent="Visuals/Straw5"]
+position = Vector2(1.9851208, -6.323681)
+rotation = 0.6342214
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Straw6" type="Node2D" parent="Visuals"]
+position = Vector2(11.000002, 60)
+rotation = -2.5496976
+scale = Vector2(0.9681734, 0.9681734)
+metadata/_edit_group_ = true
+
+[node name="Line2D8" type="Line2D" parent="Visuals/Straw6"]
+position = Vector2(-8.014881, -2.3236694)
+rotation = 0.26179942
+scale = Vector2(0.8001688, 0.8001688)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D9" type="Line2D" parent="Visuals/Straw6"]
+position = Vector2(-7.014881, -9.323673)
+rotation = 0.5235988
+scale = Vector2(0.80016875, 0.80016875)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D12" type="Line2D" parent="Visuals/Straw6"]
+position = Vector2(-5.0148735, -6.323681)
+rotation = 0.45981497
+scale = Vector2(0.80016875, 0.80016875)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D10" type="Line2D" parent="Visuals/Straw6"]
+position = Vector2(-8.014877, -6.323681)
+rotation = 0.35643739
+scale = Vector2(0.8001683, 0.8001683)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D11" type="Line2D" parent="Visuals/Straw6"]
+position = Vector2(-5.0148735, -9.323685)
+rotation = 0.6342214
+scale = Vector2(0.80016845, 0.80016845)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D4" type="Line2D" parent="Visuals/Straw6"]
+position = Vector2(-2.0148735, 2.6763306)
+rotation = 0.2617994
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D5" type="Line2D" parent="Visuals/Straw6"]
+position = Vector2(0.9851303, -3.3236694)
+rotation = 0.5235988
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D6" type="Line2D" parent="Visuals/Straw6"]
+position = Vector2(-1.0148735, -1.3236694)
+rotation = 0.35643744
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D7" type="Line2D" parent="Visuals/Straw6"]
+position = Vector2(1.9851208, -6.323681)
+rotation = 0.6342214
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Straw7" type="Node2D" parent="Visuals"]
+position = Vector2(22, 61)
+rotation = -2.954804
+metadata/_edit_group_ = true
+
+[node name="Line2D8" type="Line2D" parent="Visuals/Straw7"]
+position = Vector2(-8.014881, -2.3236694)
+rotation = 0.26179942
+scale = Vector2(0.8001688, 0.8001688)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D9" type="Line2D" parent="Visuals/Straw7"]
+position = Vector2(-7.014881, -9.323673)
+rotation = 0.5235988
+scale = Vector2(0.80016875, 0.80016875)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D12" type="Line2D" parent="Visuals/Straw7"]
+position = Vector2(-5.0148735, -6.323681)
+rotation = 0.45981497
+scale = Vector2(0.80016875, 0.80016875)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D10" type="Line2D" parent="Visuals/Straw7"]
+position = Vector2(-8.014877, -6.323681)
+rotation = 0.35643739
+scale = Vector2(0.8001683, 0.8001683)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D11" type="Line2D" parent="Visuals/Straw7"]
+position = Vector2(-5.0148735, -9.323685)
+rotation = 0.6342214
+scale = Vector2(0.80016845, 0.80016845)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D4" type="Line2D" parent="Visuals/Straw7"]
+position = Vector2(-2.0148735, 2.6763306)
+rotation = 0.2617994
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D5" type="Line2D" parent="Visuals/Straw7"]
+position = Vector2(0.9851303, -3.3236694)
+rotation = 0.5235988
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D6" type="Line2D" parent="Visuals/Straw7"]
+position = Vector2(-1.0148735, -1.3236694)
+rotation = 0.35643744
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D7" type="Line2D" parent="Visuals/Straw7"]
+position = Vector2(1.9851208, -6.323681)
+rotation = 0.6342214
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Straw8" type="Node2D" parent="Visuals"]
+position = Vector2(32.000004, 62)
+rotation = -3.8922827
+metadata/_edit_group_ = true
+
+[node name="Line2D8" type="Line2D" parent="Visuals/Straw8"]
+position = Vector2(-8.014881, -2.3236694)
+rotation = 0.26179942
+scale = Vector2(0.8001688, 0.8001688)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D9" type="Line2D" parent="Visuals/Straw8"]
+position = Vector2(-7.014881, -9.323673)
+rotation = 0.5235988
+scale = Vector2(0.80016875, 0.80016875)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D12" type="Line2D" parent="Visuals/Straw8"]
+position = Vector2(-5.0148735, -6.323681)
+rotation = 0.45981497
+scale = Vector2(0.80016875, 0.80016875)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D10" type="Line2D" parent="Visuals/Straw8"]
+position = Vector2(-8.014877, -6.323681)
+rotation = 0.35643739
+scale = Vector2(0.8001683, 0.8001683)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D11" type="Line2D" parent="Visuals/Straw8"]
+position = Vector2(-5.0148735, -9.323685)
+rotation = 0.6342214
+scale = Vector2(0.80016845, 0.80016845)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.80446297, 0.5020016, 0.28451976, 1)
+
+[node name="Line2D4" type="Line2D" parent="Visuals/Straw8"]
+position = Vector2(-2.0148735, 2.6763306)
+rotation = 0.2617994
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D5" type="Line2D" parent="Visuals/Straw8"]
+position = Vector2(0.9851303, -3.3236694)
+rotation = 0.5235988
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D6" type="Line2D" parent="Visuals/Straw8"]
+position = Vector2(-1.0148735, -1.3236694)
+rotation = 0.35643744
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Line2D7" type="Line2D" parent="Visuals/Straw8"]
+position = Vector2(1.9851208, -6.323681)
+rotation = 0.6342214
+scale = Vector2(0.99999994, 0.99999994)
+points = PackedVector2Array(-28, 0, 28, 0)
+width = 4.0
+default_color = Color(0.9019608, 0.6117647, 0.4117647, 1)
+
+[node name="Egg" type="Node2D" parent="Visuals"]
+metadata/_edit_group_ = true
+
+[node name="TopShell" type="Node2D" parent="Visuals/Egg"]
+
+[node name="Line2D3" type="Line2D" parent="Visuals/Egg/TopShell"]
+position = Vector2(1.1170106, -18.571068)
+rotation = -3.1027284
+scale = Vector2(0.97628456, 1)
+points = PackedVector2Array(-61.46963, 0, -50.202427, 36, -40.983803, 52, -29.716599, 62, -18.449392, 66, -0.012144081, 67, 14.327937, 65, 31.740892, 61, 44.032394, 53, 51.202435, 43, 57.348183, 23, 60.42106, 0, 61.445347, -2, 51.202435, 13, 44.032394, 2, 37.886642, 6, 27.643726, -3, 17.400812, 13, 13.303646, 3, -0.012144081, 17, -14.352225, 1, -16.400808, 7, -26.643724, 2, -32.78947, 14, -46.10526, 0, -45.080967, 11)
+closed = true
+width = 4.0
+default_color = Color(0.96610624, 0.86450326, 0.74538714, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+
+[node name="Polygon2D2" type="Polygon2D" parent="Visuals/Egg/TopShell"]
+position = Vector2(1.1051564, -19.571068)
+rotation = -3.1027284
+polygon = PackedVector2Array(-61.46963, 0, -50.202427, 36, -40.983803, 52, -29.716599, 63, -21.522266, 66, -12.303642, 68, -0.012144081, 68, 15.352228, 66, 32.765186, 62, 44.032394, 53, 51.202435, 43, 57.348183, 23, 60.42106, 0, 60.42106, -3, 55.2996, 6, 51.202435, 13, 43.008102, 2, 37.886642, 6, 27.643726, -3, 17.400812, 13, 13.303646, 3, -0.012144081, 17, -14.352225, 1, -16.400808, 7, -26.643724, 2, -32.78947, 14, -46.10526, 0, -45.080967, 11)
+
+[node name="Spots" type="Node2D" parent="Visuals/Egg/TopShell"]
+position = Vector2(-8, -13)
+rotation = -3.055792
+
+[node name="Polygon2D4" type="Polygon2D" parent="Visuals/Egg/TopShell/Spots"]
+position = Vector2(-4, 31)
+rotation = 2.7338884
+color = Color(0.9647059, 0.8627451, 0.74509805, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D5" type="Polygon2D" parent="Visuals/Egg/TopShell/Spots"]
+position = Vector2(-25, 34)
+rotation = -1.8194106
+scale = Vector2(0.99999994, 0.99999994)
+color = Color(0.9647059, 0.8627451, 0.74509805, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D6" type="Polygon2D" parent="Visuals/Egg/TopShell/Spots"]
+position = Vector2(-20, 50)
+rotation = -1.9422233
+color = Color(0.9647059, 0.8627451, 0.74509805, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D7" type="Polygon2D" parent="Visuals/Egg/TopShell/Spots"]
+position = Vector2(19.999996, 46.000004)
+rotation = -1.9422233
+color = Color(0.9647059, 0.8627451, 0.74509805, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D8" type="Polygon2D" parent="Visuals/Egg/TopShell/Spots"]
+position = Vector2(32, 29.000004)
+rotation = -1.9422233
+color = Color(0.9647059, 0.8627451, 0.74509805, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D9" type="Polygon2D" parent="Visuals/Egg/TopShell/Spots"]
+position = Vector2(22, 31.000002)
+rotation = -1.9422233
+color = Color(0.9647059, 0.8627451, 0.74509805, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D10" type="Polygon2D" parent="Visuals/Egg/TopShell/Spots"]
+position = Vector2(5, 48)
+rotation = -1.9422233
+color = Color(0.9647059, 0.8627451, 0.74509805, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D11" type="Polygon2D" parent="Visuals/Egg/TopShell/Spots"]
+position = Vector2(-10, 62)
+rotation = -1.9422233
+color = Color(0.9647059, 0.8627451, 0.74509805, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D12" type="Polygon2D" parent="Visuals/Egg/TopShell/Spots"]
+position = Vector2(8, 64)
+rotation = -1.9422233
+color = Color(0.9647059, 0.8627451, 0.74509805, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D13" type="Polygon2D" parent="Visuals/Egg/TopShell/Spots"]
+position = Vector2(-43, 41)
+rotation = -1.9422233
+color = Color(0.9647059, 0.8627451, 0.74509805, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="BottomShell" type="Node2D" parent="Visuals/Egg"]
+
+[node name="Line2D2" type="Line2D" parent="Visuals/Egg/BottomShell"]
+position = Vector2(0.011856079, 7)
+scale = Vector2(0.97628456, 1)
+points = PackedVector2Array(-61.46963, 0, -50.202427, 36, -40.983803, 52, -29.716599, 62, -18.449392, 66, -0.012144081, 67, 14.327937, 65, 31.740892, 61, 44.032394, 53, 51.202435, 43, 57.348183, 23, 60.42106, 0, 61.445347, -2, 51.202435, 13, 44.032394, 2, 37.886642, 6, 27.643726, -3, 17.400812, 13, 13.303646, 3, -0.012144081, 17, -14.352225, 1, -16.400808, 7, -26.643724, 2, -32.78947, 14, -46.10526, 0, -45.080967, 11)
+closed = true
+width = 4.0
+default_color = Color(0.96610624, 0.86450326, 0.74538714, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+
+[node name="Polygon2D" type="Polygon2D" parent="Visuals/Egg/BottomShell"]
+position = Vector2(0, 6)
+polygon = PackedVector2Array(-61.46963, 0, -50.202427, 36, -40.983803, 52, -29.716599, 63, -21.522266, 66, -12.303642, 68, -0.012144081, 68, 15.352228, 66, 32.765186, 62, 44.032394, 53, 51.202435, 43, 57.348183, 23, 60.42106, 0, 60.42106, -3, 55.2996, 6, 51.202435, 13, 43.008102, 2, 37.886642, 6, 27.643726, -3, 17.400812, 13, 13.303646, 3, -0.012144081, 17, -14.352225, 1, -16.400808, 7, -26.643724, 2, -32.78947, 14, -46.10526, 0, -45.080967, 11)
+
+[node name="Spots" type="Node2D" parent="Visuals/Egg/BottomShell"]
+
+[node name="Polygon2D4" type="Polygon2D" parent="Visuals/Egg/BottomShell/Spots"]
+position = Vector2(-4, 31)
+rotation = 2.7338884
+color = Color(0.9183479, 0.87196773, 0.83086437, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D5" type="Polygon2D" parent="Visuals/Egg/BottomShell/Spots"]
+position = Vector2(-25, 34)
+rotation = -1.8194106
+scale = Vector2(0.99999994, 0.99999994)
+color = Color(0.9647059, 0.8627451, 0.74509805, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D6" type="Polygon2D" parent="Visuals/Egg/BottomShell/Spots"]
+position = Vector2(-20, 50)
+rotation = -1.9422233
+color = Color(0.9783289, 0.9150134, 0.84268045, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D7" type="Polygon2D" parent="Visuals/Egg/BottomShell/Spots"]
+position = Vector2(19.999996, 46.000004)
+rotation = -1.9422233
+color = Color(0.9647059, 0.8627451, 0.74509805, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D8" type="Polygon2D" parent="Visuals/Egg/BottomShell/Spots"]
+position = Vector2(32, 29.000004)
+rotation = -1.9422233
+color = Color(0.9183479, 0.87196773, 0.83086437, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D9" type="Polygon2D" parent="Visuals/Egg/BottomShell/Spots"]
+position = Vector2(22, 31.000002)
+rotation = -1.9422233
+color = Color(0.9783289, 0.9150134, 0.84268045, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D10" type="Polygon2D" parent="Visuals/Egg/BottomShell/Spots"]
+position = Vector2(5, 48)
+rotation = -1.9422233
+color = Color(0.9647059, 0.8627451, 0.74509805, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D11" type="Polygon2D" parent="Visuals/Egg/BottomShell/Spots"]
+position = Vector2(-10, 62)
+rotation = -1.9422233
+color = Color(0.9647059, 0.8627451, 0.74509805, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D12" type="Polygon2D" parent="Visuals/Egg/BottomShell/Spots"]
+position = Vector2(8, 64)
+rotation = -1.9422233
+color = Color(0.9183479, 0.87196773, 0.83086437, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Polygon2D13" type="Polygon2D" parent="Visuals/Egg/BottomShell/Spots"]
+position = Vector2(-43, 41)
+rotation = -1.9422233
+color = Color(0.9783289, 0.9150134, 0.84268045, 1)
+offset = Vector2(21, -33)
+antialiased = true
+polygon = PackedVector2Array(-22, 32, -23, 33, -22, 35, -20, 35, -19, 34, -20, 32)
+
+[node name="Fare" parent="." instance=ExtResource("6_ltc6a")]
+position = Vector2(7, -333)
+required_food = 2
+exchanged_resource = ExtResource("3_km6gj")
+exchange_amount = 1
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="paid" from="Fare" to="." method="_on_fare_paid"]
