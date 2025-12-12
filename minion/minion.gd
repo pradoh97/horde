@@ -41,6 +41,7 @@ static func new_minion() -> Minion:
 func _ready():
 	set_physics_process(false)
 	if not army:
+		$AnimationPlayer.play("commanded")
 		%Health.modulate = Color.TRANSPARENT
 
 	if combatant_node:
@@ -67,7 +68,7 @@ func _physics_process(_delta):
 	if can_move:
 		var leader_direction: Vector2 = Vector2.ZERO
 		if not is_leading:
-			leader_direction = (leader.global_position - global_position).normalized()
+			leader_direction = global_position.direction_to(leader.global_position)
 		else:
 			var player_number = army.player_number
 
@@ -87,18 +88,16 @@ func _physics_process(_delta):
 			else:
 				leader_direction = (get_global_mouse_position() - global_position).normalized()
 		velocity += acceleration * leader_direction
+		# Caps the velocity if it's already at max. Makes the minion go faster to reach the group if left behind
+		if velocity.length() >= max_speed:
+			if left_behind:
+				velocity = velocity.normalized() * max_speed_left_behind
+			else:
+				velocity = velocity.normalized() * max_speed
 	else:
 		velocity = velocity.lerp(Vector2.ZERO, deceleration_factor)
 		if velocity.length() <= full_stop_speed:
 			velocity = Vector2.ZERO
-
-
-	# Caps the velocity if it's already at max. Makes the minion go faster to reach the group if left behind
-	if velocity.length() >= max_speed:
-		if left_behind:
-			velocity = velocity.normalized() * max_speed_left_behind
-		else:
-			velocity = velocity.normalized() * max_speed
 
 	move_and_slide()
 	set_debug()

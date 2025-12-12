@@ -5,9 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://tnan5c0opfkr" path="res://assets/crown.png" id="3_q51ak"]
 [ext_resource type="Script" uid="uid://bbtgdv35jnm86" path="res://combatant.gd" id="4_y477t"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vonw3"]
-size = Vector2(124, 124)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y477t"]
 size = Vector2(300, 300)
 
@@ -255,6 +252,9 @@ corner_detail = 6
 anti_aliasing = false
 anti_aliasing_size = 0.092
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vonw3"]
+size = Vector2(124, 124)
+
 [node name="Minion" type="CharacterBody2D" node_paths=PackedStringArray("combatant_node")]
 collision_layer = 4
 collision_mask = 269
@@ -262,10 +262,6 @@ input_pickable = true
 script = ExtResource("1_ywcdx")
 combatant_node = NodePath("Combatant")
 metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_vonw3")
-debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_war54")
@@ -436,6 +432,9 @@ theme_override_font_sizes/font_size = 32
 [node name="Number" type="Label" parent="State/Properties3"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vonw3")
 
 [connection signal="area_entered" from="Combatant" to="Combatant" method="_on_area_entered"]
 [connection signal="area_exited" from="BattleArea" to="Combatant" method="_on_battle_area_area_exited"]
