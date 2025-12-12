@@ -18,11 +18,9 @@ func _ready():
 
 func enable():
 	enabled = true
-	modulate = Color(1.0, 1.0, 1.0, 1.0)
 
 func disable():
 	enabled = false
-	modulate = Color.TRANSPARENT
 
 func update_count_label():
 	$Label.text = str(collectibles_available)
